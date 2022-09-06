@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 
 const Home: NextPage = () => {
-
+  const {data} = useSession();
   return (
     <>
       <Head>
@@ -14,6 +15,13 @@ const Home: NextPage = () => {
       <main className="bg-neutral-900">
         <div className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4">
           <h1 className="text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-palette-200 to-palette-500">Welcome to DShop!</h1>
+          {data && (<p className="text-2xl text-palette-200">Logged in as {data.user?.name}</p>)}
+          <button
+          className="px-4 py-2 border border-black text-xl rounded-md bg-palette-300 hover:bg-palette-200 shadow-lg duration-300"
+          onClick={data ? () => signOut() : () => signIn()}
+          >
+            {data ? "Sign out" : "Sign in"}
+          </button>
         </div>
       </main>
     </>
