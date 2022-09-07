@@ -15,9 +15,9 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
     "paths": {
       "@schemas/*": ["./src/schemas/*"],
-      "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@styles/*": ["./src/styles/*"],
     }

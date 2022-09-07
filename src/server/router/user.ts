@@ -28,3 +28,5 @@ export const userRouter = createProtectedRouter()
             });
         }
     });
+
+export default userRouter;

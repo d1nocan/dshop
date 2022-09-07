@@ -52,4 +52,6 @@ export const itemRouter = createProtectedRouter()
                 },
             })
         }
-    })
+    });
+
+export default itemRouter;

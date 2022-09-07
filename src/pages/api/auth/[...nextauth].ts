@@ -17,6 +17,11 @@ export const authOptions: NextAuthOptions = {
             id: user.id,
           },
         }).then((user) => user?.role) || "user";
+        session.user.points = await prisma.user.findUnique({
+          where: {
+            id: user.id,
+          },
+        }).then((user) => user?.points) || 0;
       }
       return session;
     },

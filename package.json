@@ -25,11 +25,12 @@
     "zod": "^3.18.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.3.1",
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
+    "@typescript-eslint/parser": "^5.36.2",
     "autoprefixer": "^10.4.8",
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
