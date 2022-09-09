@@ -24,5 +24,9 @@ export default defineNextConfig({
       use: ["@svgr/webpack"]
     });
     return config;
+  },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
   }
 });
