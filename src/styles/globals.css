@@ -2,10 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-.tooltip {
-    @apply invisible absolute;
+.navbar {
+    @apply w-[13%] h-full overflow-auto p-4 absolute left-0 dark:bg-neutral-800 bg-neutral-200 z-10 duration-200 flex flex-col justify-around;
 }
 
-.has-tooltip:hover .tooltip {
-    @apply visible z-50;
+.card {
+    @apply flex flex-col my-14 w-full duration-300 dark:bg-neutral-700 bg-neutral-400 rounded-xl shadow-xl bg-opacity-70
+}
+
+.leaderboard {
+    @apply w-full place-self-center mx-auto pt-6 pb-6 text-center duration-300 dark:bg-neutral-700 bg-neutral-400 rounded-md shadow-xl bg-opacity-70;
+}
+
+.primary-text {
+    @apply font-bold text-neutral-900 dark:text-neutral-50 duration-300;
+}
+
+.glow {
+    @apply absolute -inset-0.5 primary-gradient rounded-lg blur opacity-50 animate-tilt;
+}
+
+.secondary-text {
+    @apply font-medium text-neutral-700 dark:text-neutral-200 duration-300;
+}
+
+.primary-button {
+    @apply relative rounded-md px-2 py-1 text-neutral-50 text-xl bg-palette-300 hover:bg-palette-200 shadow-lg duration-300;
+}
+
+.profile{
+    @apply flex flex-row justify-evenly my-4 gap-4;
+}
+
+.primary-gradient {
+    @apply bg-gradient-to-r from-palette-200 to-palette-500;
 }
