@@ -49,6 +49,7 @@ model User {
     image         String?
     role          Role          @default(USER)
     points        Int           @default(0)
+    cooldown      DateTime?     // When the use buys a product, the cooldown is set to 2 weeks
     transactions  Transaction[]
     accounts      Account[]
     sessions      Session[]
@@ -70,14 +71,15 @@ model Item {
     quantity     Int
     image        String
     input        String?
-    cooldown     DateTime      @default(now()) // global cooldown
+    cooldown     Int          @default(0)
+    lastBuy      DateTime?    // When the last user bought this item (used to calculate cooldown)
     transactions Transaction[]
 }
 
 model Transaction {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
-    status    String   @default("Pending") // "Pending", "Completed", "Cancelled"
+    status    Status   @default(PENDING)
     userId    String
     itemId    String
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -87,4 +89,10 @@ model Transaction {
 enum Role {
     ADMIN
     USER
+}
+
+enum Status {
+    PENDING
+    COMPLETED
+    CANCELLED
 }
