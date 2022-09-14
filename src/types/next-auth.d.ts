@@ -9,6 +9,7 @@ declare module "next-auth" {
       id: string;
       role: string;
       points: number;
+      cooldown: number;
     } & DefaultSession["user"];
   }
 }

@@ -11,17 +11,15 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, user }) {
       if (session.user) {
+        const __user = await prisma.user.findUnique({
+          where: {
+            id: user.id,
+          },
+        });
         session.user.id = user.id;
-        session.user.role = await prisma.user.findUnique({
-          where: {
-            id: user.id,
-          },
-        }).then((user) => user?.role) || "user";
-        session.user.points = await prisma.user.findUnique({
-          where: {
-            id: user.id,
-          },
-        }).then((user) => user?.points) || 0;
+        session.user.cooldown = __user?.cooldown || 0;
+        session.user.role = __user?.role || "user";
+        session.user.points = __user?.points || 0;
       }
       return session;
     },

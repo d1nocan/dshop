@@ -19,5 +19,12 @@ export const updateItem = z.object({
     price: z.number().min(0),
     quantity: z.number().min(0),
     image: z.string(),
-    cooldown: z.date().default(() => new Date()),
+    input: z.string().nullish(),
+    isHidden: z.boolean(),
+    cooldown: z.number().min(0),
 });
+
+export const buyItem = z.object({
+    id: z.string(),
+    quantity: z.number().min(0),
+})
