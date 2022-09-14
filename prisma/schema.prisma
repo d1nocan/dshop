@@ -49,7 +49,7 @@ model User {
     image         String?
     role          Role          @default(USER)
     points        Int           @default(0)
-    cooldown      DateTime?     // When the use buys a product, the cooldown is set to 2 weeks
+    cooldown      DateTime? // When the use buys a product, the cooldown is set to 2 weeks
     transactions  Transaction[]
     accounts      Account[]
     sessions      Session[]
@@ -71,8 +71,9 @@ model Item {
     quantity     Int
     image        String
     input        String?
-    cooldown     Int          @default(0)
-    lastBuy      DateTime?    // When the last user bought this item (used to calculate cooldown)
+    isHidden     Boolean       @default(false)
+    cooldown     Int           @default(0)
+    lastBuy      DateTime? // When the last user bought this item (used to calculate cooldown)
     transactions Transaction[]
 }
 
