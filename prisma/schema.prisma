@@ -53,6 +53,7 @@ model User {
     transactions  Transaction[]
     accounts      Account[]
     sessions      Session[]
+    tickets       Ticket[]
 }
 
 model VerificationToken {
@@ -85,6 +86,15 @@ model Transaction {
     itemId    String
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+}
+
+model Ticket {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    status    Status   @default(PENDING)
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    messages  String[]
 }
 
 enum Role {
