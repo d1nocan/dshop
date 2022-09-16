@@ -42,5 +42,8 @@ yarn-error.log*
 # vscode settings
 .vscode
 
-# component testings
+# component testing
 src/pages/test.tsx
+
+# lock-files
+pnpm-lock.yaml
