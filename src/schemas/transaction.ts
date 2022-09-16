@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const status = ["pending", "approved", "rejected"] as const;
+const status = ["PENDING", "APPROVED", "REJECTED"] as const;
 
 export const selectTransaction = z.object({
     id: z.string().uuid(),
