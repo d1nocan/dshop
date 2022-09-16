@@ -1,14 +1,14 @@
 import { createRouter } from "./context";
 
 const leaderboardRouter = createRouter()
-    .query("leaderboard", {
+    .query("get", {
         resolve({ ctx }) {
             return ctx.prisma.user.findMany(
                 {
                     orderBy: {
                         points: "desc",
                     },
-                    take: 10,
+                    take: 5,
                 }
             );
         },
