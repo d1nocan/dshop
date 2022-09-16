@@ -19,10 +19,10 @@ export default function Layout({children} : layoutProps){
   }, [theme]);
     return(<div className="flex flex-col overflow-auto bg-neutral-100 dark:bg-neutral-900">
       <Navbar />
-        <button className="dark:text-neutral-50 text-neutral-900 absolute p-4 z-50 scale-90" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+        <button type="button" className="dark:text-neutral-50 text-neutral-900 absolute p-4 z-50 scale-90" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
             {theme === "dark" ? <Sun /> : <Moon />}
         </button>
-      <div className="bg-neutral-100 dark:bg-neutral-900 duration-300 flex flex-row items-center ml-auto justify-center h-screen w-[87%] p-4">
+      <div className="children">
         {children}
       </div>
     </div>)

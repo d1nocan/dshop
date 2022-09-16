@@ -3,37 +3,54 @@
 @tailwind utilities;
 
 .navbar {
-    @apply w-[13%] h-full overflow-auto p-4 absolute left-0 dark:bg-neutral-800 bg-neutral-200 z-10 duration-200 flex flex-col justify-around;
+    @apply w-[13%] invisible xl:visible h-full overflow-auto p-4 absolute dark:bg-neutral-800 bg-neutral-200 z-10 duration-200 flex flex-col justify-evenly gap-4;
 }
 
 .card {
-    @apply flex flex-col my-14 w-full duration-300 dark:bg-neutral-700 bg-neutral-400 rounded-xl shadow-xl bg-opacity-70
+    @apply flex flex-col w-full duration-300 dark:bg-neutral-700 bg-neutral-400 rounded-xl shadow-xl bg-opacity-70
+}
+
+.minicard {
+    @apply flex flex-col w-52 h-52 rounded-xl dark:text-neutral-100 text-neutral-900 text-2xl bg-neutral-100 dark:bg-neutral-800 shadow-2xl overflow-auto items-center justify-center gap-4 hover:text-palette-500 dark:hover:text-palette-500 duration-300 cursor-default
 }
 
 .leaderboard {
-    @apply w-full place-self-center mx-auto pt-6 pb-6 text-center duration-300 dark:bg-neutral-700 bg-neutral-400 rounded-md shadow-xl bg-opacity-70;
+    @apply w-full py-6 mx-auto text-center duration-300 rounded-md shadow-xl no-scrollbar place-self-center dark:bg-neutral-700 bg-neutral-400 bg-opacity-70;
 }
 
 .primary-text {
-    @apply font-bold text-neutral-900 dark:text-neutral-50 duration-300;
+    @apply font-bold duration-300 text-neutral-900 dark:text-neutral-50;
 }
 
 .glow {
-    @apply absolute -inset-0.5 primary-gradient rounded-lg blur opacity-50 animate-tilt;
+    @apply absolute -inset-0.5 primary-gradient rounded-lg blur-xl opacity-75 animate-tilt;
 }
 
 .secondary-text {
-    @apply font-medium text-neutral-700 dark:text-neutral-200 duration-300;
+    @apply font-medium duration-300 text-neutral-700 dark:text-neutral-200;
 }
 
 .primary-button {
-    @apply relative rounded-md px-2 py-1 text-neutral-50 text-xl bg-palette-300 hover:bg-palette-200 shadow-lg duration-300;
+    @apply relative px-2 py-1 text-xl font-medium duration-300 rounded-md shadow-lg text-neutral-50 bg-palette-300 hover:bg-palette-200;
+}
+
+.children {
+    @apply bg-neutral-100 dark:bg-neutral-900 duration-300 flex flex-row items-center ml-auto justify-center h-screen w-full xl:w-[87%] p-4
 }
 
 .profile{
-    @apply flex flex-row justify-evenly my-4 gap-4;
+    @apply flex flex-row gap-4 py-4 justify-evenly;
 }
 
 .primary-gradient {
     @apply bg-gradient-to-r from-palette-200 to-palette-500;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
