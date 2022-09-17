@@ -77,6 +77,8 @@ model Item {
     inputRequired Boolean       @default(false)
     isHidden      Boolean?      @default(false)
     transactions  Transaction[]
+
+    @@unique([id, price])
 }
 
 model Transaction {
@@ -88,7 +90,7 @@ model Transaction {
     points    Int
     input     String?  @default("")
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+    item      Item     @relation(fields: [itemId, points], references: [id, price], onDelete: Cascade)
 }
 
 model Ticket {
