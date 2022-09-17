@@ -6,7 +6,7 @@ const Store: NextPage = () => {
   const items = trpc.useQuery(["item.get"]);
   return (
     <>
-      <div className="container my-auto w-6/12 flex flex-row gap-4 justify-center flex-shrink-0 flex-wrap">
+      <div className="container mx-auto mt-10 w-6/12 flex flex-row gap-4 justify-center flex-shrink-0 flex-wrap">
         {items.data?.filter((item) => item.isHidden === false).map((item, index) =>
              (
                 <Card
