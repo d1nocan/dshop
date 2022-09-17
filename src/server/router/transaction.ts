@@ -5,7 +5,11 @@ import { createProtectedRouter } from "./protected-router";
 export const transactionRouter = createProtectedRouter()
     .query("get", {
         resolve({ ctx }) {
-            return ctx.prisma.transaction.findMany();
+            return ctx.prisma.transaction.findMany({
+                include: {
+                    user: true,
+                }
+            });
         }
     })
     .query("select", {
