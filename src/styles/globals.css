@@ -4,7 +4,8 @@
 
 body {
     height: 100vh;
-    background-color: hsl(var(--b2));
+    background-color: hsl(var(--b1));
+    @apply duration-300
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -14,4 +15,23 @@ body {
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    width: 1.2em;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--b2));
+    border-radius: 100vw;
+    margin-block: .5em;
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--b3));
+    border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--pf));
 }
