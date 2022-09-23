@@ -8,7 +8,7 @@ export default function Layout({children} : layoutProps){
     return(
     <>
       <Navbar />
-      <div className="bg-base-200">
+      <div>
         {children}
       </div>
     </>)
