@@ -1,8 +1,10 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Transaction from "src/components/dashboard/transaction";
 import { trpc } from "src/utils/trpc";
 
 const Transactions: NextPage = () => {
+  const session = useSession();
   const transactions = trpc.useQuery(["transaction.get"]);
   return (
     <>
@@ -16,10 +18,12 @@ const Transactions: NextPage = () => {
         <th>Input</th>
         <th>Points</th>
         <th>Status</th>
+        {session.data?.user?.role === "ADMIN" && <th>Edit</th>}
       </tr>
     </thead>
+    <tbody>
       {transactions.data?.map((transaction, index) => (
-        <>
+        <tr key={index}>
         <Transaction
           key={index}
           index={index}
@@ -29,8 +33,9 @@ const Transactions: NextPage = () => {
           status={transaction.status}
           points={transaction.points}
         />
-        </>
+        </tr>
       ))}
+      </tbody>
       </table>
       </div>
     </>

@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-
 import { trpc } from "src/utils/trpc";
 
 const Users: NextPage = () => {
+  const { data: session } = useSession();
   const users = trpc.useQuery(["user.get"]);
   return (
     <>
@@ -24,7 +25,7 @@ const Users: NextPage = () => {
                   <p>Points: {user.points}</p>
                   <p className="">Role: {user.role.toLowerCase()}</p>
                   <div className="card-actions">
-                    <button type="button" className="btn btn-primary">Details</button>
+                    {session?.user?.role === "ADMIN" && (<button type="button" className="btn btn-primary">Details</button>)}
                   </div>
                 </div>
               </div>

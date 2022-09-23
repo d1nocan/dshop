@@ -1,18 +1,22 @@
 import type { NextPage } from "next";
+import { useState } from "react";
 import Card from "src/components/card";
+import { CreateModal } from "src/components/modal";
 import { trpc } from "src/utils/trpc";
 
 const Items: NextPage = () => {
-    const items = trpc.useQuery(["item.get"]);
+  const [showModal, setShowModal] = useState(false);
+    const { data } = trpc.useQuery(["item.get"]);
     return (<>
+    {showModal && <div className="ease-in-out"><CreateModal setShowModal={setShowModal} /></div>}
+    <button type="button" onClick={() => setShowModal(true)} className="btn btn-primary flex mx-auto w-36 mt-10">
+                Create Item
+    </button>
     <div className="flex flex-row py-10 gap-4 justify-center flex-shrink-0 flex-wrap">
-        {items.data?.map((item, index) => (
+        {data?.map((item, index) => (
             <Card
-              key={index}
-              description={item.description as string}
-              title={item.name}
-              price={item.price}
-              isHidden={item.isHidden}
+            key={index}
+              {...item}
             />
         ))}
       </div>
