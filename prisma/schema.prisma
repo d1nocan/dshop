@@ -67,12 +67,12 @@ model VerificationToken {
 model Item {
     id            String        @id @default(cuid())
     name          String
-    description   String?
-    image         String
+    description   String
+    image         String?
     input         String?
     price         Int
     quantity      Int           @default(0)
-    cooldown      Int           @default(0)
+    cooldown      BigInt        @default(0)
     lastBuy       Int           @default(0)
     inputRequired Boolean       @default(false)
     isHidden      Boolean?      @default(false)
