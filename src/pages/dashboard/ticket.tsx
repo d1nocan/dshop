@@ -1,12 +1,15 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Ticket from "src/components/dashboard/ticket";
 import { trpc } from "src/utils/trpc";
 
-const Support: NextPage = () => {
-  const tickets = trpc.useQuery(["ticket.get"]);
+const Tickets: NextPage = () => {
+  const { data: session } = useSession();
+  const tickets = session?.user?.role === "ADMIN" ? trpc.useQuery(["ticket.get"]) : trpc.useQuery(["ticket.get"]);
   return (
     <>
       <div className="container mx-auto w-full">
+        {session?.user?.role === "USER" && <button type="button" className="btn btn-primary mt-4 flex mx-auto">Create Ticket</button>}
         {tickets.data?.length !== 0 ? (
           <table className="table w-full">
             <thead>
@@ -19,14 +22,7 @@ const Support: NextPage = () => {
             </thead>
             <tbody>
               {tickets.data?.map((ticket, index) => (
-                <Ticket
-                  key={index}
-                  image={ticket.user.image}
-                  name={ticket.user.name}
-                  title={ticket.title}
-                  createdAt={ticket.createdAt}
-                  status={ticket.status}
-                />
+                <Ticket key={index} {...ticket} />
               ))}
             </tbody>
             <tfoot>
@@ -63,4 +59,4 @@ const Support: NextPage = () => {
   );
 };
 
-export default Support;
+export default Tickets;
