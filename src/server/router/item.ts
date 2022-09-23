@@ -20,7 +20,7 @@ export const itemRouter = createProtectedRouter()
     .mutation("create", {
         input: createItem,
         resolve({ ctx, input }) {
-            if (ctx.session.user.role !== "admin") {
+            if (ctx.session.user.role !== "ADMIN") {
                 throw new Error("Unauthorized");
             }
             return ctx.prisma.item.create({
@@ -33,7 +33,7 @@ export const itemRouter = createProtectedRouter()
     .mutation("update", {
         input: updateItem,
         resolve({ ctx, input }) {
-            if (ctx.session.user.role !== "admin") {
+            if (ctx.session.user.role !== "ADMIN") {
                 throw new Error("Unauthorized");
             }
             return ctx.prisma.item.update({
@@ -76,9 +76,20 @@ export const itemRouter = createProtectedRouter()
             if (item.cooldown > 0 && (Date.now() - item?.lastBuy) < item.cooldown) {
                     throw new Error("Item is on cooldown");
             }
-            if (ctx.session.user.cooldown > Date.now()){
+            if (ctx.session.user.cooldown > Date.now() / 1000){
                 throw new Error("You are on cooldown");
             }
+            await ctx.prisma.user.update({
+                where: {
+                    id: ctx.session.user.id,
+                },
+                data: {
+                    points: {
+                        decrement: item.price,
+                    },
+                    cooldown: Math.floor((Date.now() + 1209600000) / 1000), // 2 weeks cooldown
+                },
+            });
             return ctx.prisma.item.update({
                 where: {
                     id: input.id,
@@ -87,7 +98,7 @@ export const itemRouter = createProtectedRouter()
                     quantity: {
                         decrement: 1,
                     },
-                    lastBuy: Date.now(),
+                    lastBuy: parseInt(`${Date.now() / 1000}`),
                     transactions: {
                         create: {
                             user: {
@@ -95,6 +106,7 @@ export const itemRouter = createProtectedRouter()
                                     id: ctx.session.user.id,
                                 },
                             },
+                            input: input.input,
                         },
                     },
                 },
