@@ -2,6 +2,10 @@ import { z } from "zod";
 
 const status = ["PENDING", "APPROVED", "REJECTED"] as const;
 
+export const getUserTickets = z.object({
+    id: z.string().nullish(),
+});
+
 export const selectTicket = z.object({
     id: z.string(),
 });
