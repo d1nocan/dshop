@@ -6,6 +6,9 @@ export const ticketRouter = createProtectedRouter()
   .query("get", {
     resolve({ ctx }) {
       return ctx.prisma.ticket.findMany({
+        where: {
+          ...(ctx.session.user.role !== "ADMIN" ? {userId: ctx.session.user.id} : {})
+        },
         include: {
           user: true,
         },
@@ -18,6 +21,9 @@ export const ticketRouter = createProtectedRouter()
       return ctx.prisma.ticket.findUnique({
         where: {
           id: input.id,
+        },
+        include: {
+          user: true,
         },
       });
     },
