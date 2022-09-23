@@ -22,4 +22,6 @@ A web application that Twitch streamers use to reward their viewers
 <li><a href="https://typescriptlang.org">TypeScript</a></li>
 <li><a href="https://prisma.io">Prisma</a></li>
 <li><a href="https://next-auth.js.org">NextAuth.js</a></li>
+<li><a href="https://supabase.com">Supabase</a></li>
+<li><a href="https://react-hook-form.com">React Hook Form</a></li>
 </ul>
