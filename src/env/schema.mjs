@@ -12,6 +12,7 @@ export const serverSchema = z.object({
   NEXTAUTH_URL: z.string().url(),
   TWITCH_CLIENT_ID: z.string(),
   TWITCH_CLIENT_SECRET: z.string(),
+  DEFAULT_USER_COOLDOWN: z.number().or(z.string().regex(/\d+/).transform(Number)),
 });
 
 /**
@@ -22,6 +23,7 @@ export const serverSchema = z.object({
 export const clientSchema = z.object({
   // NEXT_PUBLIC_BAR: z.string(),
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+  NEXT_PUBLIC_DEFAULT_SHOP_NAME: z.string(),
 });
 
 /**
@@ -33,4 +35,5 @@ export const clientSchema = z.object({
 export const clientEnv = {
   // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+  NEXT_PUBLIC_DEFAULT_SHOP_NAME: process.env.NEXT_PUBLIC_DEFAULT_SHOP_NAME,
 };
