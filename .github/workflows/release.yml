@@ -14,6 +14,8 @@ jobs:
 
       - name: Use PnPm
         uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
 
       - name: Install NPM Dependencies
         run: pnpm install
