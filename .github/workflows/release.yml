@@ -6,6 +6,7 @@ jobs:
   release:
     name: Test repo
     runs-on: ubuntu-latest
+    environment: env
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -21,16 +22,6 @@ jobs:
         run: pnpm install
 
       - name: Check errors
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
-          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON }}
-          NEXT_PUBLIC_DEFAULT_SHOP_NAME: ${{ secrets.NEXT_PUBLIC_DEFAULT_SHOP_NAME }}
-          DEFAULT_USER_COOLDOWN: ${{ secrets.DEFAULT_USER_COOLDOWN }}
         run: pnpm check
 
       - name: Build package
