@@ -1,10 +1,13 @@
+import { Role } from "@prisma/client";
 import { selectItem, createItem, updateItem } from "@schemas/item";
 import { createProtectedRouter } from "./protected-router";
 
 export const itemRouter = createProtectedRouter()
     .query("get", {
         resolve({ ctx }) {
-            return ctx.prisma.item.findMany();
+            return ctx.prisma.item.findMany({
+                
+            });
         },
     })
     .query("select", {
@@ -20,7 +23,7 @@ export const itemRouter = createProtectedRouter()
     .mutation("create", {
         input: createItem,
         resolve({ ctx, input }) {
-            if (ctx.session.user.role !== "ADMIN") {
+            if (ctx.session.user.role !== Role.Admin) {
                 throw new Error("Unauthorized");
             }
             return ctx.prisma.item.create({
@@ -33,7 +36,7 @@ export const itemRouter = createProtectedRouter()
     .mutation("update", {
         input: updateItem,
         resolve({ ctx, input }) {
-            if (ctx.session.user.role !== "ADMIN") {
+            if (ctx.session.user.role !== Role.Admin) {
                 throw new Error("Unauthorized");
             }
             return ctx.prisma.item.update({
@@ -73,10 +76,10 @@ export const itemRouter = createProtectedRouter()
             if (ctx.session.user.points < item.price) {
                 throw new Error("Not enough points");
             }
-            if (item.cooldown > 0 && (Date.now() - item?.lastBuy) < item.cooldown) {
+            if (item.cooldown > 0 && (BigInt(Date.now()) - item?.lastBuy) < item.cooldown) {
                     throw new Error("Item is on cooldown");
             }
-            if (ctx.session.user.cooldown > Date.now() / 1000){
+            if (ctx.session.user.cooldown > Date.now()){
                 throw new Error("You are on cooldown");
             }
             await ctx.prisma.user.update({
@@ -87,7 +90,7 @@ export const itemRouter = createProtectedRouter()
                     points: {
                         decrement: item.price,
                     },
-                    cooldown: Math.floor((Date.now() + 1209600000) / 1000), // 2 weeks cooldown
+                    cooldown: (Date.now() + Number(process.env.DEFAULT_USER_COOLDOWN) * 1000),
                 },
             });
             return ctx.prisma.item.update({
@@ -98,7 +101,7 @@ export const itemRouter = createProtectedRouter()
                     quantity: {
                         decrement: 1,
                     },
-                    lastBuy: parseInt(`${Date.now() / 1000}`),
+                    lastBuy: BigInt(Date.now()),
                     transactions: {
                         create: {
                             user: {
