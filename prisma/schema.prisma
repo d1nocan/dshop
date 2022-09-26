@@ -21,12 +21,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? //@db.Text
-    access_token      String? //@db.Text
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? //@db.Text
+    id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -47,13 +47,14 @@ model User {
     email         String?       @unique
     emailVerified DateTime?
     image         String?
-    role          Role          @default(USER)
-    points        Int           @default(0)
-    cooldown      Int           @default(0)
+    role          Role          @default(User)
+    points        BigInt        @default(0)
+    cooldown      BigInt        @default(0)
     transactions  Transaction[]
     accounts      Account[]
     sessions      Session[]
     tickets       Ticket[]
+    messages      Message[]    @relation("UserMessages")
 }
 
 model VerificationToken {
@@ -70,10 +71,10 @@ model Item {
     description   String
     image         String?
     input         String?
-    price         Int
+    price         BigInt
     quantity      Int           @default(0)
-    cooldown      BigInt        @default(0)
-    lastBuy       Int           @default(0)
+    cooldown      Int           @default(0)
+    lastBuy       BigInt        @default(0)
     inputRequired Boolean       @default(false)
     isHidden      Boolean?      @default(false)
     transactions  Transaction[]
@@ -84,32 +85,43 @@ model Item {
 model Transaction {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
-    status    Status   @default(PENDING)
+    status    Status   @default(Pending)
     userId    String
     itemId    String
-    points    Int
+    points    BigInt
     input     String?  @default("")
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     item      Item     @relation(fields: [itemId, points], references: [id, price], onDelete: Cascade)
 }
 
+model Message {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    content   String
+    ticketId  String
+    userId    String
+    ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    user      User     @relation("UserMessages", fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Ticket {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
-    status    Status   @default(PENDING)
+    status    Status   @default(Pending)
     userId    String
     title     String
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    messages  String[]
+    messages  Message[]
 }
 
 enum Role {
-    ADMIN
-    USER
+    Admin
+    User
+    Banned
 }
 
 enum Status {
-    PENDING
-    COMPLETED
-    CANCELLED
+    Pending
+    Completed
+    Canceled
 }
