@@ -18,12 +18,6 @@ const Ticket = () => {
             refetch();
         }
     });
-    const { mutate: deleteMessage } = trpc.useMutation("ticket.deleteMessage", {
-        onSuccess: () => {
-            reset();
-            refetch();
-        }
-    });
     const statusColor = (status: Status | undefined) => {
         switch (status) {
             case Status.Completed:
