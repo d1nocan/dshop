@@ -8,12 +8,12 @@ import superjson from "superjson";
 import { default as leaderboard } from "./leaderboard";
 
 export const appRouter = createRouter()
-  .transformer(superjson)
-  .merge("leaderboard.", leaderboard)
-  .merge("item.", item)
-  .merge("ticket.", ticket)
-  .merge("transaction.", transaction)
-  .merge("user.", user);
+    .transformer(superjson)
+    .merge("leaderboard.", leaderboard)
+    .merge("item.", item)
+    .merge("ticket.", ticket)
+    .merge("transaction.", transaction)
+    .merge("user.", user);
 
 // export type definition of API
 export type AppRouter = typeof appRouter;
