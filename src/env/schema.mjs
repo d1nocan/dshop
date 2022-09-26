@@ -12,7 +12,9 @@ export const serverSchema = z.object({
   NEXTAUTH_URL: z.string().url(),
   TWITCH_CLIENT_ID: z.string(),
   TWITCH_CLIENT_SECRET: z.string(),
-  DEFAULT_USER_COOLDOWN: z.number().or(z.string().regex(/\d+/).transform(Number)),
+  DEFAULT_USER_COOLDOWN: z
+    .number()
+    .or(z.string().regex(/\d+/).transform(Number)),
 });
 
 /**

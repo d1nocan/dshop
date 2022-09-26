@@ -16,17 +16,20 @@ export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["static-cdn.jtvnw.net", env.NEXT_PUBLIC_SUPABASE_URL.split("//")[1]],
+    domains: [
+      "static-cdn.jtvnw.net",
+      env.NEXT_PUBLIC_SUPABASE_URL.split("//")[1],
+    ],
   },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"]
+      use: ["@svgr/webpack"],
     });
     return config;
   },
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
-  }
+  },
 });

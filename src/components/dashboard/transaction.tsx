@@ -5,7 +5,7 @@ import { TransactionModal } from "@components/modal";
 
 type Props = {
   index: number;
-  transaction: Transaction & { user: User, item: Item };
+  transaction: Transaction & { user: User; item: Item };
 };
 
 const Transaction = ({ index, transaction }: Props) => {
@@ -13,20 +13,29 @@ const Transaction = ({ index, transaction }: Props) => {
   const session = useSession();
   return (
     <>
-        <th>{index}</th>
-        <td>{transaction.user.name}</td>
-        <td>{transaction.id}</td>
-        <td className="max-w-md overflow-auto">{transaction.input}</td>
-        <td>{transaction.points.toString()}</td>
-        <td>{transaction.status}</td>
-        {session.data?.user?.role === Role.Admin && (
-          <td>
-            <button type="button" className="btn btn-ghost btn-xs" onClick={() => setShowModal(true)}>
-              EDIT
-            </button>
-            {showModal && (<TransactionModal setShowModal={setShowModal} transaction={transaction}/>)}
-          </td>
-        )}
+      <th>{index}</th>
+      <td>{transaction.user.name}</td>
+      <td>{transaction.id}</td>
+      <td className="max-w-md overflow-auto">{transaction.input}</td>
+      <td>{transaction.points.toString()}</td>
+      <td>{transaction.status}</td>
+      {session.data?.user?.role === Role.Admin && (
+        <td>
+          <button
+            type="button"
+            className="btn btn-ghost btn-xs"
+            onClick={() => setShowModal(true)}
+          >
+            EDIT
+          </button>
+          {showModal && (
+            <TransactionModal
+              setShowModal={setShowModal}
+              transaction={transaction}
+            />
+          )}
+        </td>
+      )}
     </>
   );
 };

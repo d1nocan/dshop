@@ -5,7 +5,7 @@ const Home: NextPage = () => {
   return (
     <>
       <div className="flex flex-row py-10 justify-center">
-      <Store />
+        <Store />
       </div>
     </>
   );

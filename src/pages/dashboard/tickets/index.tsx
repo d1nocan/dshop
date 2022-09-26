@@ -10,7 +10,11 @@ const Tickets: NextPage = () => {
   return (
     <>
       <div className="container mx-auto w-full">
-        {session?.user?.role === Role.User && <button type="button" className="btn btn-primary mt-4 flex mx-auto">Create Ticket</button>}
+        {session?.user?.role === Role.User && (
+          <button type="button" className="btn btn-primary mt-4 flex mx-auto">
+            Create Ticket
+          </button>
+        )}
         {tickets.data?.length !== 0 ? (
           <table className="table w-full">
             <thead>

@@ -1,4 +1,9 @@
-import { selectTicket, updateTicket, createTicket, addMessage } from "@schemas/ticket";
+import {
+  selectTicket,
+  updateTicket,
+  createTicket,
+  addMessage,
+} from "@schemas/ticket";
 import { createProtectedRouter } from "./protected-router";
 import { Message, Role, Status } from "@prisma/client";
 
@@ -7,7 +12,9 @@ export const ticketRouter = createProtectedRouter()
     resolve({ ctx }) {
       return ctx.prisma.ticket.findMany({
         where: {
-          ...(ctx.session.user.role !== Role.Admin ? {userId: ctx.session.user.id} : {})
+          ...(ctx.session.user.role !== Role.Admin
+            ? { userId: ctx.session.user.id }
+            : {}),
         },
         include: {
           user: true,
@@ -28,7 +35,7 @@ export const ticketRouter = createProtectedRouter()
             include: {
               user: true,
             },
-          }
+          },
         },
       });
     },
@@ -43,8 +50,8 @@ export const ticketRouter = createProtectedRouter()
         data: {
           id: input.id,
           status: input.status as Status,
-      },
-    });
+        },
+      });
     },
   })
   .mutation("addMessage", {
@@ -57,7 +64,7 @@ export const ticketRouter = createProtectedRouter()
           ticket: {
             connect: {
               id: input.ticketId,
-            }
+            },
           },
           user: {
             connect: {
@@ -76,7 +83,7 @@ export const ticketRouter = createProtectedRouter()
           id: input.id,
         },
       });
-    }
+    },
   })
   .mutation("create", {
     input: createTicket,
@@ -95,11 +102,11 @@ export const ticketRouter = createProtectedRouter()
               content: input.message,
               createdAt: new Date(),
               userId: ctx.session.user.id,
-          } as Message,
+            } as Message,
+          },
         },
-      }
-    });
-    }
+      });
+    },
   })
   .mutation("delete", {
     input: selectTicket,
@@ -109,7 +116,7 @@ export const ticketRouter = createProtectedRouter()
           id: input.id,
         },
       });
-    }
+    },
   });
 
 export default ticketRouter;
