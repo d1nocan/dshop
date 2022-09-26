@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   release:
-    name: Create a PR
+    name: Test repo
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
