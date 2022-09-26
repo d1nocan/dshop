@@ -23,6 +23,7 @@ export const serverSchema = z.object({
 export const clientSchema = z.object({
   // NEXT_PUBLIC_BAR: z.string(),
   NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
+  NEXT_PUBLIC_SUPABASE_ANON: z.string(),
   NEXT_PUBLIC_DEFAULT_SHOP_NAME: z.string(),
 });
 
@@ -36,4 +37,5 @@ export const clientEnv = {
   // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
   NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
   NEXT_PUBLIC_DEFAULT_SHOP_NAME: process.env.NEXT_PUBLIC_DEFAULT_SHOP_NAME,
+  NEXT_PUBLIC_SUPABASE_ANON: process.env.NEXT_PUBLIC_SUPABASE_ANON,
 };
