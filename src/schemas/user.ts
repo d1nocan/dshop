@@ -1,6 +1,5 @@
 import { z } from "zod";
-
-const role = ["ADMIN", "USER"] as const;
+import { Role } from "@prisma/client";
 
 export const selectUser = z.object({
     id: z.string(),
@@ -8,9 +7,10 @@ export const selectUser = z.object({
 
 export const updateUser = z.object({
     id: z.string(),
-    name: z.string(),
-    email: z.string(),
-    image: z.string(),
-    role: z.enum(role),
-    points: z.number(),
+    name: z.string().nullable(),
+    email: z.string().nullable(),
+    image: z.string().nullable(),
+    role: z.nativeEnum(Role),
+    points: z.bigint(),
+    cooldown: z.bigint(),
 });

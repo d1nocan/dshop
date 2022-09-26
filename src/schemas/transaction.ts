@@ -1,17 +1,16 @@
 import { z } from "zod";
-
-const status = ["PENDING", "APPROVED", "REJECTED"] as const;
+import { Status } from "@prisma/client";
 
 export const selectTransaction = z.object({
-    id: z.string().uuid(),
+    id: z.string(),
 });
 
 export const createTransaction = z.object({
-    userId: z.string().uuid(),
-    itemId: z.string().uuid(),
+    userId: z.string(),
+    itemId: z.string(),
 });
 
 export const updateTransaction = z.object({
-    id: z.string().uuid(),
-    status: z.enum(status),
+    id: z.string(),
+    status: z.nativeEnum(Status),
 });

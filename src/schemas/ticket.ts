@@ -1,6 +1,6 @@
+import { Status } from '@prisma/client';
 import { z } from "zod";
 
-const status = ["PENDING", "APPROVED", "REJECTED"] as const;
 
 export const getUserTickets = z.object({
     id: z.string().nullish(),
@@ -12,11 +12,16 @@ export const selectTicket = z.object({
 
 export const updateTicket = z.object({
     id: z.string(),
-    status: z.enum(status),
-    message: z.string().nullable(),
+    status: z.nativeEnum(Status),
 });
 
 export const createTicket = z.object({
     title: z.string(),
     message: z.string(),
+});
+
+export const addMessage = z.object({
+        ticketId: z.string(),
+        content: z.string(),
+        userId: z.string(),
 });

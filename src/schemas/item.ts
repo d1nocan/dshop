@@ -26,13 +26,13 @@ export const updateItem = z.object({
     id: z.string(),
     name: z.string().min(3),
     description: z.string().min(5),
-    price: z.number().min(0),
+    price: z.bigint(),
     quantity: z.number().min(-1),
     image: z.string().nullable(),
     input: z.string().nullable(),
     inputRequired: z.boolean(),
     isHidden: z.boolean().nullable(),
-    cooldown: z.bigint(),
+    cooldown: z.number(),
 });
 
 export const buyItem = z.object({
