@@ -1,8 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
+import { env } from "src/env/client.mjs";
 import { v4 as uuidv4 } from "uuid";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON as string;
+const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL as string;
+const supabaseAnonKey = env.NEXT_PUBLIC_SUPABASE_ANON as string;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const uploadImage = async (files: FileList) => {
