@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "format": "prettier --write --plugin-search-dir=. \"**/*.{ts,tsx,md,mdx,json,js,mjs,cjs,astro}\" --ignore-path .gitignore",
+    "format:check": "prettier --check --plugin-search-dir=. \"**/*.{ts,tsx,md,mdx,json,js,mjs,cjs,astro}\" --ignore-path .gitignore",
+    "check": "pnpm lint && pnpm format:check"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.8",
