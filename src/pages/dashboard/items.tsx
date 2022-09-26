@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import Card from "src/components/card";
-import { CreateModal } from "src/components/modal";
-import { trpc } from "src/utils/trpc";
+import { ItemCard } from "@components/card";
+import { CreateModal } from "@components/modal";
+import { trpc } from "@utils/trpc";
 
 const Items: NextPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,11 +14,18 @@ const Items: NextPage = () => {
     </button>
     <div className="flex flex-row py-10 gap-4 justify-center flex-shrink-0 flex-wrap">
         {data?.map((item, index) => (
-            <Card
+            <ItemCard
             key={index}
-              {...item}
+            item={item}
             />
         ))}
+        {data?.length === 0 && (
+          <div className="alert alert-info w-40 mx-auto justify-center mt-10 shadow-lg">
+            <div>
+              <span>No item found</span>
+            </div>
+          </div>
+        )}
       </div>
     </>)
 }

@@ -1,6 +1,6 @@
 // src/pages/_app.tsx
 import Head from "next/head";
-import Layout from "../components/layout";
+import Layout from "@components/layout";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";

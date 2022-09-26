@@ -15,7 +15,7 @@ const Users: NextPage = () => {
           </>
         ))}
         {data?.length === 0 && (
-          <div className="alert alert-info w-40 mx-auto justify-center mt-10 shadow-lg">
+          <div className="alert alert-info w-fit mx-auto justify-center mt-10 shadow-lg">
             <div>
               <span>No user found</span>
             </div>
