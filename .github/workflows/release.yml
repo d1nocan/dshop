@@ -6,7 +6,8 @@ jobs:
   release:
     name: Test repo
     runs-on: ubuntu-latest
-    environment: env
+    environment:
+      name: env
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
