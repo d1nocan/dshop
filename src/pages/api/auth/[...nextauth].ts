@@ -5,7 +5,7 @@ import TwitchProvider from "next-auth/providers/twitch";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
 import { env } from "../../../env/server.mjs";
-
+import { Role } from "@prisma/client";
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
@@ -17,9 +17,9 @@ export const authOptions: NextAuthOptions = {
           },
         });
         session.user.id = user.id;
-        session.user.cooldown = __user?.cooldown || 0;
-        session.user.role = __user?.role || "user";
-        session.user.points = __user?.points || 0;
+        session.user.cooldown = Number(__user?.cooldown) || 0;
+        session.user.role = __user?.role || Role.User;
+        session.user.points = Number(__user?.points) || 0;
       }
       return session;
     },
