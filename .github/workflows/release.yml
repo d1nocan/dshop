@@ -1,0 +1,27 @@
+
+name: 'Release'
+on: [push]
+
+jobs:
+  release:
+    name: Test repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use PnPm
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
+
+      - name: Install NPM Dependencies
+        run: pnpm install
+      
+      - name: Check errors
+        run: pnpm check
+
+      - name: Build package
+        run: pnpm build
