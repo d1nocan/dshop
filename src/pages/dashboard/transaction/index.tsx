@@ -1,3 +1,4 @@
+import { Role } from "@prisma/client";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Transaction from "src/components/dashboard/transaction";
@@ -18,7 +19,7 @@ const Transactions: NextPage = () => {
         <th>Input</th>
         <th>Points</th>
         <th>Status</th>
-        {session.data?.user?.role === "ADMIN" && <th>Edit</th>}
+        {session.data?.user?.role === Role.Admin && <th>Edit</th>}
       </tr>
     </thead>
     <tbody>
@@ -27,11 +28,7 @@ const Transactions: NextPage = () => {
         <Transaction
           key={index}
           index={index}
-          id={transaction.id}
-          user={transaction.user.name}
-          input={transaction.input}
-          status={transaction.status}
-          points={transaction.points}
+          transaction={transaction}
         />
         </tr>
       ))}
