@@ -21,6 +21,10 @@ jobs:
         run: pnpm install
       
       - name: Check errors
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON }}
+          NEXT_PUBLIC_DEFAULT_SHOP_NAME: ${{ secrets.NEXT_PUBLIC_DEFAULT_SHOP_NAME }}
         run: pnpm check
 
       - name: Build package
