@@ -1,33 +1,32 @@
 import { useSession } from "next-auth/react";
+import { Item, Role, Transaction, User } from "@prisma/client";
+import { useState } from "react";
+import { TransactionModal } from "@components/modal";
 
 type Props = {
   index: number;
-  id: string | null;
-  user: string | null;
-  input: string | null;
-  status: string | null;
-  points: number;
+  transaction: Transaction & { user: User, item: Item };
 };
 
-const Transaction = ({ index, id, user, input, status, points }: Props) => {
+const Transaction = ({ index, transaction }: Props) => {
+  const [showModal, setShowModal] = useState(false);
   const session = useSession();
   return (
     <>
-      <tr>
         <th>{index}</th>
-        <td>{user}</td>
-        <td>{id}</td>
-        <td>{input}</td>
-        <td>{points}</td>
-        <td>{status}</td>
-        {session.data?.user?.role === "ADMIN" && (
+        <td>{transaction.user.name}</td>
+        <td>{transaction.id}</td>
+        <td className="max-w-md overflow-auto">{transaction.input}</td>
+        <td>{transaction.points.toString()}</td>
+        <td>{transaction.status}</td>
+        {session.data?.user?.role === Role.Admin && (
           <td>
-            <button type="button" className="btn btn-ghost btn-xs">
-              edit
+            <button type="button" className="btn btn-ghost btn-xs" onClick={() => setShowModal(true)}>
+              EDIT
             </button>
+            {showModal && (<TransactionModal setShowModal={setShowModal} transaction={transaction}/>)}
           </td>
         )}
-      </tr>
     </>
   );
 };
