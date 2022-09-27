@@ -54,7 +54,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     tickets       Ticket[]
-    messages      Message[]    @relation("UserMessages")
+    messages      Message[]     @relation("UserMessages")
 }
 
 model VerificationToken {
@@ -105,12 +105,12 @@ model Message {
 }
 
 model Ticket {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    status    Status   @default(Pending)
+    id        String       @id @default(cuid())
+    createdAt DateTime     @default(now())
+    status    TicketStatus @default(Open)
     userId    String
     title     String
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
     messages  Message[]
 }
 
@@ -124,4 +124,9 @@ enum Status {
     Pending
     Completed
     Canceled
+}
+
+enum TicketStatus {
+    Open
+    Closed
 }
