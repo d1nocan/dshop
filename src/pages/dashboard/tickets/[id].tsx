@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Status } from "@prisma/client";
+import { TicketStatus } from "@prisma/client";
 import { addMessage } from "@schemas/ticket";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
@@ -18,14 +18,12 @@ const Ticket = () => {
             refetch();
         },
     });
-    const statusColor = (status: Status | undefined) => {
+    const statusColor = (status: TicketStatus | undefined) => {
         switch (status) {
-            case Status.Completed:
+            case TicketStatus.Open:
                 return "text-success";
-            case Status.Canceled:
+            case TicketStatus.Closed:
                 return "text-error";
-            case Status.Pending:
-                return "text-warning";
             default:
                 return "text-gray-800";
         }
@@ -70,7 +68,7 @@ const Ticket = () => {
                         </li>
                     ))}
                 </ul>
-                {data?.status === Status.Pending && (
+                {data?.status === TicketStatus.Open && (
                     <div className="w-2/3 mx-auto bg-base-300 py-10 rounded-xl">
                         <form onSubmit={handleSubmit(() => mutate(getValues()))}>
                             <div className="form-control">
