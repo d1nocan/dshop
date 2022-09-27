@@ -441,6 +441,7 @@ export const CreateModal = ({ setShowModal }: ModalProps) => {
                                 <input
                                     title="Image"
                                     type="file"
+                                    accept="image/*"
                                     id="filecrt"
                                     className="block px-2 text-sm file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-sm file:text-primary-content file:font-semibold file:bg-primary hover:file:bg-primary-focus file:duration-300 w-full max-w-xs"
                                 />
