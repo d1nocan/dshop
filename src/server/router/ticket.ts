@@ -1,6 +1,6 @@
 import { selectTicket, updateTicket, createTicket, addMessage } from "@schemas/ticket";
 import { createProtectedRouter } from "./protected-router";
-import { Message, Role, Status } from "@prisma/client";
+import { Message, Role, TicketStatus } from "@prisma/client";
 
 export const ticketRouter = createProtectedRouter()
     .query("get", {
@@ -42,7 +42,7 @@ export const ticketRouter = createProtectedRouter()
                 },
                 data: {
                     id: input.id,
-                    status: input.status as Status,
+                    status: input.status as TicketStatus,
                 },
             });
         },
@@ -84,7 +84,7 @@ export const ticketRouter = createProtectedRouter()
             return ctx.prisma.ticket.create({
                 data: {
                     title: input.title,
-                    status: Status.Pending,
+                    status: TicketStatus.Open,
                     user: {
                         connect: {
                             id: ctx.session.user.id,
