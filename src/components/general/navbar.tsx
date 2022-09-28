@@ -1,16 +1,13 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { Role } from "@prisma/client";
 import { env } from "src/env/client.mjs";
 import { Fragment, useEffect, useState } from "react";
-import { Menu, Popover, Transition } from "@headlessui/react";
+import { Menu, Popover, Switch, Transition } from "@headlessui/react";
 import NextLink from "./link";
-import { useRouter } from "next/router";
 
 export default function Navbar() {
     const { data: session } = useSession();
-    const router = useRouter();
     const [theme, setTheme] = useState(false); // false = light, true = dark
     useEffect(() => {
         if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -51,17 +48,6 @@ export default function Navbar() {
                                 leaveTo="transform opacity-0 scale-95"
                             >
                                 <Menu.Items className="absolute mt-10 z-10 capitalize bg-neutral-700 p-4 rounded-2xl w-40 divide-y text-neutral-100">
-                                    <div>
-                                        <Menu.Item>
-                                            <button
-                                                type="button"
-                                                onClick={() => setTheme(!theme)}
-                                                className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
-                                            >
-                                                Change theme
-                                            </button>
-                                        </Menu.Item>
-                                    </div>
                                     <div>
                                         <Menu.Item>
                                             <NextLink
@@ -106,6 +92,21 @@ export default function Navbar() {
                             </Transition>
                         </Menu>
                     )}
+                    <Switch
+                        checked={theme}
+                        onChange={setTheme}
+                        className={`${
+                            theme ? "bg-neutral-100" : "bg-neutral-900"
+                        } relative inline-flex h-6 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 mt-2 scale-75`}
+                    >
+                        <span className="sr-only">Change Theme</span>
+                        <span
+                            aria-hidden="true"
+                            className={`${
+                                !theme ? "translate-x-6 " : "translate-x-0"
+                            } pointer-events-none inline-block h-5 w-5 transform rounded-full dark:bg-neutral-900 bg-neutral-50 shadow-lg ring-0 transition duration-200 ease-in-out`}
+                        />
+                    </Switch>
                 </div>
                 <div className="flex-1 inline-flex items-center flex-shrink-0">
                     <div className="text-2xl cursor-default mx-auto uppercase text-neutral-100 font-black tracking-wide">
