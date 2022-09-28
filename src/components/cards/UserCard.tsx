@@ -11,12 +11,12 @@ export const UserCard = ({ user, session, onClick }: UserCard) => {
     return (
         <>
             <div className="card relative">
-                <div className="relative w-full h-44">
+                <div className="relative w-full aspect-square">
                     <Image
                         src={user.image as string}
                         alt={user.name as string}
                         layout="fill"
-                        objectFit="inherit"
+                        objectFit="contain"
                         className="rounded-t-xl"
                     />
                 </div>

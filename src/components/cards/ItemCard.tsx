@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Item } from "@prisma/client";
-import { useRouter } from "next/router";
+import { Item, Role } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 interface ItemCard {
     item: Item;
@@ -8,17 +8,17 @@ interface ItemCard {
 }
 
 export const ItemCard = ({ item, onClick }: ItemCard) => {
-    const router = useRouter();
+    const session = useSession();
     return (
         <>
             <div className="card relative">
-                <figure className="relative w-full h-40">
+                <figure className="relative w-full aspect-square">
                     {item.image ? (
                         <Image
                             src={item.image}
                             layout="fill"
                             alt={item.name}
-                            objectFit="inherit"
+                            objectFit="contain"
                             className="rounded-t-xl"
                         />
                     ) : (
@@ -32,7 +32,7 @@ export const ItemCard = ({ item, onClick }: ItemCard) => {
                         <p>{item.quantity > 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>
                     </div>
                     <button onClick={onClick} type="button" className="btn-prm m-2">
-                        {router.pathname.includes("dashboard") ? "Edit" : "Get"}
+                        {session.data?.user?.role === Role.Admin ? "Edit" : "Get"}
                     </button>
                 </div>
             </div>

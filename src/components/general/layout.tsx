@@ -1,7 +1,7 @@
-import React from "react";
+import { ReactNode } from "react";
 import Navbar from "./navbar";
 type layoutProps = {
-    children: React.ReactNode;
+    children: ReactNode;
 };
 
 export default function Layout({ children }: layoutProps) {

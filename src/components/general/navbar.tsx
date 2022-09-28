@@ -23,7 +23,10 @@ export default function Navbar() {
                 <div className="flex-1 inline-flex justify-start">
                     {session && (
                         <Menu>
-                            <Menu.Button className="flex flex-row items-center justify-center px-4 py-2 text-sm font-medium text-neutral-content rounded-lg hover:bg-neutral-focus focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                            <Menu.Button
+                                aria-label="Links"
+                                className="flex flex-row items-center justify-center px-4 py-2 text-sm font-medium text-neutral-content rounded-lg hover:bg-neutral-focus focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-6 w-6 stroke-neutral-100"
@@ -95,6 +98,7 @@ export default function Navbar() {
                     <Switch
                         checked={theme}
                         onChange={setTheme}
+                        aria-label="Change Theme"
                         className={`${
                             theme ? "bg-neutral-100" : "bg-neutral-900"
                         } relative inline-flex h-6 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 mt-2 scale-75`}

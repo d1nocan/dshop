@@ -29,9 +29,9 @@ const Ticket = () => {
     const statusColor = (status: TicketStatus | undefined) => {
         switch (status) {
             case TicketStatus.Open:
-                return "text-green-500";
+                return "text-green-,600";
             case TicketStatus.Closed:
-                return "text-red-500";
+                return "text-red-600";
             default:
                 return "text-gray-800";
         }
@@ -55,9 +55,7 @@ const Ticket = () => {
                     <h1 className="text-center font-bold text-4xl mb-4 text-neutral-900 dark:text-neutral-100">
                         {data?.title}
                     </h1>
-                    <h2 className={`text-center font-light ${statusColor(data?.status)} text-2xl mb-4`}>
-                        {data?.status}
-                    </h2>
+                    <h2 className={`text-center ${statusColor(data?.status)} text-2xl mb-4`}>{data?.status}</h2>
                     {session.data?.user?.role === Role.Admin && (
                         <div className="flex flex-row justify-center">
                             <button
