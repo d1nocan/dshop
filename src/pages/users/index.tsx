@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { UserCard } from "@components/card";
 import { trpc } from "@utils/trpc";
+import UserModal from "@modals/UserModal";
 
 const Users: NextPage = () => {
     const { data: session } = useSession();
@@ -10,9 +10,7 @@ const Users: NextPage = () => {
         <>
             <div className="container flex flex-wrap justify-center gap-4 mx-auto px-6 py-10">
                 {data?.map((user, index) => (
-                    <>
-                        <UserCard key={index} user={user} session={session} />
-                    </>
+                    <UserModal key={index} user={user} session={session} />
                 ))}
                 {data?.length === 0 && (
                     <div className="alert alert-info w-fit mx-auto justify-center mt-10 shadow-lg">

@@ -1,29 +1,26 @@
 import { Role } from "@prisma/client";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Ticket from "@components/dashboard/ticket";
+import Ticket from "@tables/ticket";
 import { trpc } from "@utils/trpc";
+import CreateTicket from "@modals/CreateTicket";
 
 const Tickets: NextPage = () => {
     const { data: session } = useSession();
     const tickets = trpc.useQuery(["ticket.get"]);
     return (
         <>
-            <div className="container mx-auto w-full">
-                {session?.user?.role === Role.User && (
-                    <button type="button" className="btn btn-primary mt-4 flex mx-auto">
-                        Create Ticket
-                    </button>
-                )}
+            {session?.user?.role === Role.User && <CreateTicket />}
+            <div className="container mx-auto mt-10 overflow-x-auto shadow-xl">
                 {tickets.data?.length !== 0 ? (
-                    <table className="table w-full">
+                    <table className="min-w-max w-full table-auto">
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th>Name</th>
-                                <th>Title</th>
-                                <th>Status</th>
-                                <th></th>
+                            <tr className="dark:bg-neutral-900 dark:text-neutral-100 uppercase text-sm leading-normal">
+                                <th className="py-3 px-6 text-left"></th>
+                                <th className="py-3 px-6 text-left">Name</th>
+                                <th className="py-3 px-6 text-left">Title</th>
+                                <th className="py-3 px-6 text-left">Status</th>
+                                <th className="py-3 px-6 text-left"></th>
                             </tr>
                         </thead>
                         <tbody>

@@ -5,6 +5,7 @@ import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const Ticket = () => {
@@ -21,14 +22,14 @@ const Ticket = () => {
     const statusColor = (status: TicketStatus | undefined) => {
         switch (status) {
             case TicketStatus.Open:
-                return "text-success";
+                return "text-green-500";
             case TicketStatus.Closed:
-                return "text-error";
+                return "text-red-500";
             default:
                 return "text-gray-800";
         }
     };
-    const { register, handleSubmit, getValues, reset } = useForm({
+    const { register, handleSubmit, getValues, reset, setValue } = useForm({
         resolver: zodResolver(addMessage),
         defaultValues: {
             ticketId: data?.id as string,
@@ -36,18 +37,25 @@ const Ticket = () => {
             userId: session.data?.user?.id as string,
         },
     });
+    useEffect(() => {
+        reset({ ticketId: data?.id as string, content: "", userId: session.data?.user?.id as string });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, session]);
+    console.log(getValues());
     return (
         <>
-            <div className="container mx-auto flex flex-col bg-base-200 rounded-lg w-7/12 m-10 p-4">
-                <h1 className="text-center font-bold text-4xl mb-4">{data?.title}</h1>
+            <div className="container mx-auto flex flex-col bg-neutral-700 rounded-lg w-7/12 m-10 p-4">
+                <h1 className="text-center font-bold text-4xl mb-4 text-neutral-900 dark:text-neutral-100">
+                    {data?.title}
+                </h1>
                 <h2 className={`text-center font-light ${statusColor(data?.status)} text-2xl mb-4`}>{data?.status}</h2>
                 <ul className="mx-auto w-4/6 mb-10">
-                    {data?.messages?.map((message) => (
-                        <li key={message.id} className="m-4">
+                    {data?.messages?.map((message, index) => (
+                        <li key={index} className="m-4">
                             <div
-                                className={`flex flex-col relative w-3/6 ${
+                                className={`flex flex-col relative w-fit ${
                                     session.data?.user?.id === message.userId ? "ml-auto" : "mr-auto"
-                                } bg-base-300 rounded-lg p-4`}
+                                } bg-neutral-800 rounded-lg p-4 text-neutral-100`}
                             >
                                 <div className="mb-4">
                                     <div className="w-12 h-12 relative">
@@ -63,26 +71,31 @@ const Ticket = () => {
                                 <div className="break-all">
                                     <span>{message.content}</span>
                                 </div>
-                                <p className="text-sm font-light">{message.createdAt.toLocaleString()}</p>
+                                <p className="text-sm font-light mt-4">{message.createdAt.toLocaleString()}</p>
                             </div>
                         </li>
                     ))}
                 </ul>
                 {data?.status === TicketStatus.Open && (
                     <div className="w-2/3 mx-auto bg-base-300 py-10 rounded-xl">
-                        <form onSubmit={handleSubmit(() => mutate(getValues()))}>
+                        <form
+                            onSubmit={handleSubmit(() => {
+                                setValue("ticketId", data?.id as string);
+                                mutate(getValues());
+                            })}
+                        >
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="mx-auto text-base-content">Message</span>
+                                    <span className="mx-auto text-neutral-100">Message</span>
                                 </label>
                                 <textarea
-                                    className="textarea h-24 w-2/3 mx-auto bg-base-200 textarea-bordered"
+                                    className="textarea"
                                     placeholder="Message"
                                     {...register("content")}
                                 ></textarea>
                             </div>
                             <div className="form-control mt-5">
-                                <button type="submit" className="btn btn-primary w-1/3 mx-auto">
+                                <button type="submit" className="btn-prm">
                                     Send
                                 </button>
                             </div>
