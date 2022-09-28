@@ -12,7 +12,8 @@ const Ticket = () => {
     const session = useSession();
     const router = useRouter();
     const { id } = router.query;
-    const { data, refetch } = trpc.useQuery(["ticket.select", { id: id as string }]);
+    const { data, refetch, error } = trpc.useQuery(["ticket.select", { id: id as string }]);
+    error?.data?.code === "UNAUTHORIZED" && router.push("/");
     const { mutate } = trpc.useMutation("ticket.addMessage", {
         onSuccess: () => {
             reset();
@@ -50,6 +51,7 @@ const Ticket = () => {
     console.log(getValues());
     return (
         <>
+            {session.data?.user && (
             <div className="container mx-auto flex flex-col bg-neutral-700 rounded-lg w-6/12 m-10 p-4">
                 <h1 className="text-center font-bold text-4xl mb-4 text-neutral-900 dark:text-neutral-100">
                     {data?.title}
@@ -120,6 +122,7 @@ const Ticket = () => {
                     </div>
                 )}
             </div>
+            )}
         </>
     );
 };

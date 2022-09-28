@@ -4,13 +4,15 @@ import CreateItem from "@modals/CreateItem";
 import EditItem from "@modals/EditItem";
 import { Role } from "@prisma/client";
 import type { NextPage } from "next";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { trpc } from "src/utils/trpc";
 
 const Store: NextPage = () => {
     const { data, error, isLoading } = trpc.useQuery(["item.get"]);
     const { data: session } = useSession();
-    error?.data?.code === "UNAUTHORIZED" && signIn();
+    const router = useRouter();
+    error?.data?.code === "UNAUTHORIZED" && router.push("/");
     if (isLoading) return <Loading />;
     return (
         <>

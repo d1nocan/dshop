@@ -2,15 +2,19 @@ import UpdateTransaction from "@modals/UpdateTransaction";
 import { Role } from "@prisma/client";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { trpc } from "src/utils/trpc";
 
 const Transactions: NextPage = () => {
     const session = useSession();
-    const { data: transactions, refetch } = trpc.useQuery(["transaction.get"]);
+    const { data: transactions, refetch, error } = trpc.useQuery(["transaction.get"]);
+    const router = useRouter();
+    error?.data?.code === "UNAUTHORIZED" && router.push("/");
     return (
         <>
-            {transactions && transactions.length > 0 ? (
+            {session.data?.user &&
                 <>
+                    {transactions?.length as number > 0 ? (
                     <div className="container mx-auto mt-10 overflow-x-auto shadow-xl">
                         <table className="min-w-max w-full table-auto">
                             <thead>
@@ -38,7 +42,6 @@ const Transactions: NextPage = () => {
                             </tbody>
                         </table>
                     </div>
-                </>
             ) : (
                 <div className="alert alert-info w-fit mx-auto justify-center mt-10 shadow-lg">
                     <div>
@@ -46,6 +49,8 @@ const Transactions: NextPage = () => {
                     </div>
                 </div>
             )}
+            </>
+            }
         </>
     );
 };
