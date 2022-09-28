@@ -84,7 +84,6 @@ export const ticketRouter = createProtectedRouter()
             return ctx.prisma.ticket.create({
                 data: {
                     title: input.title,
-                    status: TicketStatus.Open,
                     user: {
                         connect: {
                             id: ctx.session.user.id,

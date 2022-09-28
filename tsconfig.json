@@ -20,7 +20,10 @@
             "@schemas/*": ["./src/schemas/*"],
             "@pages/*": ["./src/pages/*"],
             "@styles/*": ["./src/styles/*"],
-            "@components/*": ["./src/components/*"],
+            "@general/*": ["./src/components/general/*"],
+            "@cards/*": ["./src/components/cards/*"],
+            "@modals/*": ["./src/components/modals/*"],
+            "@tables/*": ["./src/components/tables/*"],
             "@utils/*": ["./src/utils/*"]
         }
     },

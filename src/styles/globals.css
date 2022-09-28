@@ -4,8 +4,7 @@
 
 body {
     height: 100vh;
-    background-color: hsl(var(--b1));
-    @apply duration-300
+    @apply duration-300 bg-neutral-100 dark:bg-neutral-900
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -14,7 +13,6 @@ body {
 
 .no-scrollbar {
     -ms-overflow-style: none;
-    scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
@@ -22,28 +20,76 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: hsl(var(--b2));
-    border-radius: 100vw;
-    margin-block: .5em;
+    @apply bg-neutral-600 rounded-full m-2;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: hsl(var(--b3));
-    border-radius: 100vw;
+    @apply bg-neutral-800 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--pf));
+    @apply bg-neutral-700;
 }
 
-@layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 .value {
     --value: 50;
+}
+
+.input {
+    @apply w-4/6 h-10 bg-neutral-200 border-neutral-800 dark:bg-neutral-900 text-center mx-auto border dark:border-neutral-50 border-opacity-50;
+}
+
+.textarea {
+    @apply w-full h-full bg-neutral-200 border-neutral-800 dark:bg-neutral-900 text-center mx-auto border dark:border-neutral-50 border-opacity-50;
+}
+
+
+.modal {
+    @apply w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 p-6 text-left align-middle shadow-xl transition-all;
+}
+
+.card {
+    @apply w-56 bg-neutral-300 text-neutral-900 dark:bg-neutral-800 shadow-xl pb-2 rounded-2xl dark:text-neutral-100 hover:bg-neutral-50 duration-300;
+}
+
+.btn-prm {
+    @apply bg-violet-600 px-6 py-2 rounded-lg text-neutral-50;
+}
+
+.btn-can {
+    @apply bg-red-600 px-6 py-2 rounded-lg text-neutral-50;
+}
+
+.btn-acc {
+    @apply bg-green-600 px-6 py-2 rounded-lg text-neutral-50;
+}
+
+.btn-del {
+    @apply bg-yellow-600 px-6 py-2 rounded-lg text-neutral-50;
+}
+
+.btn-prm-outline {
+    @apply border px-4 py-2 border-violet-500 rounded-xl hover:bg-violet-400 duration-300 hover:text-neutral-900;
+}
+
+.btn-can-outline {
+    @apply border px-4 py-2 border-red-500 rounded-xl hover:bg-red-400 duration-300 hover:text-neutral-900;
+}
+
+.btn-del-outline {
+    @apply border px-4 py-2 border-yellow-500 rounded-xl hover:bg-yellow-400 duration-300 hover:text-neutral-900;
+}
+
+.form-control {
+    @apply flex flex-col w-full max-w-xs mx-auto my-2 gap-2 text-center;
+}
+
+.info {
+    @apply p-4 bg-blue-500 text-neutral-100 rounded-xl;
 }
