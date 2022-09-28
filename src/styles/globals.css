@@ -4,8 +4,7 @@
 
 body {
     height: 100vh;
-    background-color: hsl(var(--b1));
-    @apply duration-300
+    @apply duration-300 bg-neutral-100 dark:bg-neutral-900
 }
 
 .no-scrollbar::-webkit-scrollbar {
