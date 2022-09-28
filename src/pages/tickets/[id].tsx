@@ -48,7 +48,6 @@ const Ticket = () => {
         reset({ ticketId: data?.id as string, content: "", userId: session.data?.user?.id as string });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, session]);
-    console.log(getValues());
     return (
         <>
             {session.data?.user && (
