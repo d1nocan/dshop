@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TicketStatus } from "@prisma/client";
+import { Role, TicketStatus } from "@prisma/client";
 import { addMessage } from "@schemas/ticket";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
@@ -14,6 +14,12 @@ const Ticket = () => {
     const { id } = router.query;
     const { data, refetch } = trpc.useQuery(["ticket.select", { id: id as string }]);
     const { mutate } = trpc.useMutation("ticket.addMessage", {
+        onSuccess: () => {
+            reset();
+            refetch();
+        },
+    });
+    const { mutate: updateTicket } = trpc.useMutation("ticket.update", {
         onSuccess: () => {
             reset();
             refetch();
@@ -44,11 +50,22 @@ const Ticket = () => {
     console.log(getValues());
     return (
         <>
-            <div className="container mx-auto flex flex-col bg-neutral-700 rounded-lg w-7/12 m-10 p-4">
+            <div className="container mx-auto flex flex-col bg-neutral-700 rounded-lg w-6/12 m-10 p-4">
                 <h1 className="text-center font-bold text-4xl mb-4 text-neutral-900 dark:text-neutral-100">
                     {data?.title}
                 </h1>
                 <h2 className={`text-center font-light ${statusColor(data?.status)} text-2xl mb-4`}>{data?.status}</h2>
+                {session.data?.user?.role === Role.Admin && (
+                    <div className="flex flex-row justify-center">
+                            <button
+                                type="button"
+                                className={`${data?.status === TicketStatus.Open ? "btn-can" : "btn-acc"} duration-300`}
+                                onClick={() => updateTicket({ id: data?.id as string, status: data?.status === TicketStatus.Open ? TicketStatus.Closed : TicketStatus.Open })}
+                            >
+                                {data?.status === TicketStatus.Open ? ("Close") : ("Open")}
+                            </button>
+                    </div>
+                )}
                 <ul className="mx-auto w-4/6 mb-10">
                     {data?.messages?.map((message, index) => (
                         <li key={index} className="m-4">

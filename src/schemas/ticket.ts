@@ -1,4 +1,4 @@
-import { Status } from "@prisma/client";
+import { TicketStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const getUserTickets = z.object({
@@ -11,7 +11,7 @@ export const selectTicket = z.object({
 
 export const updateTicket = z.object({
     id: z.string(),
-    status: z.nativeEnum(Status),
+    status: z.nativeEnum(TicketStatus),
 });
 
 export const createTicket = z.object({
