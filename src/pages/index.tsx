@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       </h1>
       {session?.status === "unauthenticated" && (
         <>
-        <p className="max-w-xl mx-auto mt-4 sm:leading-relaxed sm:text-xl">
+        <p className="max-w-xl mx-auto mt-4 text-neutral-900 dark:text-neutral-100 sm:leading-relaxed sm:text-xl">
         You need login to use app
       </p>
 
