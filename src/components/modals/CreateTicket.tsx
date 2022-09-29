@@ -34,7 +34,7 @@ export const CreateTicket = () => {
     });
     return (
         <>
-            <button type="button" onClick={openModal} className="btn-prm flex mx-auto text-neutral-100 font-bold mt-10">
+            <button type="button" onClick={openModal} className="btn-prm mx-auto mt-10 flex font-bold text-neutral-100">
                 Create Ticket
             </button>
             <Transition appear show={showModal} as={Fragment}>
@@ -67,10 +67,10 @@ export const CreateTicket = () => {
                                             mutate(getValues());
                                         })}
                                     >
-                                        <Dialog.Title className="text-center font-black text-3xl truncate">
+                                        <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Ticket
                                         </Dialog.Title>
-                                        <div className="flex flex-col w-full max-w-xs mx-auto my-2 gap-2">
+                                        <div className="my-2 mx-auto flex w-full max-w-xs flex-col gap-2">
                                             <label className="text-center">
                                                 <span>Title</span>
                                             </label>
@@ -82,7 +82,7 @@ export const CreateTicket = () => {
                                             />
                                             {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                                         </div>
-                                        <div className="flex flex-col w-full max-w-xs mx-auto my-2 h-60 gap-2">
+                                        <div className="my-2 mx-auto flex h-60 w-full max-w-xs flex-col gap-2">
                                             <label className="text-center">
                                                 <span>Message</span>
                                             </label>
@@ -90,11 +90,11 @@ export const CreateTicket = () => {
                                             {errors.message && <p className="text-red-500">{errors.message.message}</p>}
                                         </div>
                                         {error && (
-                                            <p className="text-red-500 text-center mt-4 text-lg font-light">
+                                            <p className="mt-4 text-center text-lg font-light text-red-500">
                                                 {error.message}
                                             </p>
                                         )}
-                                        <div className="flex flew-row justify-end gap-4 mt-6">
+                                        <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button type="submit" className="btn-prm-outline">
                                                 Buy
                                             </button>

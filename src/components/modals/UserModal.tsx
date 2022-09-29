@@ -85,7 +85,7 @@ const UserModal = ({ user, session }: Users) => {
                                     <form onSubmit={handleSubmit(() => mutate(getValues()))}>
                                         <Dialog.Title>
                                             <div className="flex justify-center">
-                                                <div className="w-24 h-24 relative">
+                                                <div className="relative h-24 w-24">
                                                     <Image
                                                         src={user.image as string}
                                                         alt={user.name as string}
@@ -94,14 +94,14 @@ const UserModal = ({ user, session }: Users) => {
                                                     />
                                                 </div>
                                             </div>
-                                            <h3 className="text-lg font-semibold text-center">{user.name}</h3>
-                                            <p className="text-lg font-light text-center blur hover:blur-0 duration-200">
+                                            <h3 className="text-center text-lg font-semibold">{user.name}</h3>
+                                            <p className="text-center text-lg font-light blur duration-200 hover:blur-0">
                                                 ID: {user.id}
                                             </p>
                                         </Dialog.Title>
                                         <Dialog.Description>
-                                            <div className="flex flex-col w-full max-w-xs mx-auto my-2">
-                                                <span className="text-center font-light mb-1">Role</span>
+                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
+                                                <span className="mb-1 text-center font-light">Role</span>
                                                 <select title="Role" className="input" {...register("role")}>
                                                     {Object.keys(Role).map((role, index) => (
                                                         <option key={index} value={role} selected={role === user.role}>
@@ -110,13 +110,13 @@ const UserModal = ({ user, session }: Users) => {
                                                     ))}
                                                 </select>
                                                 {errors.role && (
-                                                    <p className="text-red-500 mt-1 text-center font-light">
+                                                    <p className="mt-1 text-center font-light text-red-500">
                                                         {errors.role.message}
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="flex flex-col w-full max-w-xs mx-auto my-2">
-                                                <span className="text-center font-light mb-1">Points</span>
+                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
+                                                <span className="mb-1 text-center font-light">Points</span>
                                                 <input
                                                     title="Points"
                                                     type="number"
@@ -126,13 +126,13 @@ const UserModal = ({ user, session }: Users) => {
                                                     })}
                                                 ></input>
                                                 {errors.points && (
-                                                    <p className="text-red-500 mt-1 text-center font-light">
+                                                    <p className="mt-1 text-center font-light text-red-500">
                                                         {errors.points.message}
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="flex flex-col w-full max-w-xs mx-auto my-2">
-                                                <span className="text-center font-light mb-1">Cooldown</span>
+                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
+                                                <span className="mb-1 text-center font-light">Cooldown</span>
                                                 <input
                                                     title="Cooldown"
                                                     type="number"
@@ -143,13 +143,13 @@ const UserModal = ({ user, session }: Users) => {
                                                     })}
                                                 ></input>
                                                 {errors.cooldown && (
-                                                    <p className="text-red-500 mt-1 text-center font-light">
+                                                    <p className="mt-1 text-center font-light text-red-500">
                                                         {errors.cooldown.message}
                                                     </p>
                                                 )}
                                             </div>
                                         </Dialog.Description>
-                                        <div className="flex flex-row justify-end gap-4 mt-6">
+                                        <div className="mt-6 flex flex-row justify-end gap-4">
                                             <button type="submit" className="btn-prm-outline">
                                                 Save
                                             </button>

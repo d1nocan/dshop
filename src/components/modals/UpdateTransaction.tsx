@@ -56,14 +56,14 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                             >
                                 <Dialog.Panel className="modal">
                                     <form>
-                                        <Dialog.Title className="text-center font-black text-2xl mb-4">
+                                        <Dialog.Title className="mb-4 text-center text-2xl font-black">
                                             ID: {transaction.id}
                                         </Dialog.Title>
-                                        <div className="flex flex-row justify-around border border-neutral-200 border-opacity-30 py-4 rounded shadow-lg">
+                                        <div className="flex flex-row justify-around rounded border border-neutral-200 border-opacity-30 py-4 shadow-lg">
                                             <div className="userinfo flex flex-col justify-center gap-4">
                                                 <h1 className="text-center font-semibold">User</h1>
                                                 <div className="flex justify-center">
-                                                    <div className="w-24 h-24 relative">
+                                                    <div className="relative h-24 w-24">
                                                         <Image
                                                             src={transaction.user.image as string}
                                                             alt={transaction.user.name as string}
@@ -72,14 +72,14 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                                                         />
                                                     </div>
                                                 </div>
-                                                <h3 className="text-lg font-semibold text-center">
+                                                <h3 className="text-center text-lg font-semibold">
                                                     {transaction.user.name}
                                                 </h3>
                                             </div>
                                             <div className="iteminfo flex flex-col justify-center gap-4">
                                                 <h1 className="text-center font-semibold">Item</h1>
                                                 <div className="flex justify-center">
-                                                    <div className="w-24 h-24 relative">
+                                                    <div className="relative h-24 w-24">
                                                         <Image
                                                             src={transaction.item.image as string}
                                                             alt={transaction.item.name as string}
@@ -88,16 +88,16 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                                                         />
                                                     </div>
                                                 </div>
-                                                <h3 className="text-lg font-semibold text-center">
+                                                <h3 className="text-center text-lg font-semibold">
                                                     {transaction.item.name}
                                                 </h3>
                                             </div>
                                         </div>
-                                        <div className="border border-neutral-200 border-opacity-30 py-4 rounded shadow-lg my-4">
+                                        <div className="my-4 rounded border border-neutral-200 border-opacity-30 py-4 shadow-lg">
                                             {transaction.item.input && (
                                                 <>
-                                                    <p className="text-center mt-4 font-bold">Input</p>
-                                                    <p className="text-center mt-4">
+                                                    <p className="mt-4 text-center font-bold">Input</p>
+                                                    <p className="mt-4 text-center">
                                                         {transaction.item.input}: {transaction.input}
                                                     </p>
                                                 </>
@@ -110,11 +110,11 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                                                 Time: {new Date(Number(transaction.createdAt)).toUTCString()}
                                             </p>
                                         </div>
-                                        <div className="forms border border-neutral-200 border-opacity-30 py-4 rounded shadow-lg my-4">
-                                            <div className="form-control w-full max-w-xs mx-auto my-2">
-                                                <span className="text-center font-light mb-1">Status</span>
+                                        <div className="forms my-4 rounded border border-neutral-200 border-opacity-30 py-4 shadow-lg">
+                                            <div className="form-control my-2 mx-auto w-full max-w-xs">
+                                                <span className="mb-1 text-center font-light">Status</span>
                                                 <Listbox value={status} onChange={setStatus}>
-                                                    <Listbox.Button className="relative w-full cursor-default rounded-lg bg-neutral-100 dark:bg-neutral-900 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                                    <Listbox.Button className="relative w-full cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">
                                                         {status}
                                                     </Listbox.Button>
                                                     <Transition
@@ -126,12 +126,12 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                                                         leaveFrom="opacity-100 scale-100"
                                                         leaveTo="opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2"
                                                     >
-                                                        <Listbox.Options className="absolute cursor-default mt-16 max-h-60 w-1/3 overflow-auto rounded-md bg-neutral-100 dark:bg-neutral-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                        <Listbox.Options className="absolute mt-16 max-h-60 w-1/3 cursor-default overflow-auto rounded-md bg-neutral-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 sm:text-sm">
                                                             {Object.values(Status).map((status) => (
                                                                 <Listbox.Option
                                                                     key={status}
                                                                     value={status}
-                                                                    className="relative cursor-default select-none py-2 mx-auto hover:text-violet-500 duration-300"
+                                                                    className="relative mx-auto cursor-default select-none py-2 duration-300 hover:text-violet-500"
                                                                 >
                                                                     {status}
                                                                 </Listbox.Option>
@@ -141,7 +141,7 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                                                 </Listbox>
                                             </div>
                                         </div>
-                                        <div className="flex flew-row justify-end gap-4 mt-6">
+                                        <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button
                                                 type="button"
                                                 onClick={() => mutate({ status: status, id: transaction.id })}

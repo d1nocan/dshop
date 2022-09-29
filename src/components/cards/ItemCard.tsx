@@ -12,7 +12,7 @@ export const ItemCard = ({ item, onClick }: ItemCard) => {
     return (
         <>
             <div className="card relative">
-                <figure className="relative w-full aspect-square">
+                <figure className="relative aspect-square w-full">
                     {item.image ? (
                         <Image
                             src={item.image}
@@ -22,11 +22,11 @@ export const ItemCard = ({ item, onClick }: ItemCard) => {
                             className="rounded-t-xl"
                         />
                     ) : (
-                        <h1 className="text-4xl text-center font-extrabold break-words overflow-hidden">{item.name}</h1>
+                        <h1 className="overflow-hidden break-words text-center text-4xl font-extrabold">{item.name}</h1>
                     )}
                 </figure>
-                <div className="items-center text-center max-h-40">
-                    <h2 className="font-black text-2xl m-2">{item.name}</h2>
+                <div className="max-h-40 items-center text-center">
+                    <h2 className="m-2 text-2xl font-black">{item.name}</h2>
                     <div className="my-auto break-words">
                         <p>{item.price.toString()} Points</p>
                         <p>{item.quantity > 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>

@@ -17,7 +17,7 @@ const Store: NextPage = () => {
     return (
         <>
             {session?.user?.role === Role.Admin && <CreateItem />}
-            <div className="container mx-auto mt-10 w-6/12 flex flex-row gap-4 justify-center flex-shrink-0 flex-wrap">
+            <div className="container mx-auto mt-10 flex w-6/12 flex-shrink-0 flex-row flex-wrap justify-center gap-4">
                 {data
                     ?.filter((item) => item.isHidden === false)
                     .map((item, index) =>
@@ -28,7 +28,7 @@ const Store: NextPage = () => {
                         ),
                     )}
                 {data?.length === 0 && (
-                    <div className="min-w-fit bg-violet-500 p-4 text-neutral-100 text-center rounded-xl mx-auto justify-center mt-10 shadow-lg">
+                    <div className="mx-auto mt-10 min-w-fit justify-center rounded-xl bg-violet-500 p-4 text-center text-neutral-100 shadow-lg">
                         <div>
                             <span>No item found</span>
                         </div>

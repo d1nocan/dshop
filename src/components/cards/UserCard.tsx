@@ -11,7 +11,7 @@ export const UserCard = ({ user, session, onClick }: UserCard) => {
     return (
         <>
             <div className="card relative">
-                <div className="relative w-full aspect-square">
+                <div className="relative aspect-square w-full">
                     <Image
                         src={user.image as string}
                         alt={user.name as string}
@@ -20,8 +20,8 @@ export const UserCard = ({ user, session, onClick }: UserCard) => {
                         className="rounded-t-xl"
                     />
                 </div>
-                <div className="items-center text-center max-h-40">
-                    <h2 className="font-bold m-2">{user.name}</h2>
+                <div className="max-h-40 items-center text-center">
+                    <h2 className="m-2 font-bold">{user.name}</h2>
                     <p>Points: {user.points.toString()}</p>
                     <p>Role: {user.role}</p>
                     <div className="mt-2">

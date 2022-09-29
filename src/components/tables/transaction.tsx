@@ -14,7 +14,7 @@ const Transaction = ({ index, transaction, onClick }: Props) => {
             <td className="py-3 px-6 text-left">{index}</td>
             <td className="py-3 px-6 text-left">{transaction.user.name}</td>
             <td className="py-3 px-6 text-left">{transaction.id}</td>
-            <td className="py-3 px-6 text-left max-w-md overflow-auto">{transaction.input}</td>
+            <td className="max-w-md overflow-auto py-3 px-6 text-left">{transaction.input}</td>
             <td className="py-3 px-6 text-left">{transaction.points.toString()}</td>
             <td className="py-3 px-6 text-left">{transaction.status}</td>
             {session.data?.user?.role === Role.Admin && (

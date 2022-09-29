@@ -104,10 +104,10 @@ export const EditItem = ({ item }: Items) => {
                                             mutate(getValues());
                                         })}
                                     >
-                                        <Dialog.Title className="text-center font-black text-3xl truncate">
+                                        <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Edit : {item.name}
                                         </Dialog.Title>
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 justify-items-center items-center place-items-center">
+                                        <div className="grid grid-cols-1 place-items-center items-center justify-items-center gap-4 lg:grid-cols-2">
                                             <div className="form-control col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>
@@ -119,12 +119,12 @@ export const EditItem = ({ item }: Items) => {
                                                     {...register("name")}
                                                 />
                                                 {errors.name && (
-                                                    <p className="text-red-500 mt-1 text-center font-light">
+                                                    <p className="mt-1 text-center font-light text-red-500">
                                                         {errors.name.message}
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control w-full h-96 max-h-48 col-span-2">
+                                            <div className="form-control col-span-2 h-96 max-h-48 w-full">
                                                 <label className="label">
                                                     <span className="label-text">Item Description</span>
                                                 </label>
@@ -134,7 +134,7 @@ export const EditItem = ({ item }: Items) => {
                                                     {...register("description")}
                                                 ></textarea>
                                                 {errors.description && (
-                                                    <p className="text-red-500 mt-1 text-center font-light">
+                                                    <p className="mt-1 text-center font-light text-red-500">
                                                         {errors.description.message}
                                                     </p>
                                                 )}
@@ -155,7 +155,7 @@ export const EditItem = ({ item }: Items) => {
                                                     <span className="label-text-alt">Points</span>
                                                 </label>
                                                 {errors.price && (
-                                                    <p className="text-red-500 mt-1 text-center font-light">
+                                                    <p className="mt-1 text-center font-light text-red-500">
                                                         {errors.price.message}
                                                     </p>
                                                 )}
@@ -174,12 +174,12 @@ export const EditItem = ({ item }: Items) => {
                                                     <span className="label-text-alt">Pcs</span>
                                                 </label>
                                                 {errors.quantity && (
-                                                    <p className="text-red-500 mt-1 text-center font-light">
+                                                    <p className="mt-1 text-center font-light text-red-500">
                                                         {errors.quantity.message}
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control  w-full max-w-xs my-2">
+                                            <div className="form-control my-2 w-full max-w-xs">
                                                 <label className="label">
                                                     <span className="label-text">Global Cooldown</span>
                                                 </label>
@@ -193,7 +193,7 @@ export const EditItem = ({ item }: Items) => {
                                                     <span className="label-text-alt">Seconds</span>
                                                 </label>
                                             </div>
-                                            <div className="form-control w-full max-w-xs flex flex-row justify-center">
+                                            <div className="form-control flex w-full max-w-xs flex-row justify-center">
                                                 <label className="label">
                                                     <span className="label-text">Image</span>
                                                 </label>
@@ -202,10 +202,10 @@ export const EditItem = ({ item }: Items) => {
                                                     type="file"
                                                     accept="image/*"
                                                     id={`fileupl-${item?.id}`}
-                                                    className="px-2 text-sm file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-sm file:text-neutral-900 file:font-semibold file:bg-primary hover:file:bg-primary-focus file:duration-300 w-fit max-w-xs"
+                                                    className="file:bg-primary hover:file:bg-primary-focus w-fit max-w-xs px-2 text-sm file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300"
                                                 />
                                             </div>
-                                            <div className="form-control ml-2 w-full flex flex-row justify-between items-center max-w-xs">
+                                            <div className="form-control ml-2 flex w-full max-w-xs flex-row items-center justify-between">
                                                 <span className="label-text">Is input required?</span>
                                                 <input
                                                     title="Is input required?"
@@ -214,7 +214,7 @@ export const EditItem = ({ item }: Items) => {
                                                     {...register("inputRequired")}
                                                 />
                                             </div>
-                                            <div className="form-control w-full max-w-xs my-2">
+                                            <div className="form-control my-2 w-full max-w-xs">
                                                 <label className="label">
                                                     <span className="label-text">Is hidden item?</span>
                                                     <input
@@ -226,25 +226,25 @@ export const EditItem = ({ item }: Items) => {
                                                 </label>
                                             </div>
                                             {watch("inputRequired") && (
-                                                <div className="form-control w-full max-w-xs mx-auto">
+                                                <div className="form-control mx-auto w-full max-w-xs">
                                                     <label className="label">
                                                         <span className="label-text">Type wanted input</span>
                                                     </label>
                                                     <input
                                                         type="text"
                                                         placeholder="Enter your input"
-                                                        className="input input-bordered w-full max-w-xs text-primary-content"
+                                                        className="input input-bordered text-primary-content w-full max-w-xs"
                                                         {...register("input")}
                                                     />
                                                     {errors.input && (
-                                                        <p className="text-red-500 mt-1 text-center font-light">
+                                                        <p className="mt-1 text-center font-light text-red-500">
                                                             {errors.input.message}
                                                         </p>
                                                     )}
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex flew-row justify-end gap-4 mt-6">
+                                        <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button type="submit" className="btn-prm-outline">
                                                 Update
                                             </button>

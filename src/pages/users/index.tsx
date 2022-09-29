@@ -12,12 +12,12 @@ const Users: NextPage = () => {
     return (
         <>
             {session?.user && (
-                <div className="container flex flex-wrap justify-center gap-4 mx-auto px-6 py-10">
+                <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
                     {data?.map((user, index) => (
                         <UserModal key={index} user={user} session={session} />
                     ))}
                     {data?.length === 0 && (
-                        <div className="alert alert-info w-fit mx-auto justify-center mt-10 shadow-lg">
+                        <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
                             <div>
                                 <span>No user found</span>
                             </div>

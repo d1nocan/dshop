@@ -16,9 +16,9 @@ const Transactions: NextPage = () => {
                 <>
                     {(transactions?.length as number) > 0 ? (
                         <div className="container mx-auto mt-10 overflow-x-auto shadow-xl">
-                            <table className="min-w-max w-full table-auto">
+                            <table className="w-full min-w-max table-auto">
                                 <thead>
-                                    <tr className="dark:bg-neutral-900 dark:text-neutral-100 uppercase text-sm leading-normal">
+                                    <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
                                         <th className="py-3 px-6 text-left"></th>
                                         <th className="py-3 px-6 text-left">Name</th>
                                         <th className="py-3 px-6 text-left">ID</th>
@@ -30,11 +30,11 @@ const Transactions: NextPage = () => {
                                         )}
                                     </tr>
                                 </thead>
-                                <tbody className="text-neutral-50 text-sm font-light">
+                                <tbody className="text-sm font-light text-neutral-50">
                                     {transactions?.map((transaction, index) => (
                                         <tr
                                             key={index}
-                                            className="border-b duration-300 text-neutral-900 dark:text-neutral-100 border-neutral-200 bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 hover:bg-neutral-300"
+                                            className="border-b border-neutral-200 bg-neutral-200 text-neutral-900 duration-300 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700"
                                         >
                                             <UpdateTransaction
                                                 index={index}
@@ -47,7 +47,7 @@ const Transactions: NextPage = () => {
                             </table>
                         </div>
                     ) : (
-                        <div className="alert alert-info w-fit mx-auto justify-center mt-10 shadow-lg">
+                        <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
                             <div>
                                 <span>No Transaction found</span>
                             </div>

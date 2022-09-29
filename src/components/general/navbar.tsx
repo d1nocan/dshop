@@ -19,13 +19,13 @@ export default function Navbar() {
     }, [theme]);
     return (
         <>
-            <div className="flex relative flex-wrap bg-neutral-800 items-center bg-neutral text-neutral-content w-11/12 h-16 mx-auto rounded-b-xl justify-between">
-                <div className="flex-1 inline-flex justify-start">
+            <div className="bg-neutral text-neutral-content relative mx-auto flex h-16 w-11/12 flex-wrap items-center justify-between rounded-b-xl bg-neutral-800">
+                <div className="inline-flex flex-1 justify-start">
                     {session && (
                         <Menu>
                             <Menu.Button
                                 aria-label="Links"
-                                className="flex flex-row items-center justify-center px-4 py-2 text-sm font-medium text-neutral-content rounded-lg hover:bg-neutral-focus focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                                className="text-neutral-content hover:bg-neutral-focus flex flex-row items-center justify-center rounded-lg py-2 px-4 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -50,12 +50,12 @@ export default function Navbar() {
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95"
                             >
-                                <Menu.Items className="absolute mt-10 z-10 capitalize bg-neutral-700 p-4 rounded-2xl w-40 divide-y text-neutral-100">
+                                <Menu.Items className="absolute z-10 mt-10 w-40 divide-y rounded-2xl bg-neutral-700 p-4 capitalize text-neutral-100">
                                     <div>
                                         <Menu.Item>
                                             <NextLink
                                                 href="/users"
-                                                className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                                                className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
                                             >
                                                 Users
                                             </NextLink>
@@ -65,7 +65,7 @@ export default function Navbar() {
                                         <Menu.Item>
                                             <NextLink
                                                 href="/tickets"
-                                                className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                                                className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
                                             >
                                                 Tickets
                                             </NextLink>
@@ -75,7 +75,7 @@ export default function Navbar() {
                                         <Menu.Item>
                                             <NextLink
                                                 href="/store"
-                                                className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                                                className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
                                             >
                                                 Store
                                             </NextLink>
@@ -85,7 +85,7 @@ export default function Navbar() {
                                         <Menu.Item>
                                             <NextLink
                                                 href="/transactions"
-                                                className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                                                className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
                                             >
                                                 Transactions
                                             </NextLink>
@@ -101,29 +101,29 @@ export default function Navbar() {
                         aria-label="Change Theme"
                         className={`${
                             theme ? "bg-neutral-100" : "bg-neutral-900"
-                        } relative inline-flex h-6 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75 mt-2 scale-75`}
+                        } relative mt-2 inline-flex h-6 w-12 shrink-0 scale-75 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
                     >
                         <span className="sr-only">Change Theme</span>
                         <span
                             aria-hidden="true"
                             className={`${
                                 !theme ? "translate-x-6 " : "translate-x-0"
-                            } pointer-events-none inline-block h-5 w-5 transform rounded-full dark:bg-neutral-900 bg-neutral-50 shadow-lg ring-0 transition duration-200 ease-in-out`}
+                            } pointer-events-none inline-block h-5 w-5 transform rounded-full bg-neutral-50 shadow-lg ring-0 transition duration-200 ease-in-out dark:bg-neutral-900`}
                         />
                     </Switch>
                 </div>
-                <div className="flex-1 inline-flex items-center flex-shrink-0">
-                    <div className="text-2xl cursor-default mx-auto uppercase text-neutral-100 font-black tracking-wide">
+                <div className="inline-flex flex-1 flex-shrink-0 items-center">
+                    <div className="mx-auto cursor-default text-2xl font-black uppercase tracking-wide text-neutral-100">
                         <Link href="/">
                             <span>{env.NEXT_PUBLIC_DEFAULT_SHOP_NAME}</span>
                         </Link>
                     </div>
                 </div>
-                <div className="flex-1 inline-flex justify-end">
+                <div className="inline-flex flex-1 justify-end">
                     <Popover className="relative">
                         <Popover.Button>
                             {session?.user ? (
-                                <div className="aspect-square w-12 relative mr-4 z-20">
+                                <div className="relative z-20 mr-4 aspect-square w-12">
                                     <Image
                                         alt={session?.user?.name as string}
                                         src={session?.user?.image as string}
@@ -145,10 +145,10 @@ export default function Navbar() {
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-0 -translate-y-1/2 translate-x-1/2"
                         >
-                            <Popover.Panel className="absolute z-10 bg-neutral-700 text-neutral-100 w-40 h-40 flex flex-col justify-between right-4 top-0 rounded-xl">
-                                <p className="font-bold ml-6 mt-3">{session?.user?.name || "Giriş yapmalısın"}</p>
+                            <Popover.Panel className="absolute top-0 right-4 z-10 flex h-40 w-40 flex-col justify-between rounded-xl bg-neutral-700 text-neutral-100">
+                                <p className="mt-3 ml-6 font-bold">{session?.user?.name || "Giriş yapmalısın"}</p>
                                 {session?.user && (
-                                    <p className="font-semibold text-center">Points: {session.user.points}</p>
+                                    <p className="text-center font-semibold">Points: {session.user.points}</p>
                                 )}
                                 <button
                                     type="button"

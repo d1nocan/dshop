@@ -71,10 +71,10 @@ export const BuyItem = ({ item }: Items) => {
                                             mutate(getValues());
                                         })}
                                     >
-                                        <Dialog.Title className="text-center font-black text-3xl truncate">
+                                        <Dialog.Title className="truncate text-center text-3xl font-black">
                                             {item.name}
                                         </Dialog.Title>
-                                        <Dialog.Description className="py-4 break-words text-center">
+                                        <Dialog.Description className="break-words py-4 text-center">
                                             {item.description}
                                             <br />
                                             <br />
@@ -83,7 +83,7 @@ export const BuyItem = ({ item }: Items) => {
                                             Quantity: {item.quantity}
                                         </Dialog.Description>
                                         {item.inputRequired && (
-                                            <div className="flex flex-col w-full max-w-xs mx-auto my-2 gap-2">
+                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col gap-2">
                                                 <label className="text-center">
                                                     <span>{item.input}</span>
                                                 </label>
@@ -97,11 +97,11 @@ export const BuyItem = ({ item }: Items) => {
                                             </div>
                                         )}
                                         {error && (
-                                            <p className="text-red-500 text-center mt-4 text-lg font-light">
+                                            <p className="mt-4 text-center text-lg font-light text-red-500">
                                                 {error.message}
                                             </p>
                                         )}
-                                        <div className="flex flew-row justify-end gap-4 mt-6">
+                                        <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button type="submit" className="btn-prm-outline">
                                                 Buy
                                             </button>

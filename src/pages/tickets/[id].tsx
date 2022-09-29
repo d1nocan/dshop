@@ -51,11 +51,11 @@ const Ticket = () => {
     return (
         <>
             {session.data?.user && (
-                <div className="container mx-auto flex flex-col bg-neutral-700 rounded-lg w-6/12 m-10 p-4">
-                    <h1 className="text-center font-bold text-4xl mb-4 text-neutral-900 dark:text-neutral-100">
+                <div className="container m-10 mx-auto flex w-6/12 flex-col rounded-lg bg-neutral-700 p-4">
+                    <h1 className="mb-4 text-center text-4xl font-bold text-neutral-900 dark:text-neutral-100">
                         {data?.title}
                     </h1>
-                    <h2 className={`text-center ${statusColor(data?.status)} text-2xl mb-4`}>{data?.status}</h2>
+                    <h2 className={`text-center ${statusColor(data?.status)} mb-4 text-2xl`}>{data?.status}</h2>
                     {session.data?.user?.role === Role.Admin && (
                         <div className="flex flex-row justify-center">
                             <button
@@ -75,16 +75,16 @@ const Ticket = () => {
                             </button>
                         </div>
                     )}
-                    <ul className="mx-auto w-4/6 mb-10">
+                    <ul className="mx-auto mb-10 w-4/6">
                         {data?.messages?.map((message, index) => (
                             <li key={index} className="m-4">
                                 <div
-                                    className={`flex flex-col relative w-fit ${
+                                    className={`relative flex w-fit flex-col ${
                                         session.data?.user?.id === message.userId ? "ml-auto" : "mr-auto"
-                                    } bg-neutral-800 rounded-lg p-4 text-neutral-100`}
+                                    } rounded-lg bg-neutral-800 p-4 text-neutral-100`}
                                 >
                                     <div className="mb-4">
-                                        <div className="w-12 h-12 relative">
+                                        <div className="relative h-12 w-12">
                                             <Image
                                                 src={(message.user.image as string) || "/dalle.png"}
                                                 alt={message.user.name as string}
@@ -97,13 +97,13 @@ const Ticket = () => {
                                     <div className="break-all">
                                         <span>{message.content}</span>
                                     </div>
-                                    <p className="text-sm font-light mt-4">{message.createdAt.toLocaleString()}</p>
+                                    <p className="mt-4 text-sm font-light">{message.createdAt.toLocaleString()}</p>
                                 </div>
                             </li>
                         ))}
                     </ul>
                     {data?.status === TicketStatus.Open && (
-                        <div className="w-2/3 mx-auto bg-base-300 py-10 rounded-xl">
+                        <div className="bg-base-300 mx-auto w-2/3 rounded-xl py-10">
                             <form
                                 onSubmit={handleSubmit(() => {
                                     setValue("ticketId", data?.id as string);

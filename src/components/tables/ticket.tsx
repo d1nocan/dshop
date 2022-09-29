@@ -9,12 +9,12 @@ type Props = {
 
 const Ticket = ({ index, ticket }: Props) => {
     return (
-        <tr className="border-b duration-300 text-neutral-900 dark:text-neutral-100 border-neutral-200 bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 hover:bg-neutral-300">
+        <tr className="border-b border-neutral-200 bg-neutral-200 text-neutral-900 duration-300 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700">
             <td className="py-3 px-6 text-left">{index}</td>
             <td className="py-3 px-6 text-left">
                 <div className="flex items-center space-x-3">
-                    <div className="relative h-10 w-10 ">
-                        <div className="mask mask-squircle w-12 h-12">
+                    <div className="relative h-10 w-10">
+                        <div className="mask mask-squircle h-12 w-12">
                             <Image
                                 src={ticket.user.image as string}
                                 alt={ticket.user.name as string}

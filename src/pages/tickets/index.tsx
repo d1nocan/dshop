@@ -17,9 +17,9 @@ const Tickets: NextPage = () => {
             {session?.user && (
                 <div className="container mx-auto mt-10 overflow-x-auto shadow-xl">
                     {(tickets.data?.length as number) > 0 ? (
-                        <table className="min-w-max w-full table-auto">
+                        <table className="w-full min-w-max table-auto">
                             <thead>
-                                <tr className="dark:bg-neutral-900 dark:text-neutral-100 uppercase text-sm leading-normal">
+                                <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
                                     <th className="py-3 px-6 text-left"></th>
                                     <th className="py-3 px-6 text-left">Name</th>
                                     <th className="py-3 px-6 text-left">Title</th>
@@ -34,7 +34,7 @@ const Tickets: NextPage = () => {
                             </tbody>
                         </table>
                     ) : (
-                        <div className="alert alert-info w-40 mx-auto justify-center mt-10 shadow-lg">
+                        <div className="alert alert-info mx-auto mt-10 w-40 justify-center shadow-lg">
                             <div>
                                 <span>No ticket found</span>
                             </div>
