@@ -15,8 +15,8 @@ const Transactions: NextPage = () => {
             {session.data?.user && (
                 <>
                     {(transactions?.length as number) > 0 ? (
-                        <div className="container mx-auto mt-10 overflow-x-auto shadow-xl">
-                            <table className="w-full min-w-max table-auto">
+                        <div className="container mx-auto mt-10 overflow-x-auto">
+                            <table className="mx-auto w-10/12 min-w-max table-auto">
                                 <thead>
                                     <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
                                         <th className="py-3 px-6 text-left"></th>

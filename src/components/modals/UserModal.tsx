@@ -53,7 +53,7 @@ const UserModal = ({ user, session }: Users) => {
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="relative z-10"
+                    className="relative z-50"
                     onClose={() => {
                         closeModal();
                         reset();
@@ -82,41 +82,43 @@ const UserModal = ({ user, session }: Users) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
-                                    <form onSubmit={handleSubmit(() => mutate(getValues()))}>
-                                        <Dialog.Title>
-                                            <div className="flex justify-center">
-                                                <div className="relative h-24 w-24">
-                                                    <Image
-                                                        src={user.image as string}
-                                                        alt={user.name as string}
-                                                        layout="fill"
-                                                        className="rounded-xl"
-                                                    />
-                                                </div>
+                                    <form onSubmit={handleSubmit(() => mutate(getValues()))} className="text-center">
+                                        <div className="flex justify-center">
+                                            <div className="relative h-24 w-24">
+                                                <Image
+                                                    src={user.image as string}
+                                                    alt={user.name as string}
+                                                    layout="fill"
+                                                    className="rounded-xl"
+                                                />
                                             </div>
-                                            <h3 className="text-center text-lg font-semibold">{user.name}</h3>
-                                            <p className="text-center text-lg font-light blur duration-200 hover:blur-0">
-                                                ID: {user.id}
-                                            </p>
-                                        </Dialog.Title>
+                                        </div>
+                                        <h3 className="text-lg font-semibold">{user.name}</h3>
+                                        <span className="text-lg font-light blur duration-200 hover:blur-0">
+                                            ID: {user.id}
+                                        </span>
                                         <Dialog.Description>
                                             <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
-                                                <span className="mb-1 text-center font-light">Role</span>
+                                                <span className="mb-1 font-light">Role</span>
                                                 <select title="Role" className="input" {...register("role")}>
                                                     {Object.keys(Role).map((role, index) => (
-                                                        <option key={index} value={role} selected={role === user.role}>
+                                                        <option
+                                                            key={index}
+                                                            value={role}
+                                                            defaultChecked={role === user.role}
+                                                        >
                                                             {role}
                                                         </option>
                                                     ))}
                                                 </select>
                                                 {errors.role && (
-                                                    <p className="mt-1 text-center font-light text-red-500">
+                                                    <span className="mt-1 font-light text-red-500">
                                                         {errors.role.message}
-                                                    </p>
+                                                    </span>
                                                 )}
                                             </div>
                                             <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
-                                                <span className="mb-1 text-center font-light">Points</span>
+                                                <span className="mb-1 font-light">Points</span>
                                                 <input
                                                     title="Points"
                                                     type="number"
@@ -126,9 +128,9 @@ const UserModal = ({ user, session }: Users) => {
                                                     })}
                                                 ></input>
                                                 {errors.points && (
-                                                    <p className="mt-1 text-center font-light text-red-500">
+                                                    <span className="mt-1 text-center font-light text-red-500">
                                                         {errors.points.message}
-                                                    </p>
+                                                    </span>
                                                 )}
                                             </div>
                                             <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
@@ -143,9 +145,9 @@ const UserModal = ({ user, session }: Users) => {
                                                     })}
                                                 ></input>
                                                 {errors.cooldown && (
-                                                    <p className="mt-1 text-center font-light text-red-500">
+                                                    <span className="mt-1 text-center font-light text-red-500">
                                                         {errors.cooldown.message}
-                                                    </p>
+                                                    </span>
                                                 )}
                                             </div>
                                         </Dialog.Description>

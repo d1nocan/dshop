@@ -38,7 +38,7 @@ export const CreateTicket = () => {
                 Create Ticket
             </button>
             <Transition appear show={showModal} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -61,7 +61,7 @@ export const CreateTicket = () => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="modal">
+                                <Dialog.Panel className="modal h-[60vh]">
                                     <form
                                         onSubmit={handleSubmit(() => {
                                             mutate(getValues());
@@ -70,30 +70,34 @@ export const CreateTicket = () => {
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Ticket
                                         </Dialog.Title>
-                                        <div className="my-2 mx-auto flex w-full max-w-xs flex-col gap-2">
-                                            <label className="text-center">
-                                                <span>Title</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                placeholder={"Enter title"}
-                                                className="input"
-                                                {...register("title")}
-                                            />
-                                            {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+                                        <div className="modal-body">
+                                            <div className="form-control lg:col-span-2">
+                                                <label className="text-center">
+                                                    <span>Title</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    placeholder={"Enter title"}
+                                                    className="input"
+                                                    {...register("title")}
+                                                />
+                                                {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+                                            </div>
+                                            <div className="form-control h-[25vh] lg:col-span-2">
+                                                <label className="text-center">
+                                                    <span>Message</span>
+                                                </label>
+                                                <textarea className="textarea h-full" {...register("message")} />
+                                                {errors.message && (
+                                                    <p className="text-red-500">{errors.message.message}</p>
+                                                )}
+                                            </div>
+                                            {error && (
+                                                <p className="mt-4 text-center text-lg font-light text-red-500">
+                                                    {error.message}
+                                                </p>
+                                            )}
                                         </div>
-                                        <div className="my-2 mx-auto flex h-60 w-full max-w-xs flex-col gap-2">
-                                            <label className="text-center">
-                                                <span>Message</span>
-                                            </label>
-                                            <textarea className="textarea" {...register("message")} />
-                                            {errors.message && <p className="text-red-500">{errors.message.message}</p>}
-                                        </div>
-                                        {error && (
-                                            <p className="mt-4 text-center text-lg font-light text-red-500">
-                                                {error.message}
-                                            </p>
-                                        )}
                                         <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button type="submit" className="btn-prm-outline">
                                                 Buy

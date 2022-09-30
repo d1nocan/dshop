@@ -62,7 +62,7 @@ export const EditItem = ({ item }: Items) => {
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="relative z-10"
+                    className="relative z-50"
                     onClose={() => {
                         closeModal();
                         reset();
@@ -107,8 +107,8 @@ export const EditItem = ({ item }: Items) => {
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Edit : {item.name}
                                         </Dialog.Title>
-                                        <div className="grid grid-cols-1 place-items-center items-center justify-items-center gap-4 lg:grid-cols-2">
-                                            <div className="form-control col-span-2">
+                                        <div className="modal-body">
+                                            <div className="form-control lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>
                                                 </label>
@@ -124,13 +124,13 @@ export const EditItem = ({ item }: Items) => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control col-span-2 h-96 max-h-48 w-full">
+                                            <div className="form-control w-full lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Description</span>
                                                 </label>
                                                 <textarea
                                                     title="Item Description"
-                                                    className="textarea w-fit"
+                                                    className="textarea"
                                                     {...register("description")}
                                                 ></textarea>
                                                 {errors.description && (
@@ -202,7 +202,7 @@ export const EditItem = ({ item }: Items) => {
                                                     type="file"
                                                     accept="image/*"
                                                     id={`fileupl-${item?.id}`}
-                                                    className="file:bg-primary hover:file:bg-primary-focus w-fit max-w-xs px-2 text-sm file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300"
+                                                    className="file:bg-primary hover:file:bg-primary-focus w-fit max-w-xs px-2 text-sm file:mx-8 file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300 lg:mb-8 lg:mt-2 file:lg:mx-2"
                                                 />
                                             </div>
                                             <div className="form-control ml-2 flex w-full max-w-xs flex-row items-center justify-between">
@@ -210,20 +210,18 @@ export const EditItem = ({ item }: Items) => {
                                                 <input
                                                     title="Is input required?"
                                                     type="checkbox"
-                                                    className="toggle"
+                                                    className="form-checkbox rounded bg-violet-400 checked:bg-violet-500"
                                                     {...register("inputRequired")}
                                                 />
                                             </div>
-                                            <div className="form-control my-2 w-full max-w-xs">
-                                                <label className="label">
-                                                    <span className="label-text">Is hidden item?</span>
-                                                    <input
-                                                        title="Is hidden item?"
-                                                        type="checkbox"
-                                                        className="toggle"
-                                                        {...register("isHidden")}
-                                                    />
-                                                </label>
+                                            <div className="form-control ml-2 flex w-full max-w-xs flex-row items-center justify-between">
+                                                <span className="label-text">Is hidden item?</span>
+                                                <input
+                                                    title="Is hidden item?"
+                                                    type="checkbox"
+                                                    className="form-checkbox rounded bg-violet-400 checked:bg-violet-500"
+                                                    {...register("isHidden")}
+                                                />
                                             </div>
                                             {watch("inputRequired") && (
                                                 <div className="form-control mx-auto w-full max-w-xs">

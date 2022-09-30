@@ -1,12 +1,16 @@
+import dynamic from "next/dynamic";
 import Loading from "@general/loading";
-import Buy from "@modals/BuyItem";
-import CreateItem from "@modals/CreateItem";
-import EditItem from "@modals/EditItem";
 import { Role } from "@prisma/client";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { trpc } from "src/utils/trpc";
+
+const DynamicBuy = dynamic(() => import("@modals/BuyItem"));
+
+const DynamicEditItem = dynamic(() => import("@modals/EditItem"));
+
+const DynamicCreateItem = dynamic(() => import("@modals/CreateItem"));
 
 const Store: NextPage = () => {
     const { data, error, isLoading } = trpc.useQuery(["item.get"]);
@@ -16,15 +20,15 @@ const Store: NextPage = () => {
     if (isLoading) return <Loading />;
     return (
         <>
-            {session?.user?.role === Role.Admin && <CreateItem />}
-            <div className="container mx-auto mt-10 flex w-6/12 flex-shrink-0 flex-row flex-wrap justify-center gap-4">
+            {session?.user?.role === Role.Admin && <DynamicCreateItem />}
+            <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
                 {data
                     ?.filter((item) => item.isHidden === false)
                     .map((item, index) =>
                         session?.user?.role === Role.Admin ? (
-                            <EditItem key={index} item={item} />
+                            <DynamicEditItem key={index} item={item} />
                         ) : (
-                            <Buy key={index} item={item} />
+                            <DynamicBuy key={index} item={item} />
                         ),
                     )}
                 {data?.length === 0 && (

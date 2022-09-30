@@ -51,7 +51,7 @@ export const CreateItem = () => {
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="relative z-10"
+                    className="relative z-50"
                     onClose={() => {
                         closeModal();
                         reset();
@@ -95,8 +95,8 @@ export const CreateItem = () => {
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Item
                                         </Dialog.Title>
-                                        <div className="grid grid-cols-1 place-items-center items-center justify-items-center gap-4 lg:grid-cols-2">
-                                            <div className="form-control col-span-2">
+                                        <div className="modal-body">
+                                            <div className="form-control lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>
                                                 </label>
@@ -112,7 +112,7 @@ export const CreateItem = () => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control col-span-2 h-96 max-h-48 w-full">
+                                            <div className="form-control lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Description</span>
                                                 </label>
@@ -190,7 +190,7 @@ export const CreateItem = () => {
                                                     type="file"
                                                     accept="image/*"
                                                     id="filecrt"
-                                                    className="file:bg-primary hover:file:bg-primary-focus w-fit max-w-xs px-2 text-sm file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300"
+                                                    className="file:bg-primary hover:file:bg-primary-focus w-fit max-w-xs px-2 text-sm file:mx-8 file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300 lg:mb-8 lg:mt-2 file:lg:mx-2"
                                                 />
                                             </div>
                                             <div className="form-control ml-2 flex w-full max-w-xs flex-row items-center justify-between">

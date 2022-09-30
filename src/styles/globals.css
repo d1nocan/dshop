@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 body {
-    height: 100vh;
-    @apply duration-300 bg-neutral-100 dark:bg-neutral-900
+    @apply duration-300 bg-neutral-100 dark:bg-neutral-900;
+}
+
+input[type="checkbox"] {
+    @apply duration-300 bg-neutral-100 dark:bg-neutral-900 text-neutral-100 dark:text-neutral-900;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -37,25 +40,32 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-.value {
-    --value: 50;
-}
-
 .input {
-    @apply w-4/6 h-10 bg-neutral-200 border-neutral-800 dark:bg-neutral-900 text-center mx-auto border dark:border-neutral-50 border-opacity-50;
+    @apply form-input dark:bg-neutral-900 rounded-xl text-center w-full mx-auto focus:ring-violet-500 focus:ring-1 focus:border-violet-500;
 }
 
 .textarea {
-    @apply w-full h-full bg-neutral-200 border-neutral-800 dark:bg-neutral-900 text-center mx-auto border dark:border-neutral-50 border-opacity-50;
+    @apply form-textarea w-full mx-auto rounded-xl dark:bg-neutral-900 focus:ring-violet-500 focus:ring-1 focus:border-violet-500;
 }
 
-
 .modal {
-    @apply w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 p-6 text-left align-middle shadow-xl transition-all;
+    @apply z-50 w-full sm:w-5/6 md:w-4/6 lg:w-3/6 xl:w-5/12 transform overflow-hidden rounded-2xl flex flex-col bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 p-6 align-middle shadow-xl transition-all;
+}
+
+.modal-body {
+    @apply grid grid-cols-1 place-items-center items-center justify-items-center gap-4 lg:grid-cols-2;
 }
 
 .card {
-    @apply w-56 bg-neutral-300 text-neutral-900 dark:bg-neutral-800 shadow-xl pb-2 rounded-2xl dark:text-neutral-100 hover:bg-neutral-50 duration-300;
+    @apply w-full sm:w-8/12 md:w-5/12 lg:w-3/12 xl:w-2/12 z-0;
+}
+
+.card-body {
+    @apply flex flex-col py-10 bg-neutral-800 text-neutral-900 z-10 rounded-2xl dark:text-neutral-100 duration-300;
+}
+
+.image-box {
+    @apply relative mx-auto aspect-square w-28 mb-4;
 }
 
 .btn-prm {
@@ -75,15 +85,15 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .btn-prm-outline {
-    @apply border px-4 py-2 border-violet-500 rounded-xl hover:bg-violet-400 duration-300 hover:text-neutral-900;
+    @apply border px-4 py-2 border-violet-500 rounded-xl rounded-tl-sm rounded-br-sm hover:bg-violet-400 duration-300 hover:text-neutral-900;
 }
 
 .btn-can-outline {
-    @apply border px-4 py-2 border-red-500 rounded-xl hover:bg-red-400 duration-300 hover:text-neutral-900;
+    @apply border px-4 py-2 border-red-500 rounded-xl rounded-tl-sm rounded-br-sm hover:bg-red-400 duration-300 hover:text-neutral-900;
 }
 
 .btn-del-outline {
-    @apply border px-4 py-2 border-yellow-500 rounded-xl hover:bg-yellow-400 duration-300 hover:text-neutral-900;
+    @apply border px-4 py-2 border-yellow-500 rounded-xl rounded-tl-sm rounded-br-sm hover:bg-yellow-400 duration-300 hover:text-neutral-900;
 }
 
 .form-control {

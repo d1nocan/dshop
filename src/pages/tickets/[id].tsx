@@ -3,10 +3,12 @@ import { Role, TicketStatus } from "@prisma/client";
 import { addMessage } from "@schemas/ticket";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import dynamic from "next/dynamic";
+
+const Image = dynamic(() => import("next/image"));
 
 const Ticket = () => {
     const session = useSession();

@@ -12,28 +12,33 @@ export const ItemCard = ({ item, onClick }: ItemCard) => {
     return (
         <>
             <div className="card relative">
-                <figure className="relative aspect-square w-full">
-                    {item.image ? (
-                        <Image
-                            src={item.image}
-                            layout="fill"
-                            alt={item.name}
-                            objectFit="contain"
-                            className="rounded-t-xl"
-                        />
-                    ) : (
-                        <h1 className="overflow-hidden break-words text-center text-4xl font-extrabold">{item.name}</h1>
-                    )}
-                </figure>
-                <div className="max-h-40 items-center text-center">
-                    <h2 className="m-2 text-2xl font-black">{item.name}</h2>
-                    <div className="my-auto break-words">
-                        <p>{item.price.toString()} Points</p>
-                        <p>{item.quantity > 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>
+                <div className="invisible absolute -inset-1 z-0 animate-pulse bg-gradient-to-r from-indigo-300 to-purple-400 blur xl:visible "></div>
+                <div className="card-body relative">
+                    <figure className="image-box">
+                        {item.image ? (
+                            <Image
+                                src={item.image}
+                                layout="fill"
+                                alt={item.name}
+                                objectFit="contain"
+                                className="rounded-xl"
+                            />
+                        ) : (
+                            <h1 className="overflow-hidden break-words text-center text-4xl font-extrabold">
+                                {item.name}
+                            </h1>
+                        )}
+                    </figure>
+                    <div className="items-center text-center">
+                        <h2 className="m-2 text-2xl font-semibold">{item.name}</h2>
+                        <div className="my-auto break-words">
+                            <p>{item.price.toString()} Points</p>
+                            <p>{item.quantity > 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>
+                        </div>
+                        <button onClick={onClick} type="button" className="btn-prm m-2">
+                            {session.data?.user?.role === Role.Admin ? "Edit" : "Get"}
+                        </button>
                     </div>
-                    <button onClick={onClick} type="button" className="btn-prm m-2">
-                        {session.data?.user?.role === Role.Admin ? "Edit" : "Get"}
-                    </button>
                 </div>
             </div>
         </>
