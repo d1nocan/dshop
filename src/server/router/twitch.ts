@@ -1,7 +1,7 @@
 import { addPoints } from "./../../schemas/twitch";
 import { createRouter } from "./context";
 
-const twitchRouter = createRouter().query("givepoints", {
+const twitchRouter = createRouter().mutation("givepoints", {
     input: addPoints,
     resolve({ ctx, input }) {
         return ctx.prisma.user.updateMany({
