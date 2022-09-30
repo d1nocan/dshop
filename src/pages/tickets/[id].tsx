@@ -31,7 +31,7 @@ const Ticket = () => {
     const statusColor = (status: TicketStatus | undefined) => {
         switch (status) {
             case TicketStatus.Open:
-                return "text-green-,600";
+                return "text-green-600";
             case TicketStatus.Closed:
                 return "text-red-600";
             default:
