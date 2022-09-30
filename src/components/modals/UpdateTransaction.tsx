@@ -114,7 +114,7 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                                             <div className="form-control my-2 mx-auto w-full max-w-xs">
                                                 <span className="mb-1 text-center font-light">Status</span>
                                                 <Listbox value={status} onChange={setStatus}>
-                                                    <Listbox.Button className="relative mx-auto w-2/3 cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">
+                                                    <Listbox.Button className="relative mx-auto w-60 cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">
                                                         {status}
                                                     </Listbox.Button>
                                                     <Transition
@@ -126,7 +126,7 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
                                                         leaveFrom="opacity-100 scale-100"
                                                         leaveTo="opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2"
                                                     >
-                                                        <Listbox.Options className="absolute ml-14 mt-16 max-h-60 w-3/6 cursor-default overflow-auto rounded-md bg-neutral-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 sm:text-sm">
+                                                        <Listbox.Options className="absolute ml-10 mt-16 max-h-60 w-60 cursor-default overflow-auto rounded-md bg-neutral-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 sm:text-sm">
                                                             {Object.values(Status).map((status) => (
                                                                 <Listbox.Option
                                                                     key={status}
