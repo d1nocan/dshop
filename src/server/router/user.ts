@@ -1,16 +1,18 @@
 import { selectUser, updateUser } from "@schemas/user";
 import { createProtectedRouter } from "./protected-router";
+import { createRouter } from "./context";
 
-export const userRouter = createProtectedRouter()
-    .query("get", {
-        resolve({ ctx }) {
-            return ctx.prisma.user.findMany({
-                orderBy: {
-                    points: "desc",
-                },
-            });
-        },
-    })
+export const userRouter = createRouter().query("get", {
+    resolve({ ctx }) {
+        return ctx.prisma.user.findMany({
+            orderBy: {
+                points: "desc",
+            },
+        });
+    },
+});
+
+export const protectedUserRouter = createProtectedRouter()
     .query("select", {
         input: selectUser,
         resolve({ ctx, input }) {
@@ -32,5 +34,3 @@ export const userRouter = createProtectedRouter()
             });
         },
     });
-
-export default userRouter;

@@ -1,13 +1,15 @@
 import { Role } from "@prisma/client";
 import { selectItem, createItem, updateItem } from "@schemas/item";
 import { createProtectedRouter } from "./protected-router";
+import { createRouter } from "./context";
 
-export const itemRouter = createProtectedRouter()
-    .query("get", {
-        resolve({ ctx }) {
-            return ctx.prisma.item.findMany({});
-        },
-    })
+export const itemRouter = createRouter().query("get", {
+    resolve({ ctx }) {
+        return ctx.prisma.item.findMany({});
+    },
+});
+
+export const protectedItemRouter = createProtectedRouter()
     .query("select", {
         input: selectItem,
         resolve({ ctx, input }) {
@@ -114,5 +116,3 @@ export const itemRouter = createProtectedRouter()
             });
         },
     });
-
-export default itemRouter;
