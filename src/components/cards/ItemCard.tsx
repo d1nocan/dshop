@@ -32,7 +32,6 @@ export const ItemCard = ({ item, isGuest, isAdmin, refetch }: ItemCard) => {
                                 src={item.image}
                                 layout="fill"
                                 alt={item.name}
-                                objectFit="contain"
                                 className="rounded-xl"
                             />
                         ) : (
