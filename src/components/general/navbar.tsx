@@ -10,10 +10,10 @@ const DynamicUserPanel = dynamic(() => import("./userpanel"));
 const DynamicLink = dynamic(() => import("next/link"));
 
 export default function Navbar() {
-    const [theme, setTheme] = useState(false); // false = light, true = dark
+    const [theme, setTheme] = useState(true); // false = light, true = dark
     useEffect(() => {
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            setTheme(true);
+        if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+            setTheme(false);
         }
     }, []);
     useEffect(() => {
