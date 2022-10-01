@@ -10,10 +10,9 @@ interface ItemCard {
     item: Item;
     isAdmin: boolean;
     isGuest: boolean;
-    refetch: () => void;
 }
 
-export const ItemCard = ({ item, isGuest, isAdmin, refetch }: ItemCard) => {
+export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -28,12 +27,7 @@ export const ItemCard = ({ item, isGuest, isAdmin, refetch }: ItemCard) => {
                 <div className="card-body relative">
                     <figure className="image-box">
                         {item.image ? (
-                            <Image
-                                src={item.image}
-                                layout="fill"
-                                alt={item.name}
-                                className="rounded-xl"
-                            />
+                            <Image src={item.image} layout="fill" alt={item.name} className="rounded-xl" />
                         ) : (
                             <h1 className="overflow-hidden break-words text-center text-4xl font-extrabold">
                                 {item.name}
@@ -57,13 +51,7 @@ export const ItemCard = ({ item, isGuest, isAdmin, refetch }: ItemCard) => {
             {isAdmin ? (
                 <EditItem item={item} closeModal={closeModal} showModal={showModal} />
             ) : (
-                <BuyItem
-                    item={item}
-                    refetch={refetch}
-                    closeModal={closeModal}
-                    showModal={showModal}
-                    isGuest={isGuest}
-                />
+                <BuyItem item={item} closeModal={closeModal} showModal={showModal} isGuest={isGuest} />
             )}
         </>
     );
