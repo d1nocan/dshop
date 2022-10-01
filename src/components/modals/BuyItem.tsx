@@ -9,9 +9,10 @@ import ItemCard from "@cards/ItemCard";
 
 interface Items {
     item: Item;
+    isGuest: boolean;
 }
 
-export const BuyItem = ({ item }: Items) => {
+export const BuyItem = ({ item, isGuest }: Items) => {
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -40,8 +41,8 @@ export const BuyItem = ({ item }: Items) => {
     });
     return (
         <>
-            <ItemCard item={item} onClick={openModal} />
-            <Transition appear show={showModal} as={Fragment}>
+            <ItemCard item={item} onClick={openModal} isGuest={isGuest} />
+            <Transition appear show={showModal && !isGuest} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}

@@ -7,14 +7,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
 import UserCard from "@cards/UserCard";
-import { Session } from "next-auth";
 
 interface Users {
     user: User;
-    session: Session | null;
+    isAdmin: boolean;
 }
 
-const UserModal = ({ user, session }: Users) => {
+const UserModal = ({ user, isAdmin }: Users) => {
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -49,7 +48,7 @@ const UserModal = ({ user, session }: Users) => {
     });
     return (
         <>
-            <UserCard user={user} session={session} onClick={openModal} />
+            <UserCard user={user} isAdmin={isAdmin} onClick={openModal} />
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"

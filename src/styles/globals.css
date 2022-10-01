@@ -61,7 +61,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .card-body {
-    @apply flex flex-col py-10 bg-neutral-800 text-neutral-900 z-10 rounded-2xl dark:text-neutral-100 duration-300;
+    @apply flex flex-col py-8 bg-neutral-800 text-neutral-900 z-10 rounded-2xl dark:text-neutral-100 duration-300;
 }
 
 .image-box {

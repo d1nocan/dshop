@@ -1,8 +1,10 @@
 import { Menu, Transition } from "@headlessui/react";
+import { useSession } from "next-auth/react";
 import { Fragment } from "react";
 import NextLink from "./nextlink";
 
 export const Links = () => {
+    const { data: session } = useSession();
     return (
         <>
             <Menu>
@@ -33,7 +35,7 @@ export const Links = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
-                    <Menu.Items className="absolute z-10 mt-10 w-40 divide-y rounded-2xl bg-neutral-700 p-4 capitalize text-neutral-100">
+                    <Menu.Items className="absolute z-10 mt-10 w-40 divide-y divide-neutral-200 divide-opacity-30 rounded-2xl bg-neutral-700 p-4 capitalize text-neutral-100">
                         <div>
                             <Menu.Item>
                                 <NextLink
@@ -47,16 +49,6 @@ export const Links = () => {
                         <div>
                             <Menu.Item>
                                 <NextLink
-                                    href="/tickets"
-                                    className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
-                                >
-                                    Tickets
-                                </NextLink>
-                            </Menu.Item>
-                        </div>
-                        <div>
-                            <Menu.Item>
-                                <NextLink
                                     href="/store"
                                     className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
                                 >
@@ -64,16 +56,30 @@ export const Links = () => {
                                 </NextLink>
                             </Menu.Item>
                         </div>
-                        <div>
-                            <Menu.Item>
-                                <NextLink
-                                    href="/transactions"
-                                    className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
-                                >
-                                    Transactions
-                                </NextLink>
-                            </Menu.Item>
-                        </div>
+                        {session?.user && (
+                            <>
+                                <div>
+                                    <Menu.Item>
+                                        <NextLink
+                                            href="/tickets"
+                                            className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
+                                        >
+                                            Tickets
+                                        </NextLink>
+                                    </Menu.Item>
+                                </div>
+                                <div>
+                                    <Menu.Item>
+                                        <NextLink
+                                            href="/transactions"
+                                            className="group flex w-full items-center rounded-md py-2 px-2 text-sm"
+                                        >
+                                            Transactions
+                                        </NextLink>
+                                    </Menu.Item>
+                                </div>
+                            </>
+                        )}
                     </Menu.Items>
                 </Transition>
             </Menu>

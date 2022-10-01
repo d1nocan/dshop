@@ -4,11 +4,13 @@ import { useSession } from "next-auth/react";
 
 interface ItemCard {
     item: Item;
+    isGuest: boolean;
     onClick?: () => void;
 }
 
-export const ItemCard = ({ item, onClick }: ItemCard) => {
+export const ItemCard = ({ item, isGuest, onClick }: ItemCard) => {
     const session = useSession();
+    const isAdmin = session.data?.user?.role === Role.Admin;
     return (
         <>
             <div className="card relative">
@@ -33,11 +35,13 @@ export const ItemCard = ({ item, onClick }: ItemCard) => {
                         <h2 className="m-2 text-2xl font-semibold">{item.name}</h2>
                         <div className="my-auto break-words">
                             <p>{item.price.toString()} Points</p>
-                            <p>{item.quantity > 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>
+                            {!isGuest && (<p>{item.quantity !== 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>)}
                         </div>
-                        <button onClick={onClick} type="button" className="btn-prm m-2">
-                            {session.data?.user?.role === Role.Admin ? "Edit" : "Get"}
-                        </button>
+                        {!isGuest && (
+                            <button onClick={onClick} type="button" className="btn-prm mt-2">
+                                {isAdmin ? "Edit" : "Get"}
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,20 +1,20 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
-import UserModal from "@modals/UserModal";
-import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import { Role } from "@prisma/client";
+
+const UserModal = dynamic(() => import("@modals/UserModal"));
 
 const Users: NextPage = () => {
     const { data: session } = useSession();
-    const { data, error } = trpc.useQuery(["user.get"]);
-    const router = useRouter();
-    error?.data?.code === "UNAUTHORIZED" && router.push("/");
+    const isAdmin = session?.user?.role === Role.Admin;
+    const { data } = trpc.useQuery(["user.get"]);
     return (
         <>
-            {session?.user && (
                 <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
                     {data?.map((user, index) => (
-                        <UserModal key={index} user={user} session={session} />
+                        <UserModal key={index} user={user} isAdmin={isAdmin} />
                     ))}
                     {data?.length === 0 && (
                         <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
@@ -24,7 +24,6 @@ const Users: NextPage = () => {
                         </div>
                     )}
                 </div>
-            )}
         </>
     );
 };

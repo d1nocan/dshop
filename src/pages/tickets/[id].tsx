@@ -1,21 +1,23 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Role, TicketStatus } from "@prisma/client";
+import { TicketStatus } from "@prisma/client";
 import { addMessage } from "@schemas/ticket";
 import { trpc } from "@utils/trpc";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useSession, getSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
+import { NextPage } from "next";
+
+interface Props {
+    id?: string | string[] | undefined;
+    isAdmin?: boolean;
+}
 
 const Image = dynamic(() => import("next/image"));
 
-const Ticket = () => {
+const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
     const session = useSession();
-    const router = useRouter();
-    const { id } = router.query;
-    const { data, refetch, error } = trpc.useQuery(["ticket.select", { id: id as string }]);
-    error?.data?.code === "UNAUTHORIZED" && router.push("/");
+    const { data, refetch } = trpc.useQuery(["ticket.select", { id: id as string }]);
     const { mutate } = trpc.useMutation("ticket.addMessage", {
         onSuccess: () => {
             reset();
@@ -52,13 +54,12 @@ const Ticket = () => {
     }, [data, session]);
     return (
         <>
-            {session.data?.user && (
                 <div className="container m-10 mx-auto flex w-6/12 flex-col rounded-lg bg-neutral-700 p-4">
                     <h1 className="mb-4 text-center text-4xl font-bold text-neutral-900 dark:text-neutral-100">
                         {data?.title}
                     </h1>
                     <h2 className={`text-center ${statusColor(data?.status)} mb-4 text-2xl`}>{data?.status}</h2>
-                    {session.data?.user?.role === Role.Admin && (
+                    {isAdmin && (
                         <div className="flex flex-row justify-center">
                             <button
                                 type="button"
@@ -131,9 +132,28 @@ const Ticket = () => {
                         </div>
                     )}
                 </div>
-            )}
         </>
     );
+};
+
+Ticket.getInitialProps = async (ctx) => {
+    const session = await getSession(ctx);
+    const { Role } = await import("@prisma/client");
+    const id = ctx.query?.id;
+    const isAdmin = session?.user?.role === Role.Admin;
+    console.log(session?.user?.role);
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false,
+            },
+        };
+    }
+    return {
+        isAdmin,
+        id,
+    };
 };
 
 export default Ticket;

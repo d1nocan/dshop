@@ -1,13 +1,12 @@
 import Image from "next/image";
-import { User, Role } from "@prisma/client";
-import { Session } from "next-auth";
+import { User } from "@prisma/client";
 
 interface UserCard {
     user: User;
-    session: Session | null;
+    isAdmin: boolean;
     onClick?: () => void;
 }
-export const UserCard = ({ user, session, onClick }: UserCard) => {
+export const UserCard = ({ user, isAdmin, onClick }: UserCard) => {
     return (
         <>
             <div className="card">
@@ -26,7 +25,7 @@ export const UserCard = ({ user, session, onClick }: UserCard) => {
                         <p>Points: {user.points.toString()}</p>
                         <p>Role: {user.role}</p>
                         <div className="mt-2">
-                            {session?.user?.role === Role.Admin && (
+                            {isAdmin && (
                                 <button type="button" onClick={onClick} className="btn-prm">
                                     Details
                                 </button>

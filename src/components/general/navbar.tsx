@@ -1,5 +1,4 @@
 import { Switch } from "@headlessui/react";
-import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { env } from "src/env/client.mjs";
@@ -11,7 +10,6 @@ const DynamicUserPanel = dynamic(() => import("./userpanel"));
 const DynamicLink = dynamic(() => import("next/link"));
 
 export default function Navbar() {
-    const { data: session } = useSession();
     const [theme, setTheme] = useState(false); // false = light, true = dark
     useEffect(() => {
         if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -25,7 +23,7 @@ export default function Navbar() {
         <>
             <div className="bg-neutral text-neutral-content relative mx-auto flex h-16 w-11/12 flex-wrap items-center justify-between rounded-b-xl bg-neutral-800">
                 <div className="inline-flex flex-1 justify-start">
-                    {session && <DynamicLinks />}
+                    <DynamicLinks />
                     <Switch
                         checked={theme}
                         onChange={setTheme}

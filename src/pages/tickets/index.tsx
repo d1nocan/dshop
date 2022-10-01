@@ -1,24 +1,22 @@
-import { Role } from "@prisma/client";
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
 const Ticket = dynamic(() => import("@tables/ticket"));
 
-const Tickets: NextPage = () => {
-    const { data: session } = useSession();
-    const tickets = trpc.useQuery(["ticket.get"]);
-    const router = useRouter();
-    tickets.error?.data?.code === "UNAUTHORIZED" && router.push("/");
+interface Props {
+    isAdmin?: boolean;
+}
+
+const Tickets: NextPage<Props> = ({isAdmin}) => {
+    const { data: tickets } = trpc.useQuery(["ticket.get"]);
     return (
         <>
-            {session?.user?.role === Role.User && <CreateTicket />}
-            {session?.user && (
+            {isAdmin && <CreateTicket />}
                 <div className="container mx-auto mt-10 overflow-x-auto">
-                    {(tickets.data?.length as number) > 0 ? (
+                    {(tickets?.length as number) > 0 ? (
                         <table className="mx-auto w-10/12 min-w-max table-auto">
                             <thead>
                                 <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
@@ -30,7 +28,7 @@ const Tickets: NextPage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tickets.data?.map((ticket, index) => (
+                                {tickets?.map((ticket, index) => (
                                     <Ticket key={index} index={index} ticket={ticket} />
                                 ))}
                             </tbody>
@@ -43,9 +41,25 @@ const Tickets: NextPage = () => {
                         </div>
                     )}
                 </div>
-            )}
         </>
     );
+};
+
+Tickets.getInitialProps = async (ctx) => {
+    const session = await getSession(ctx);
+    const { Role } = await import("@prisma/client");
+    const isAdmin = session?.user?.role === Role.User;
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false,
+            },
+        };
+    }
+    return {
+        isAdmin,
+    };
 };
 
 export default Tickets;
