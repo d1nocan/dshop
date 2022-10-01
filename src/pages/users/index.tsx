@@ -9,7 +9,7 @@ interface Props {
     isAdmin: boolean;
 }
 
-const Users: NextPage<Props> = (isAdmin) => {
+const Users: NextPage<Props> = ({isAdmin}) => {
     const { data, isLoading } = trpc.useQuery(["user.get"]);
     if (isLoading) return <Loading />;
     return (
