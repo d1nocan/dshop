@@ -1,16 +1,26 @@
 import Image from "next/image";
-import { Item, Role } from "@prisma/client";
-import { useSession } from "next-auth/react";
+import { Item } from "@prisma/client";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+
+const EditItem = dynamic(() => import("@modals/EditItem"));
+const BuyItem = dynamic(() => import("@modals/BuyItem"));
 
 interface ItemCard {
     item: Item;
+    isAdmin: boolean;
     isGuest: boolean;
-    onClick?: () => void;
+    refetch: () => void;
 }
 
-export const ItemCard = ({ item, isGuest, onClick }: ItemCard) => {
-    const session = useSession();
-    const isAdmin = session.data?.user?.role === Role.Admin;
+export const ItemCard = ({ item, isGuest, isAdmin, refetch }: ItemCard) => {
+    const [showModal, setShowModal] = useState(false);
+    function openModal() {
+        setShowModal(true);
+    }
+    function closeModal() {
+        setShowModal(false);
+    }
     return (
         <>
             <div className="card relative">
@@ -38,13 +48,24 @@ export const ItemCard = ({ item, isGuest, onClick }: ItemCard) => {
                             {!isGuest && <p>{item.quantity !== 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>}
                         </div>
                         {!isGuest && (
-                            <button onClick={onClick} type="button" className="btn-prm mt-2">
+                            <button onClick={openModal} type="button" className="btn-prm mt-2">
                                 {isAdmin ? "Edit" : "Get"}
                             </button>
                         )}
                     </div>
                 </div>
             </div>
+            {isAdmin ? (
+                <EditItem item={item} closeModal={closeModal} showModal={showModal} />
+            ) : (
+                <BuyItem
+                    item={item}
+                    refetch={refetch}
+                    closeModal={closeModal}
+                    showModal={showModal}
+                    isGuest={isGuest}
+                />
+            )}
         </>
     );
 };

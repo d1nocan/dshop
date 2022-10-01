@@ -1,12 +1,24 @@
 import Image from "next/image";
 import { User } from "@prisma/client";
+import { useState } from "react";
+import dynamic from "next/dynamic";
 
 interface UserCard {
     user: User;
     isAdmin: boolean;
-    onClick?: () => void;
+    refetch: () => void;
 }
-export const UserCard = ({ user, isAdmin, onClick }: UserCard) => {
+
+const UserModal = dynamic(() => import("@modals/UserModal"));
+
+export const UserCard = ({ user, isAdmin, refetch }: UserCard) => {
+    const [showModal, setShowModal] = useState(false);
+    function openModal() {
+        setShowModal(true);
+    }
+    function closeModal() {
+        setShowModal(false);
+    }
     return (
         <>
             <div className="card">
@@ -26,7 +38,7 @@ export const UserCard = ({ user, isAdmin, onClick }: UserCard) => {
                         <p>Role: {user.role}</p>
                         <div className="mt-2">
                             {isAdmin && (
-                                <button type="button" onClick={onClick} className="btn-prm">
+                                <button type="button" onClick={openModal} className="btn-prm">
                                     Details
                                 </button>
                             )}
@@ -34,6 +46,7 @@ export const UserCard = ({ user, isAdmin, onClick }: UserCard) => {
                     </div>
                 </div>
             </div>
+            {showModal && <UserModal user={user} refetch={refetch} closeModal={closeModal} showModal={showModal} />}
         </>
     );
 };

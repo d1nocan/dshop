@@ -4,27 +4,21 @@ import { trpc } from "@utils/trpc";
 import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { selectItem } from "@schemas/item";
-import { Fragment, useState } from "react";
-import ItemCard from "@cards/ItemCard";
+import { Fragment } from "react";
 
 interface Items {
     item: Item;
+    refetch: () => void;
+    closeModal: () => void;
+    showModal: boolean;
     isGuest: boolean;
 }
 
-export const BuyItem = ({ item, isGuest }: Items) => {
-    const [showModal, setShowModal] = useState(false);
-    function openModal() {
-        setShowModal(true);
-    }
-    function closeModal() {
-        setShowModal(false);
-    }
-    const utils = trpc.useContext();
+export const BuyItem = ({ item, isGuest, refetch, closeModal, showModal }: Items) => {
     const { mutate, error } = trpc.useMutation("item.buy", {
         onSuccess: () => {
-            utils.queryClient.resetQueries(["item.get"]);
-            setShowModal(false);
+            refetch();
+            closeModal();
         },
     });
     const {
@@ -41,7 +35,6 @@ export const BuyItem = ({ item, isGuest }: Items) => {
     });
     return (
         <>
-            <ItemCard item={item} onClick={openModal} isGuest={isGuest} />
             <Transition appear show={showModal && !isGuest} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child

@@ -2,29 +2,22 @@ import { Role, User } from "@prisma/client";
 import { Dialog, Transition } from "@headlessui/react";
 import { trpc } from "src/utils/trpc";
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
-import UserCard from "@cards/UserCard";
 
 interface Users {
     user: User;
-    isAdmin: boolean;
+    refetch: () => void;
+    closeModal: () => void;
+    showModal: boolean;
 }
 
-const UserModal = ({ user, isAdmin }: Users) => {
-    const [showModal, setShowModal] = useState(false);
-    function openModal() {
-        setShowModal(true);
-    }
-    function closeModal() {
-        setShowModal(false);
-    }
-    const utils = trpc.useContext();
+const UserModal = ({ user, refetch, closeModal, showModal }: Users) => {
     const { mutate } = trpc.useMutation("user.update", {
         onSuccess: () => {
-            utils.queryClient.resetQueries(["user.get"]);
+            refetch();
             closeModal();
         },
     });
@@ -48,7 +41,6 @@ const UserModal = ({ user, isAdmin }: Users) => {
     });
     return (
         <>
-            <UserCard user={user} isAdmin={isAdmin} onClick={openModal} />
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
@@ -154,11 +146,7 @@ const UserModal = ({ user, isAdmin }: Users) => {
                                             <button type="submit" className="btn-prm-outline">
                                                 Save
                                             </button>
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowModal(false)}
-                                                className="btn-can-outline"
-                                            >
+                                            <button type="button" onClick={closeModal} className="btn-can-outline">
                                                 Cancel
                                             </button>
                                         </div>

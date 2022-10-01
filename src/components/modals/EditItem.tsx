@@ -4,22 +4,16 @@ import { trpc } from "@utils/trpc";
 import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { updateItem } from "@schemas/item";
-import { Fragment, useState } from "react";
-import ItemCard from "@cards/ItemCard";
+import { Fragment } from "react";
 import uploadImage from "@utils/supabase";
 
 interface Items {
     item: Item;
+    showModal: boolean;
+    closeModal: () => void;
 }
 
-export const EditItem = ({ item }: Items) => {
-    const [showModal, setShowModal] = useState(false);
-    function openModal() {
-        setShowModal(true);
-    }
-    function closeModal() {
-        setShowModal(false);
-    }
+export const EditItem = ({ item, showModal, closeModal }: Items) => {
     const utils = trpc.useContext();
     const { mutate } = trpc.useMutation("item.update", {
         onSuccess: () => {
@@ -58,7 +52,6 @@ export const EditItem = ({ item }: Items) => {
     });
     return (
         <>
-            <ItemCard item={item} onClick={openModal} />
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
