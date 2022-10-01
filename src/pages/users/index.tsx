@@ -10,13 +10,13 @@ interface Props {
 }
 
 const Users: NextPage<Props> = ({isAdmin}) => {
-    const { data, isLoading } = trpc.useQuery(["user.get"]);
+    const { data, isLoading, refetch } = trpc.useQuery(["user.get"]);
     if (isLoading) return <Loading />;
     return (
         <>
             <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
                 {data?.map((user, index) => (
-                    <UserCard key={index} user={user} isAdmin={isAdmin} />
+                    <UserCard key={index} user={user} isAdmin={isAdmin} refetch={refetch} />
                 ))}
                 {data?.length === 0 && (
                     <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
