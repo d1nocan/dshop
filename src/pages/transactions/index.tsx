@@ -39,7 +39,7 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
                     </table>
                 </div>
             ) : (
-                <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
+                <div className="mx-auto mt-10 w-48 justify-center rounded-xl bg-violet-500 p-4 text-center text-neutral-100 shadow-lg">
                     <div>
                         <span>No Transaction found</span>
                     </div>
