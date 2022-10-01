@@ -12,18 +12,18 @@ const Users: NextPage = () => {
     const { data } = trpc.useQuery(["user.get"]);
     return (
         <>
-                <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
-                    {data?.map((user, index) => (
-                        <UserModal key={index} user={user} isAdmin={isAdmin} />
-                    ))}
-                    {data?.length === 0 && (
-                        <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
-                            <div>
-                                <span>No user found</span>
-                            </div>
+            <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
+                {data?.map((user, index) => (
+                    <UserModal key={index} user={user} isAdmin={isAdmin} />
+                ))}
+                {data?.length === 0 && (
+                    <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
+                        <div>
+                            <span>No user found</span>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
+            </div>
         </>
     );
 };

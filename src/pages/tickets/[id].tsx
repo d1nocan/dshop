@@ -54,84 +54,82 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
     }, [data, session]);
     return (
         <>
-                <div className="container m-10 mx-auto flex w-6/12 flex-col rounded-lg bg-neutral-700 p-4">
-                    <h1 className="mb-4 text-center text-4xl font-bold text-neutral-900 dark:text-neutral-100">
-                        {data?.title}
-                    </h1>
-                    <h2 className={`text-center ${statusColor(data?.status)} mb-4 text-2xl`}>{data?.status}</h2>
-                    {isAdmin && (
-                        <div className="flex flex-row justify-center">
-                            <button
-                                type="button"
-                                className={`${data?.status === TicketStatus.Open ? "btn-can" : "btn-acc"} duration-300`}
-                                onClick={() =>
-                                    updateTicket({
-                                        id: data?.id as string,
-                                        status:
-                                            data?.status === TicketStatus.Open
-                                                ? TicketStatus.Closed
-                                                : TicketStatus.Open,
-                                    })
-                                }
+            <div className="container m-10 mx-auto flex w-6/12 flex-col rounded-lg bg-neutral-700 p-4">
+                <h1 className="mb-4 text-center text-4xl font-bold text-neutral-900 dark:text-neutral-100">
+                    {data?.title}
+                </h1>
+                <h2 className={`text-center ${statusColor(data?.status)} mb-4 text-2xl`}>{data?.status}</h2>
+                {isAdmin && (
+                    <div className="flex flex-row justify-center">
+                        <button
+                            type="button"
+                            className={`${data?.status === TicketStatus.Open ? "btn-can" : "btn-acc"} duration-300`}
+                            onClick={() =>
+                                updateTicket({
+                                    id: data?.id as string,
+                                    status:
+                                        data?.status === TicketStatus.Open ? TicketStatus.Closed : TicketStatus.Open,
+                                })
+                            }
+                        >
+                            {data?.status === TicketStatus.Open ? "Close" : "Open"}
+                        </button>
+                    </div>
+                )}
+                <ul className="mx-auto mb-10 w-4/6">
+                    {data?.messages?.map((message, index) => (
+                        <li key={index} className="m-4">
+                            <div
+                                className={`relative flex w-fit flex-col ${
+                                    session.data?.user?.id === message.userId ? "ml-auto" : "mr-auto"
+                                } rounded-lg bg-neutral-800 p-4 text-neutral-100`}
                             >
-                                {data?.status === TicketStatus.Open ? "Close" : "Open"}
-                            </button>
-                        </div>
-                    )}
-                    <ul className="mx-auto mb-10 w-4/6">
-                        {data?.messages?.map((message, index) => (
-                            <li key={index} className="m-4">
-                                <div
-                                    className={`relative flex w-fit flex-col ${
-                                        session.data?.user?.id === message.userId ? "ml-auto" : "mr-auto"
-                                    } rounded-lg bg-neutral-800 p-4 text-neutral-100`}
-                                >
-                                    <div className="mb-4">
-                                        <div className="relative h-12 w-12">
-                                            <Image
-                                                src={(message.user.image as string) || "/dalle.png"}
-                                                alt={message.user.name as string}
-                                                layout="fill"
-                                                className="rounded-xl"
-                                            />
-                                        </div>
-                                        <span>{message.user.name}</span>
+                                <div className="mb-4">
+                                    <div className="relative h-12 w-12">
+                                        <Image
+                                            src={(message.user.image as string) || "/dalle.png"}
+                                            alt={message.user.name as string}
+                                            layout="fill"
+                                            className="rounded-xl"
+                                        />
                                     </div>
-                                    <div className="break-all">
-                                        <span>{message.content}</span>
-                                    </div>
-                                    <p className="mt-4 text-sm font-light">{message.createdAt.toLocaleString()}</p>
+                                    <span>{message.user.name}</span>
                                 </div>
-                            </li>
-                        ))}
-                    </ul>
-                    {data?.status === TicketStatus.Open && (
-                        <div className="bg-base-300 mx-auto w-2/3 rounded-xl py-10">
-                            <form
-                                onSubmit={handleSubmit(() => {
-                                    setValue("ticketId", data?.id as string);
-                                    mutate(getValues());
-                                })}
-                            >
-                                <div className="form-control">
-                                    <label className="label">
-                                        <span className="mx-auto text-neutral-100">Message</span>
-                                    </label>
-                                    <textarea
-                                        className="textarea"
-                                        placeholder="Message"
-                                        {...register("content")}
-                                    ></textarea>
+                                <div className="break-all">
+                                    <span>{message.content}</span>
                                 </div>
-                                <div className="form-control mt-5">
-                                    <button type="submit" className="btn-prm">
-                                        Send
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    )}
-                </div>
+                                <p className="mt-4 text-sm font-light">{message.createdAt.toLocaleString()}</p>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+                {data?.status === TicketStatus.Open && (
+                    <div className="bg-base-300 mx-auto w-2/3 rounded-xl py-10">
+                        <form
+                            onSubmit={handleSubmit(() => {
+                                setValue("ticketId", data?.id as string);
+                                mutate(getValues());
+                            })}
+                        >
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="mx-auto text-neutral-100">Message</span>
+                                </label>
+                                <textarea
+                                    className="textarea"
+                                    placeholder="Message"
+                                    {...register("content")}
+                                ></textarea>
+                            </div>
+                            <div className="form-control mt-5">
+                                <button type="submit" className="btn-prm">
+                                    Send
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+            </div>
         </>
     );
 };

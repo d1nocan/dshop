@@ -35,7 +35,7 @@ export const ItemCard = ({ item, isGuest, onClick }: ItemCard) => {
                         <h2 className="m-2 text-2xl font-semibold">{item.name}</h2>
                         <div className="my-auto break-words">
                             <p>{item.price.toString()} Points</p>
-                            {!isGuest && (<p>{item.quantity !== 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>)}
+                            {!isGuest && <p>{item.quantity !== 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>}
                         </div>
                         {!isGuest && (
                             <button onClick={onClick} type="button" className="btn-prm mt-2">

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 
 interface Props {
     isAdmin?: boolean;
-};
+}
 
 const UpdateTransaction = dynamic(() => import("@modals/UpdateTransaction"));
 

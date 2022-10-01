@@ -10,37 +10,37 @@ interface Props {
     isAdmin?: boolean;
 }
 
-const Tickets: NextPage<Props> = ({isAdmin}) => {
+const Tickets: NextPage<Props> = ({ isAdmin }) => {
     const { data: tickets } = trpc.useQuery(["ticket.get"]);
     return (
         <>
             {isAdmin && <CreateTicket />}
-                <div className="container mx-auto mt-10 overflow-x-auto">
-                    {(tickets?.length as number) > 0 ? (
-                        <table className="mx-auto w-10/12 min-w-max table-auto">
-                            <thead>
-                                <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
-                                    <th className="py-3 px-6 text-left"></th>
-                                    <th className="py-3 px-6 text-left">Name</th>
-                                    <th className="py-3 px-6 text-left">Title</th>
-                                    <th className="py-3 px-6 text-left">Status</th>
-                                    <th className="py-3 px-6 text-left"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tickets?.map((ticket, index) => (
-                                    <Ticket key={index} index={index} ticket={ticket} />
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <div className="alert alert-info mx-auto mt-10 w-40 justify-center shadow-lg">
-                            <div>
-                                <span>No ticket found</span>
-                            </div>
+            <div className="container mx-auto mt-10 overflow-x-auto">
+                {(tickets?.length as number) > 0 ? (
+                    <table className="mx-auto w-10/12 min-w-max table-auto">
+                        <thead>
+                            <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
+                                <th className="py-3 px-6 text-left"></th>
+                                <th className="py-3 px-6 text-left">Name</th>
+                                <th className="py-3 px-6 text-left">Title</th>
+                                <th className="py-3 px-6 text-left">Status</th>
+                                <th className="py-3 px-6 text-left"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tickets?.map((ticket, index) => (
+                                <Ticket key={index} index={index} ticket={ticket} />
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="alert alert-info mx-auto mt-10 w-40 justify-center shadow-lg">
+                        <div>
+                            <span>No ticket found</span>
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
+            </div>
         </>
     );
 };

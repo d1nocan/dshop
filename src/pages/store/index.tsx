@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { trpc } from "src/utils/trpc";
 
 const Buy = dynamic(() => import("@modals/BuyItem"));
-const EditItem  = dynamic(() => import("@modals/EditItem"));
+const EditItem = dynamic(() => import("@modals/EditItem"));
 const CreateItem = dynamic(() => import("@modals/CreateItem"));
 const Loading = dynamic(() => import("@general/loading"));
 
@@ -23,9 +23,9 @@ const Store: NextPage = () => {
                     ?.filter((item) => item.isHidden === false)
                     .map((item, index) =>
                         session?.user?.role === Role.Admin ? (
-                            <EditItem  key={index} item={item} />
+                            <EditItem key={index} item={item} />
                         ) : (
-                            <Buy key={index} item={item} isGuest={isGuest}/>
+                            <Buy key={index} item={item} isGuest={isGuest} />
                         ),
                     )}
                 {data?.length === 0 && (
