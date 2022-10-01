@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Store: NextPage<Props> = ({ isAdmin, isGuest }) => {
-    const { data, isLoading, refetch } = trpc.useQuery(["item.get"]);
+    const { data, isLoading } = trpc.useQuery(["item.get"]);
     if (isLoading) return <Loading />;
     return (
         <>
@@ -23,7 +23,7 @@ const Store: NextPage<Props> = ({ isAdmin, isGuest }) => {
                 {data
                     ?.filter((item) => item.isHidden === false)
                     .map((item, index) => (
-                        <ItemCard key={index} refetch={refetch} item={item} isAdmin={isAdmin} isGuest={isGuest} />
+                        <ItemCard key={index} item={item} isAdmin={isAdmin} isGuest={isGuest} />
                     ))}
                 {data?.length === 0 && (
                     <div className="mx-auto mt-10 min-w-fit justify-center rounded-xl bg-violet-500 p-4 text-center text-neutral-100 shadow-lg">

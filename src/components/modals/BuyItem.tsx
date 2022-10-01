@@ -8,16 +8,16 @@ import { Fragment } from "react";
 
 interface Items {
     item: Item;
-    refetch: () => void;
     closeModal: () => void;
     showModal: boolean;
     isGuest: boolean;
 }
 
-export const BuyItem = ({ item, isGuest, refetch, closeModal, showModal }: Items) => {
+export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
+    const utils = trpc.useContext();
     const { mutate, error } = trpc.useMutation("item.buy", {
         onSuccess: () => {
-            refetch();
+            utils.queryClient.resetQueries(["item.get"]);
             closeModal();
         },
     });

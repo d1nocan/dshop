@@ -34,7 +34,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
         getValues,
         setValue,
         reset,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm({
         resolver: zodResolver(updateItem),
         defaultValues: {
@@ -55,7 +55,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="relative z-50"
+                    className="relative z-40"
                     onClose={() => {
                         closeModal();
                         reset();
@@ -101,6 +101,11 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                             Edit : {item.name}
                                         </Dialog.Title>
                                         <div className="modal-body">
+                                            {isSubmitting && (
+                                                <div className="absolute mt-7 flex h-full w-full bg-neutral-900 opacity-100 duration-300">
+                                                    <div className="m-auto aspect-square w-[5vh] animate-spin rounded-full border-2 border-b-0 border-l-0 border-neutral-100"></div>
+                                                </div>
+                                            )}
                                             <div className="form-control lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>
