@@ -1,10 +1,16 @@
 import { selectUser, updateUser } from "@schemas/user";
+import { Role } from "@prisma/client";
 import { createProtectedRouter } from "./protected-router";
 import { createRouter } from "./context";
 
 export const userRouter = createRouter().query("get", {
     resolve({ ctx }) {
         return ctx.prisma.user.findMany({
+            where: {
+                role: {
+                    not: ctx.session?.user?.role === Role.Admin ? undefined : Role.Banned,
+                },
+            },
             orderBy: {
                 points: "desc",
             },

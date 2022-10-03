@@ -1,11 +1,22 @@
 import { Role } from "@prisma/client";
+import * as trpc from "@trpc/server";
 import { selectItem, createItem, updateItem } from "@schemas/item";
 import { createProtectedRouter } from "./protected-router";
 import { createRouter } from "./context";
 
 export const itemRouter = createRouter().query("get", {
     resolve({ ctx }) {
-        return ctx.prisma.item.findMany({});
+        if (ctx.session?.user?.role === Role.Banned) {
+            throw new trpc.TRPCError({
+                code: "UNAUTHORIZED",
+                message: "You are banned from using this service.",
+            });
+        }
+        return ctx.prisma.item.findMany({
+            where: {
+                isHidden: ctx.session?.user?.role === Role.Admin ? undefined : false,
+            },
+        });
     },
 });
 
@@ -76,7 +87,7 @@ export const protectedItemRouter = createProtectedRouter()
             if (ctx.session.user.points < item.price) {
                 throw new Error("Not enough points");
             }
-            if (item.cooldown > 0 && BigInt(Date.now()) - item?.lastBuy < item.cooldown) {
+            if (item.cooldown > 0 && BigInt(Date.now()) - item.lastBuy < item.cooldown) {
                 throw new Error("Item is on cooldown");
             }
             if (ctx.session.user.cooldown > Date.now()) {
