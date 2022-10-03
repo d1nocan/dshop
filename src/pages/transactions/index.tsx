@@ -1,6 +1,8 @@
 import type { NextPage } from "next";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
+import Alert from "@general/alert";
+import Loading from "@general/loading";
 
 interface Props {
     isAdmin?: boolean;
@@ -9,7 +11,8 @@ interface Props {
 const UpdateTransaction = dynamic(() => import("@modals/UpdateTransaction"));
 
 const Transactions: NextPage<Props> = ({ isAdmin }) => {
-    const { data: transactions, refetch } = trpc.useQuery(["transaction.get"]);
+    const { data: transactions, refetch, isLoading } = trpc.useQuery(["transaction.get"]);
+    if (isLoading) return <Loading />;
     return (
         <>
             {(transactions?.length as number) > 0 ? (
@@ -39,11 +42,7 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
                     </table>
                 </div>
             ) : (
-                <div className="mx-auto mt-10 w-48 justify-center rounded-xl bg-violet-500 p-4 text-center text-neutral-100 shadow-lg">
-                    <div>
-                        <span>No Transaction found</span>
-                    </div>
-                </div>
+                !isLoading && <Alert type="info" message="No transactions found" />
             )}
         </>
     );

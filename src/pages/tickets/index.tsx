@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import Alert from "@general/alert";
+import Loading from "@general/loading";
 
 const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
 const Ticket = dynamic(() => import("@tables/ticket"));
@@ -12,7 +13,8 @@ interface Props {
 }
 
 const Tickets: NextPage<Props> = ({ isAdmin }) => {
-    const { data: tickets } = trpc.useQuery(["ticket.get"]);
+    const { data: tickets, isLoading } = trpc.useQuery(["ticket.get"]);
+    if (isLoading) return <Loading />;
     return (
         <>
             {isAdmin && <CreateTicket />}
@@ -35,7 +37,7 @@ const Tickets: NextPage<Props> = ({ isAdmin }) => {
                         </tbody>
                     </table>
                 ) : (
-                    <Alert type="info" message="No tickets found" />
+                    !isLoading && <Alert type="info" message="No tickets found" />
                 )}
             </div>
         </>

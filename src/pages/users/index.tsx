@@ -19,7 +19,7 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
                 {data?.map((user, index) => (
                     <UserCard key={index} user={user} isAdmin={isAdmin} />
                 ))}
-                {data?.length === 0 && <Alert type="info" message="No users found" />}
+                {data?.length === 0 && !isLoading && <Alert type="info" message="No users found" />}
             </div>
         </>
     );
