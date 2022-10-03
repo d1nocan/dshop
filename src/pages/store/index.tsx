@@ -1,4 +1,5 @@
 import ItemCard from "@cards/ItemCard";
+import Alert from "@general/alert";
 import Loading from "@general/loading";
 import { Role } from "@prisma/client";
 import type { NextPage } from "next";
@@ -14,24 +15,17 @@ interface Props {
 }
 
 const Store: NextPage<Props> = ({ isAdmin, isGuest }) => {
-    const { data, isLoading } = trpc.useQuery(["item.get"]);
-    if (isLoading) return <Loading />;
+    const { data, isLoading, error, isError } = trpc.useQuery(["item.get"]);
+    if (isError) return <Alert message={error.message} type="error" />;
+    else if (isLoading) return <Loading />;
     return (
         <>
             {isAdmin && <CreateItem />}
-            <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
-                {data
-                    ?.filter((item) => item.isHidden === false)
-                    .map((item, index) => (
-                        <ItemCard key={index} item={item} isAdmin={isAdmin} isGuest={isGuest} />
-                    ))}
-                {data?.length === 0 && (
-                    <div className="mx-auto mt-10 min-w-fit justify-center rounded-xl bg-violet-500 p-4 text-center text-neutral-100 shadow-lg">
-                        <div>
-                            <span>No item found</span>
-                        </div>
-                    </div>
-                )}
+            <div className="container mx-auto flex flex-wrap justify-center gap-6 py-10 px-6">
+                {data?.map((item, index) => (
+                    <ItemCard key={index} item={item} isAdmin={isAdmin} isGuest={isGuest} />
+                ))}
+                {data?.length === 0 && <Alert message="No items found" type="info" />}
             </div>
         </>
     );

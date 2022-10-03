@@ -4,6 +4,7 @@ import { trpc } from "@utils/trpc";
 import { Role } from "@prisma/client";
 import UserCard from "@cards/UserCard";
 import Loading from "@general/loading";
+import Alert from "@general/alert";
 
 interface Props {
     isAdmin: boolean;
@@ -18,13 +19,7 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
                 {data?.map((user, index) => (
                     <UserCard key={index} user={user} isAdmin={isAdmin} />
                 ))}
-                {data?.length === 0 && (
-                    <div className="alert alert-info mx-auto mt-10 w-fit justify-center shadow-lg">
-                        <div>
-                            <span>No user found</span>
-                        </div>
-                    </div>
-                )}
+                {data?.length === 0 && <Alert type="info" message="No users found" />}
             </div>
         </>
     );

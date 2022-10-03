@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
+import Alert from "@general/alert";
 
 const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
 const Ticket = dynamic(() => import("@tables/ticket"));
@@ -34,11 +35,7 @@ const Tickets: NextPage<Props> = ({ isAdmin }) => {
                         </tbody>
                     </table>
                 ) : (
-                    <div className="alert alert-info mx-auto mt-10 w-40 justify-center shadow-lg">
-                        <div>
-                            <span>No ticket found</span>
-                        </div>
-                    </div>
+                    <Alert type="info" message="No tickets found" />
                 )}
             </div>
         </>
