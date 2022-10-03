@@ -23,7 +23,7 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
     return (
         <>
             <div className="card relative">
-                <div className="invisible absolute -inset-1 z-0 animate-pulse bg-gradient-to-r from-indigo-300 to-purple-400 blur xl:visible "></div>
+                {/* <div className="invisible absolute -inset-1 z-0 animate-pulse bg-gradient-to-r from-indigo-300 to-purple-400 blur-sm xl:visible "></div> */}
                 <div className="card-body relative">
                     <figure className="image-box">
                         {item.image ? (
