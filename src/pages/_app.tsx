@@ -7,8 +7,8 @@ import { withTRPC } from "@trpc/next";
 import { SessionProvider } from "next-auth/react";
 import type { AppType } from "next/app";
 import superjson from "superjson";
-import type { AppRouter } from "../server/router";
 import type { Session } from "next-auth";
+import type { AppRouter } from "../server/router";
 import "../styles/globals.css";
 
 const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
@@ -34,12 +34,7 @@ const getBaseUrl = () => {
 
 export default withTRPC<AppRouter>({
     config() {
-        /**
-         * If you want to use SSR, you need to use the server's full URL
-         * @link https://trpc.io/docs/ssr
-         */
         const url = `${getBaseUrl()}/api/trpc`;
-
         return {
             links: [
                 loggerLink({
@@ -51,14 +46,15 @@ export default withTRPC<AppRouter>({
             ],
             url,
             transformer: superjson,
-            /**
-             * @link https://react-query.tanstack.com/reference/QueryClient
-             */
-            // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
+            queryClientConfig: {
+                defaultOptions: {
+                    queries: {
+                        refetchOnWindowFocus: false,
+                        retry: false,
+                    },
+                },
+            },
         };
     },
-    /**
-     * @link https://trpc.io/docs/ssr
-     */
     ssr: false,
 })(MyApp);
