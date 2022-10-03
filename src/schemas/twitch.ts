@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-export const addPoints = z.object({
+export const giveEveryone = z.object({
     points: z.number(),
-    users: z.array(z.string()),
 });

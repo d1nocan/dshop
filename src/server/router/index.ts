@@ -4,6 +4,7 @@ import { createRouter } from "./context";
 import { itemRouter, protectedItemRouter } from "./item";
 import { ticketRouter } from "./ticket";
 import { transactionRouter } from "./transaction";
+import twitchRouter from "./twitch";
 import { protectedUserRouter, userRouter } from "./user";
 
 export const appRouter = createRouter()
@@ -13,6 +14,7 @@ export const appRouter = createRouter()
     .merge("user.", userRouter)
     .merge("user.", protectedUserRouter)
     .merge("ticket.", ticketRouter)
+    .merge("twitch.", twitchRouter)
     .merge("transaction.", transactionRouter);
 
 // export type definition of API

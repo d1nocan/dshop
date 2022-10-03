@@ -1,13 +1,14 @@
-import { addPoints } from "./../../schemas/twitch";
+import { Role } from "@prisma/client";
+import { giveEveryone } from "./../../schemas/twitch";
 import { createRouter } from "./context";
 
-const twitchRouter = createRouter().mutation("givepoints", {
-    input: addPoints,
+const twitchRouter = createRouter().mutation("givePointsEveryone", {
+    input: giveEveryone,
     resolve({ ctx, input }) {
         return ctx.prisma.user.updateMany({
             where: {
-                name: {
-                    in: input.users,
+                role: {
+                    not: Role.Banned,
                 },
             },
             data: {
