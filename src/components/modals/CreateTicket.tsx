@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { createTicket } from "@schemas/ticket";
 import { Fragment, useState } from "react";
+import Button from "@general/button";
 
 export const CreateTicket = () => {
     const [showModal, setShowModal] = useState(false);
@@ -34,9 +35,9 @@ export const CreateTicket = () => {
     });
     return (
         <>
-            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold text-neutral-100">
+            <Button type="primary" onClick={openModal} className="mx-auto mt-10 flex font-bold">
                 Create Ticket
-            </button>
+            </Button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child
@@ -62,11 +63,7 @@ export const CreateTicket = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal h-[60vh]">
-                                    <form
-                                        onSubmit={handleSubmit(() => {
-                                            mutate(getValues());
-                                        })}
-                                    >
+                                    <form>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Ticket
                                         </Dialog.Title>
@@ -98,13 +95,19 @@ export const CreateTicket = () => {
                                                 </p>
                                             )}
                                         </div>
-                                        <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button type="submit" className="button button outline primary">
+                                        <div className="flex justify-end gap-4 mt-10">
+                                            <Button
+                                                type="primary"
+                                                outline
+                                                onClick={handleSubmit(() => {
+                                                    mutate(getValues());
+                                                })}
+                                            >
                                                 Buy
-                                            </button>
-                                            <button type="button" onClick={closeModal} className="button outline danger">
+                                            </Button>
+                                            <Button type="danger" onClick={closeModal} outline>
                                                 Cancel
-                                            </button>
+                                            </Button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

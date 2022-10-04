@@ -5,6 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { createItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
+import Button from "@general/button";
 
 export const CreateItem = () => {
     const [showModal, setShowModal] = useState(false);
@@ -23,7 +24,6 @@ export const CreateItem = () => {
     });
     const {
         register,
-        handleSubmit,
         watch,
         getValues,
         setValue,
@@ -43,11 +43,20 @@ export const CreateItem = () => {
             isHidden: true,
         },
     });
+    async function onSubmit() {
+        const filelist = (document.getElementById("filecrt") as HTMLInputElement).files as FileList;
+        if (filelist.length > 0) {
+            const link = (await uploadImage(filelist)) as string;
+            setValue("image", link);
+        }
+        setValue("cooldown", getValues("cooldown") * 1000);
+        mutate(getValues());
+    }
     return (
         <>
-            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold text-neutral-100">
+            <Button type="primary" onClick={openModal} className="flex mx-auto mt-10 font-bold">
                 Create Item
-            </button>
+            </Button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
@@ -80,18 +89,7 @@ export const CreateItem = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
-                                    <form
-                                        onSubmit={handleSubmit(async () => {
-                                            const filelist = (document.getElementById("filecrt") as HTMLInputElement)
-                                                .files as FileList;
-                                            if (filelist.length > 0) {
-                                                const link = (await uploadImage(filelist)) as string;
-                                                setValue("image", link);
-                                            }
-                                            setValue("cooldown", getValues("cooldown") * 1000);
-                                            mutate(getValues());
-                                        })}
-                                    >
+                                    <form>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Item
                                         </Dialog.Title>
@@ -233,12 +231,12 @@ export const CreateItem = () => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button type="submit" className="button button outline primary">
-                                                Update
-                                            </button>
-                                            <button type="button" onClick={closeModal} className="button outline danger">
+                                            <Button type="success" outline onClick={onSubmit}>
+                                                Create
+                                            </Button>
+                                            <Button type="danger" outline onClick={closeModal}>
                                                 Cancel
-                                            </button>
+                                            </Button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

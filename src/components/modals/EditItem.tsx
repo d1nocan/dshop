@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { updateItem } from "@schemas/item";
 import { Fragment } from "react";
 import uploadImage from "@utils/supabase";
+import Button from "@general/button";
 
 interface Items {
     item: Item;
@@ -29,7 +30,6 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
     });
     const {
         register,
-        handleSubmit,
         watch,
         getValues,
         setValue,
@@ -50,6 +50,15 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
             isHidden: item.isHidden,
         },
     });
+    async function onSubmit() {
+        const filelist = (document.getElementById(`fileupl-${item?.id}`) as HTMLInputElement).files as FileList;
+        if (filelist.length > 0) {
+            const link = (await uploadImage(filelist)) as string;
+            setValue("image", link);
+        }
+        setValue("cooldown", getValues("cooldown") * 1000);
+        mutate(getValues());
+    }
     return (
         <>
             <Transition appear show={showModal} as={Fragment}>
@@ -84,19 +93,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
-                                    <form
-                                        onSubmit={handleSubmit(async () => {
-                                            const filelist = (
-                                                document.getElementById(`fileupl-${item?.id}`) as HTMLInputElement
-                                            ).files as FileList;
-                                            if (filelist.length > 0) {
-                                                const link = (await uploadImage(filelist)) as string;
-                                                setValue("image", link);
-                                            }
-                                            setValue("cooldown", getValues("cooldown") * 1000);
-                                            mutate(getValues());
-                                        })}
-                                    >
+                                    <form>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Edit : {item.name}
                                         </Dialog.Title>
@@ -241,21 +238,21 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button type="submit" className="button button outline success">
+                                            <Button type="success" outline onClick={onSubmit}>
                                                 Update
-                                            </button>
-                                            <button
-                                                className="button outline danger"
-                                                type="button"
+                                            </Button>
+                                            <Button
+                                                type="danger"
+                                                outline
                                                 onClick={() => {
                                                     deleteMutate({ id: item.id });
                                                 }}
                                             >
                                                 Delete
-                                            </button>
-                                            <button type="button" onClick={closeModal} className="button outline warning">
+                                            </Button>
+                                            <Button type="warning" outline onClick={closeModal}>
                                                 Cancel
-                                            </button>
+                                            </Button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

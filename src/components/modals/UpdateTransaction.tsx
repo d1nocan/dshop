@@ -4,6 +4,7 @@ import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { default as TSA } from "@tables/transaction";
 import Image from "next/image";
+import Button from "@general/button";
 
 interface Items {
     transaction: Transaction & { user: User; item: Item };
@@ -141,16 +142,16 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                             </div>
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button
-                                                type="button"
+                                            <Button
+                                                type="primary"
+                                                outline
                                                 onClick={() => mutate({ status: status, id: transaction.id })}
-                                                className="button button outline primary"
                                             >
                                                 Update
-                                            </button>
-                                            <button type="button" onClick={closeModal} className="button outline danger">
+                                            </Button>
+                                            <Button type="danger" outline onClick={closeModal}>
                                                 Cancel
-                                            </button>
+                                            </Button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

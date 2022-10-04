@@ -2,6 +2,7 @@ import Image from "next/image";
 import { User } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Button from "@general/button";
 
 interface UserCard {
     user: User;
@@ -30,6 +31,8 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                             priority={true}
                             objectFit="contain"
                             className="rounded-xl"
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOc2N29HwAFxAJoV+j/RAAAAABJRU5ErkJggg=="
                         />
                     </div>
                     <div className="max-h-40 items-center text-center">
@@ -38,9 +41,9 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                         <p>Role: {user.role}</p>
                         <div className="mt-2">
                             {isAdmin && (
-                                <button type="button" onClick={openModal} className="button primary">
+                                <Button onClick={openModal} type="primary">
                                     Details
-                                </button>
+                                </Button>
                             )}
                         </div>
                     </div>

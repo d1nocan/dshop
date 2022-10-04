@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { selectItem } from "@schemas/item";
 import { Fragment } from "react";
+import Button from "@general/button";
 
 interface Items {
     item: Item;
@@ -96,18 +97,21 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                             </p>
                                         )}
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button
-                                                type={`${item.quantity > 0 ? "submit" : "button"}`}
-                                                className={`button button outline primary ${
-                                                    item.quantity === 0 && "cursor-not-allowed"
-                                                }`}
+                                            <Button
+                                                type="success"
+                                                outline
+                                                className={`${item.quantity === 0 && "cursor-not-allowed"}`}
                                                 disabled={item.quantity === 0}
                                             >
                                                 {item.quantity > 0 ? "Buy" : "Out of stock"}
-                                            </button>
-                                            <button type="button" onClick={closeModal} className="button outline danger">
+                                            </Button>
+                                            <Button
+                                                type="danger"
+                                                onClick={closeModal}
+                                                outline
+                                            >
                                                 Cancel
-                                            </button>
+                                            </Button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

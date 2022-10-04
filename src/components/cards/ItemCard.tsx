@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Item } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Button from "@general/button";
 
 const EditItem = dynamic(() => import("@modals/EditItem"));
 const BuyItem = dynamic(() => import("@modals/BuyItem"));
@@ -41,9 +42,9 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
                             {!isGuest && <p>{item.quantity !== 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>}
                         </div>
                         {!isGuest && (
-                            <button onClick={openModal} type="button" className="button primary mt-2">
+                            <Button onClick={openModal} type="primary" className="mt-2">
                                 {isAdmin ? "Edit" : "Get"}
-                            </button>
+                            </Button>
                         )}
                     </div>
                 </div>

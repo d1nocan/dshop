@@ -2,6 +2,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { Fragment } from "react";
+import Button from "./button";
 
 export const UserPanel = () => {
     const { data: session } = useSession();
@@ -32,20 +33,16 @@ export const UserPanel = () => {
                         <Popover.Panel className="absolute top-0 right-4 z-10 flex h-40 w-40 flex-col justify-between rounded-xl bg-neutral-700 text-neutral-100">
                             <p className="mt-3 ml-6 font-bold">{session.user.name}</p>
                             <p className="text-center font-semibold">Points: {session.user.points}</p>
-                            <button type="button" className="button primary" onClick={() => signOut()}>
+                            <Button type="primary" onClick={() => signOut()}>
                                 Sign Out
-                            </button>
+                            </Button>
                         </Popover.Panel>
                     </Transition>
                 </Popover>
             ) : (
-                <button
-                    type="button"
-                    className="mr-4 rounded-lg border border-violet-600 bg-violet-600 py-2 px-4 text-sm font-medium text-white duration-300 hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
-                    onClick={() => signIn()}
-                >
+                <Button type="primary" className="mr-4" onClick={() => signIn()}>
                     Login
-                </button>
+                </Button>
             )}
         </>
     );

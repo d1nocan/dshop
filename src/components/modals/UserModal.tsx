@@ -6,6 +6,7 @@ import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
+import Button from "@general/button";
 
 interface Users {
     user: User;
@@ -73,7 +74,7 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
-                                    <form onSubmit={handleSubmit(() => mutate(getValues()))} className="text-center">
+                                    <form className="text-center">
                                         <div className="flex justify-center">
                                             <div className="relative h-24 w-24">
                                                 <Image
@@ -143,12 +144,16 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                             </div>
                                         </Dialog.Description>
                                         <div className="mt-6 flex flex-row justify-end gap-4">
-                                            <button type="submit" className="button button outline primary">
+                                            <Button
+                                                type="primary"
+                                                outline
+                                                onClick={handleSubmit(() => mutate(getValues()))}
+                                            >
                                                 Save
-                                            </button>
-                                            <button type="button" onClick={closeModal} className="button outline danger">
+                                            </Button>
+                                            <Button type="danger" outline onClick={closeModal}>
                                                 Cancel
-                                            </button>
+                                            </Button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

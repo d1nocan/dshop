@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { NextPage } from "next";
+import Button from "@general/button";
 
 interface Props {
     id?: string | string[] | undefined;
@@ -61,9 +62,9 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                 <h2 className={`text-center ${statusColor(data?.status)} mb-4 text-2xl`}>{data?.status}</h2>
                 {isAdmin && (
                     <div className="flex flex-row justify-center">
-                        <button
-                            type="button"
-                            className={`${data?.status === TicketStatus.Open ? "button danger" : "button success"} duration-300`}
+                        <Button
+                            type={`${data?.status === TicketStatus.Open ? "danger" : "success"}`}
+                            className="duration-300"
                             onClick={() =>
                                 updateTicket({
                                     id: data?.id as string,
@@ -73,7 +74,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                             }
                         >
                             {data?.status === TicketStatus.Open ? "Close" : "Open"}
-                        </button>
+                        </Button>
                     </div>
                 )}
                 <ul className="mx-auto mb-10 w-4/6">
@@ -105,12 +106,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                 </ul>
                 {data?.status === TicketStatus.Open && (
                     <div className="bg-base-300 mx-auto w-2/3 rounded-xl py-10">
-                        <form
-                            onSubmit={handleSubmit(() => {
-                                setValue("ticketId", data?.id as string);
-                                mutate(getValues());
-                            })}
-                        >
+                        <form>
                             <div className="input-area">
                                 <label className="label">
                                     <span className="mx-auto text-neutral-100">Message</span>
@@ -122,9 +118,15 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                                 ></textarea>
                             </div>
                             <div className="input-area mt-5">
-                                <button type="submit" className="button primary">
+                                <Button
+                                    type="primary"
+                                    onClick={handleSubmit(() => {
+                                        setValue("ticketId", data?.id as string);
+                                        mutate(getValues());
+                                    })}
+                                >
                                     Send
-                                </button>
+                                </Button>
                             </div>
                         </form>
                     </div>
