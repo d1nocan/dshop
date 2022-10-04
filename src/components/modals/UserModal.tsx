@@ -143,10 +143,10 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                             </div>
                                         </Dialog.Description>
                                         <div className="mt-6 flex flex-row justify-end gap-4">
-                                            <button type="submit" className="btn-prm-outline">
+                                            <button type="submit" className="button button outline primary">
                                                 Save
                                             </button>
-                                            <button type="button" onClick={closeModal} className="btn-can-outline">
+                                            <button type="button" onClick={closeModal} className="button outline danger">
                                                 Cancel
                                             </button>
                                         </div>

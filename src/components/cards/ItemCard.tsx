@@ -41,7 +41,7 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
                             {!isGuest && <p>{item.quantity !== 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>}
                         </div>
                         {!isGuest && (
-                            <button onClick={openModal} type="button" className="btn-prm mt-2">
+                            <button onClick={openModal} type="button" className="button primary mt-2">
                                 {isAdmin ? "Edit" : "Get"}
                             </button>
                         )}

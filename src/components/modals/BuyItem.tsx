@@ -98,14 +98,14 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                         <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button
                                                 type={`${item.quantity > 0 ? "submit" : "button"}`}
-                                                className={`btn-prm-outline ${
+                                                className={`button button outline primary ${
                                                     item.quantity === 0 && "cursor-not-allowed"
                                                 }`}
                                                 disabled={item.quantity === 0}
                                             >
                                                 {item.quantity > 0 ? "Buy" : "Out of stock"}
                                             </button>
-                                            <button type="button" onClick={closeModal} className="btn-can-outline">
+                                            <button type="button" onClick={closeModal} className="button outline danger">
                                                 Cancel
                                             </button>
                                         </div>

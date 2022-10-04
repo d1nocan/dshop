@@ -3,11 +3,11 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { env } from "src/env/client.mjs";
 
-const DynamicLinks = dynamic(() => import("./links"));
+const Links = dynamic(() => import("./links"));
 
-const DynamicUserPanel = dynamic(() => import("./userpanel"));
+const UserPanel = dynamic(() => import("./userpanel"));
 
-const DynamicLink = dynamic(() => import("next/link"));
+const Link = dynamic(() => import("next/link"));
 
 export default function Navbar() {
     const [theme, setTheme] = useState(true); // false = light, true = dark
@@ -23,7 +23,7 @@ export default function Navbar() {
         <>
             <div className="bg-neutral text-neutral-content relative mx-auto flex h-16 w-11/12 flex-wrap items-center justify-between rounded-b-xl bg-neutral-800">
                 <div className="inline-flex flex-1 justify-start">
-                    <DynamicLinks />
+                    <Links />
                     <Switch
                         checked={theme}
                         onChange={setTheme}
@@ -43,13 +43,13 @@ export default function Navbar() {
                 </div>
                 <div className="inline-flex flex-1 flex-shrink-0 items-center">
                     <div className="mx-auto cursor-default text-2xl font-black uppercase tracking-wide text-neutral-100">
-                        <DynamicLink href="/">
+                        <Link href="/">
                             <span>{env.NEXT_PUBLIC_DEFAULT_SHOP_NAME}</span>
-                        </DynamicLink>
+                        </Link>
                     </div>
                 </div>
                 <div className="inline-flex flex-1 justify-end">
-                    <DynamicUserPanel />
+                    <UserPanel />
                 </div>
             </div>
         </>

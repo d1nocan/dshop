@@ -63,7 +63,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                     <div className="flex flex-row justify-center">
                         <button
                             type="button"
-                            className={`${data?.status === TicketStatus.Open ? "btn-can" : "btn-acc"} duration-300`}
+                            className={`${data?.status === TicketStatus.Open ? "button danger" : "button success"} duration-300`}
                             onClick={() =>
                                 updateTicket({
                                     id: data?.id as string,
@@ -122,7 +122,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                                 ></textarea>
                             </div>
                             <div className="form-control mt-5">
-                                <button type="submit" className="btn-prm">
+                                <button type="submit" className="button primary">
                                     Send
                                 </button>
                             </div>

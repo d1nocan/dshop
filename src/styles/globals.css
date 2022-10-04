@@ -40,6 +40,71 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
+.button {
+    @apply px-6 py-2 rounded-lg text-neutral-100 duration-300;
+
+    &.primary {
+        @apply bg-violet-500;
+    }
+
+    &.secondary {
+        @apply bg-neutral-900 dark:bg-neutral-200 dark:text-neutral-900;
+    }
+
+    &.danger {
+        @apply bg-red-500;
+    };
+
+    &.success {
+        @apply bg-green-500;
+    };
+
+    &.warning {
+        @apply bg-yellow-500;
+    };
+
+    &.outline {
+        @apply bg-transparent text-neutral-900 dark:text-neutral-200;
+
+        &:hover {
+            @apply bg-opacity-60;
+        }
+
+        &.primary {
+            @apply text-violet-500;
+
+            &:hover {
+                @apply bg-violet-500 text-neutral-100;
+            }
+        }
+
+        &.danger {
+            @apply text-red-500;
+
+            &:hover {
+                @apply bg-red-500 text-neutral-100;
+            }
+        };
+
+        &.success {
+            @apply text-green-500;
+
+            &:hover {
+                @apply bg-green-500 text-neutral-100;
+            }
+        };
+
+        &.warning {
+            @apply text-yellow-500;
+
+            &:hover {
+                @apply bg-yellow-500 text-neutral-100;
+            }
+        };
+
+    }
+}
+
 .input {
     @apply form-input dark:bg-neutral-900 min-w-[10em] max-w-[20em] rounded-xl text-center w-full mx-auto focus:ring-violet-500 focus:ring-1 focus:border-violet-500;
 }
@@ -66,34 +131,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .image-box {
     @apply relative mx-auto aspect-square w-28 mb-4 flex items-center justify-center overflow-hidden;
-}
-
-.btn-prm {
-    @apply bg-violet-600 px-6 py-2 rounded-lg text-neutral-50;
-}
-
-.btn-can {
-    @apply bg-red-600 px-6 py-2 rounded-lg text-neutral-50;
-}
-
-.btn-acc {
-    @apply bg-green-600 px-6 py-2 rounded-lg text-neutral-50;
-}
-
-.btn-del {
-    @apply bg-yellow-600 px-6 py-2 rounded-lg text-neutral-50;
-}
-
-.btn-prm-outline {
-    @apply border px-4 py-2 border-violet-500 rounded-xl rounded-tl-sm rounded-br-sm hover:bg-violet-400 duration-300 hover:text-neutral-900;
-}
-
-.btn-can-outline {
-    @apply border px-4 py-2 border-red-500 rounded-xl rounded-tl-sm rounded-br-sm hover:bg-red-400 duration-300 hover:text-neutral-900;
-}
-
-.btn-del-outline {
-    @apply border px-4 py-2 border-yellow-500 rounded-xl rounded-tl-sm rounded-br-sm hover:bg-yellow-400 duration-300 hover:text-neutral-900;
 }
 
 .form-control {

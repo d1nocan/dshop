@@ -144,11 +144,11 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                             <button
                                                 type="button"
                                                 onClick={() => mutate({ status: status, id: transaction.id })}
-                                                className="btn-prm-outline"
+                                                className="button button outline primary"
                                             >
                                                 Update
                                             </button>
-                                            <button type="button" onClick={closeModal} className="btn-can-outline">
+                                            <button type="button" onClick={closeModal} className="button outline danger">
                                                 Cancel
                                             </button>
                                         </div>

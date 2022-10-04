@@ -1,10 +1,14 @@
-import type { NextPage } from "next";
-import { getSession } from "next-auth/react";
+import type { GetServerSideProps, NextPage } from "next";
+import { unstable_getServerSession } from "next-auth/next";
 import { trpc } from "@utils/trpc";
 import { Role } from "@prisma/client";
-import UserCard from "@cards/UserCard";
 import Loading from "@general/loading";
 import Alert from "@general/alert";
+import { authOptions } from "@pages/api/auth/[...nextauth]";
+import dynamic from "next/dynamic";
+
+const UserCard = dynamic(() => import("@cards/UserCard"));
+
 
 interface Props {
     isAdmin: boolean;
@@ -25,11 +29,14 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
     );
 };
 
-Users.getInitialProps = async (ctx) => {
-    const session = await getSession(ctx);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions);
     const isAdmin = session?.user?.role === Role.Admin;
     return {
-        isAdmin,
+        props: {
+            session,
+            isAdmin,
+        },
     };
 };
 

@@ -19,7 +19,7 @@ const Transaction = ({ index, transaction, onClick }: Props) => {
             <td className="py-3 px-6 text-left">{transaction.status}</td>
             {session.data?.user?.role === Role.Admin && (
                 <td className="py-3 px-6 text-center">
-                    <button type="button" className="btn-prm-outline" onClick={onClick}>
+                    <button type="button" className="button button outline primary" onClick={onClick}>
                         EDIT
                     </button>
                 </td>

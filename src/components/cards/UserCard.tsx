@@ -10,7 +10,7 @@ interface UserCard {
 
 const UserModal = dynamic(() => import("@modals/UserModal"));
 
-export const UserCard = ({ user, isAdmin }: UserCard) => {
+const UserCard = ({ user, isAdmin }: UserCard) => {
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -27,6 +27,7 @@ export const UserCard = ({ user, isAdmin }: UserCard) => {
                             src={user.image as string}
                             alt={user.name as string}
                             layout="fill"
+                            priority={true}
                             objectFit="contain"
                             className="rounded-xl"
                         />
@@ -37,7 +38,7 @@ export const UserCard = ({ user, isAdmin }: UserCard) => {
                         <p>Role: {user.role}</p>
                         <div className="mt-2">
                             {isAdmin && (
-                                <button type="button" onClick={openModal} className="btn-prm">
+                                <button type="button" onClick={openModal} className="button primary">
                                     Details
                                 </button>
                             )}

@@ -34,7 +34,7 @@ export const CreateTicket = () => {
     });
     return (
         <>
-            <button type="button" onClick={openModal} className="btn-prm mx-auto mt-10 flex font-bold text-neutral-100">
+            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold text-neutral-100">
                 Create Ticket
             </button>
             <Transition appear show={showModal} as={Fragment}>
@@ -99,10 +99,10 @@ export const CreateTicket = () => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button type="submit" className="btn-prm-outline">
+                                            <button type="submit" className="button button outline primary">
                                                 Buy
                                             </button>
-                                            <button type="button" onClick={closeModal} className="btn-can-outline">
+                                            <button type="button" onClick={closeModal} className="button outline danger">
                                                 Cancel
                                             </button>
                                         </div>

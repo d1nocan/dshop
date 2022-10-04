@@ -241,11 +241,11 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button type="submit" className="btn-prm-outline">
+                                            <button type="submit" className="button button outline success">
                                                 Update
                                             </button>
                                             <button
-                                                className="btn-del-outline"
+                                                className="button outline danger"
                                                 type="button"
                                                 onClick={() => {
                                                     deleteMutate({ id: item.id });
@@ -253,7 +253,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                             >
                                                 Delete
                                             </button>
-                                            <button type="button" onClick={closeModal} className="btn-can-outline">
+                                            <button type="button" onClick={closeModal} className="button outline warning">
                                                 Cancel
                                             </button>
                                         </div>
