@@ -6,12 +6,11 @@ import dynamic from "next/dynamic";
 interface UserCard {
     user: User;
     isAdmin: boolean;
-    refetch: () => void;
 }
 
 const UserModal = dynamic(() => import("@modals/UserModal"));
 
-export const UserCard = ({ user, isAdmin, refetch }: UserCard) => {
+export const UserCard = ({ user, isAdmin }: UserCard) => {
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -46,7 +45,7 @@ export const UserCard = ({ user, isAdmin, refetch }: UserCard) => {
                     </div>
                 </div>
             </div>
-            {showModal && <UserModal user={user} refetch={refetch} closeModal={closeModal} showModal={showModal} />}
+            {showModal && <UserModal user={user} closeModal={closeModal} showModal={showModal} />}
         </>
     );
 };
