@@ -133,18 +133,34 @@ input[type="number"]::-webkit-outer-spin-button {
     @apply relative mx-auto aspect-square w-28 mb-4 flex items-center justify-center overflow-hidden;
 }
 
-.form-control {
+.input-area {
     @apply flex flex-col w-full min-w-[10em] max-w-[20em] mx-auto my-2 gap-2 text-center;
 }
 
 .alert {
     @apply p-4 text-neutral-100 rounded-xl min-w-[10rem] max-w-xs max-h-20 mx-auto mt-10;
-}
 
-.info-alert {
-    @apply bg-blue-800 alert;
-}
+    &.info {
+        @apply bg-blue-500;
+    }
 
-.error-alert {
-    @apply bg-red-800 alert;
+    &.error {
+        @apply bg-red-500;
+    }
+
+    &.success {
+        @apply bg-green-500;
+    }
+
+    &.warning {
+        @apply bg-yellow-500;
+    }
+
+    &.primary {
+        @apply bg-violet-500;
+    }
+
+    &.secondary {
+        @apply bg-neutral-900 dark:bg-neutral-200 dark:text-neutral-900;
+    }
 }

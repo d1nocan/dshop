@@ -71,7 +71,7 @@ export const CreateTicket = () => {
                                             Create Ticket
                                         </Dialog.Title>
                                         <div className="modal-body">
-                                            <div className="form-control lg:col-span-2">
+                                            <div className="input-area lg:col-span-2">
                                                 <label className="text-center">
                                                     <span>Title</span>
                                                 </label>
@@ -83,7 +83,7 @@ export const CreateTicket = () => {
                                                 />
                                                 {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                                             </div>
-                                            <div className="form-control h-[25vh] lg:col-span-2">
+                                            <div className="input-area h-[25vh] lg:col-span-2">
                                                 <label className="text-center">
                                                     <span>Message</span>
                                                 </label>

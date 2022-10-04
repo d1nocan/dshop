@@ -111,7 +111,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                                 mutate(getValues());
                             })}
                         >
-                            <div className="form-control">
+                            <div className="input-area">
                                 <label className="label">
                                     <span className="mx-auto text-neutral-100">Message</span>
                                 </label>
@@ -121,7 +121,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                                     {...register("content")}
                                 ></textarea>
                             </div>
-                            <div className="form-control mt-5">
+                            <div className="input-area mt-5">
                                 <button type="submit" className="button primary">
                                     Send
                                 </button>

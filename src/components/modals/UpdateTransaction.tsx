@@ -110,7 +110,7 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                             </p>
                                         </div>
                                         <div className="forms my-4 rounded border border-neutral-200 border-opacity-30 py-4 shadow-lg">
-                                            <div className="form-control my-2 mx-auto w-full max-w-xs">
+                                            <div className="input-area my-2 mx-auto w-full max-w-xs">
                                                 <span className="mb-1 text-center font-light">Status</span>
                                                 <Listbox value={status} onChange={setStatus}>
                                                     <Listbox.Button className="relative mx-auto w-60 cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">

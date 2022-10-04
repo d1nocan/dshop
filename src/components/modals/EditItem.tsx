@@ -106,7 +106,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     <div className="m-auto aspect-square w-[5vh] animate-spin rounded-full border-2 border-b-0 border-l-0 border-neutral-100"></div>
                                                 </div>
                                             )}
-                                            <div className="form-control lg:col-span-2">
+                                            <div className="input-area lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>
                                                 </label>
@@ -122,7 +122,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control w-full lg:col-span-2">
+                                            <div className="input-area w-full lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Description</span>
                                                 </label>
@@ -137,7 +137,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control w-full max-w-xs">
+                                            <div className="input-area w-full max-w-xs">
                                                 <label className="label">
                                                     <span className="label-text">Price</span>
                                                 </label>
@@ -158,7 +158,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control w-full max-w-xs">
+                                            <div className="input-area w-full max-w-xs">
                                                 <label className="label">
                                                     <span className="label-text">Quantity</span>
                                                 </label>
@@ -177,7 +177,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="form-control my-2 w-full max-w-xs">
+                                            <div className="input-area my-2 w-full max-w-xs">
                                                 <label className="label">
                                                     <span className="label-text">Global Cooldown</span>
                                                 </label>
@@ -191,7 +191,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     <span className="label-text-alt">Seconds</span>
                                                 </label>
                                             </div>
-                                            <div className="form-control flex w-full max-w-xs flex-row justify-center">
+                                            <div className="input-area flex w-full max-w-xs flex-row justify-center">
                                                 <label className="label">
                                                     <span className="label-text">Image</span>
                                                 </label>
@@ -203,7 +203,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     className="file:bg-primary hover:file:bg-primary-focus w-fit max-w-xs px-2 text-sm file:mx-8 file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300 lg:mb-8 lg:mt-2 file:lg:mx-2"
                                                 />
                                             </div>
-                                            <div className="form-control ml-2 flex w-full max-w-xs flex-row items-center justify-between">
+                                            <div className="input-area ml-2 flex w-full max-w-xs flex-row items-center justify-between">
                                                 <span className="label-text">Is input required?</span>
                                                 <input
                                                     title="Is input required?"
@@ -212,7 +212,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                     {...register("inputRequired")}
                                                 />
                                             </div>
-                                            <div className="form-control ml-2 flex w-full max-w-xs flex-row items-center justify-between">
+                                            <div className="input-area ml-2 flex w-full max-w-xs flex-row items-center justify-between">
                                                 <span className="label-text">Is hidden item?</span>
                                                 <input
                                                     title="Is hidden item?"
@@ -222,7 +222,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                                 />
                                             </div>
                                             {watch("inputRequired") && (
-                                                <div className="form-control mx-auto w-full max-w-xs">
+                                                <div className="input-area mx-auto w-full max-w-xs">
                                                     <label className="label">
                                                         <span className="label-text">Type wanted input</span>
                                                     </label>
