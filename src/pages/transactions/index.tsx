@@ -11,7 +11,7 @@ interface Props {
 const UpdateTransaction = dynamic(() => import("@modals/UpdateTransaction"));
 
 const Transactions: NextPage<Props> = ({ isAdmin }) => {
-    const { data: transactions, refetch, isLoading } = trpc.useQuery(["transaction.get"]);
+    const { data: transactions, isLoading } = trpc.useQuery(["transaction.get"]);
     if (isLoading) return <Loading />;
     return (
         <>
@@ -35,7 +35,7 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
                                     key={index}
                                     className="border-b border-neutral-200 bg-neutral-200 text-neutral-900 duration-300 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700"
                                 >
-                                    <UpdateTransaction index={index} transaction={transaction} refetch={refetch} />
+                                    <UpdateTransaction index={index} transaction={transaction} />
                                 </tr>
                             ))}
                         </tbody>
