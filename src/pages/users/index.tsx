@@ -9,7 +9,6 @@ import dynamic from "next/dynamic";
 
 const UserCard = dynamic(() => import("@cards/UserCard"));
 
-
 interface Props {
     isAdmin: boolean;
 }

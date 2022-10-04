@@ -35,7 +35,7 @@ const Ticket = ({ index, ticket }: Props) => {
             <td className="py-3 px-6 text-left">{ticket.status}</td>
             <td className="py-3 px-6 text-right">
                 <Link href={`./tickets/${ticket.id}`}>
-                    <Button type="primary" className="button button outline primary">
+                    <Button type="primary" className="button button primary outline">
                         Details
                     </Button>
                 </Link>

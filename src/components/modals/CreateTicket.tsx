@@ -95,7 +95,7 @@ export const CreateTicket = () => {
                                                 </p>
                                             )}
                                         </div>
-                                        <div className="flex justify-end gap-4 mt-10">
+                                        <div className="mt-10 flex justify-end gap-4">
                                             <Button
                                                 type="primary"
                                                 outline

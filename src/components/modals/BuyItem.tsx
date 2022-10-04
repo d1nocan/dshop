@@ -105,11 +105,7 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                             >
                                                 {item.quantity > 0 ? "Buy" : "Out of stock"}
                                             </Button>
-                                            <Button
-                                                type="danger"
-                                                onClick={closeModal}
-                                                outline
-                                            >
+                                            <Button type="danger" onClick={closeModal} outline>
                                                 Cancel
                                             </Button>
                                         </div>

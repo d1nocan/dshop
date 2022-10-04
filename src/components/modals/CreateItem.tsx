@@ -54,7 +54,7 @@ export const CreateItem = () => {
     }
     return (
         <>
-            <Button type="primary" onClick={openModal} className="flex mx-auto mt-10 font-bold">
+            <Button type="primary" onClick={openModal} className="mx-auto mt-10 flex font-bold">
                 Create Item
             </Button>
             <Transition appear show={showModal} as={Fragment}>
