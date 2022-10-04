@@ -4,15 +4,14 @@ import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { default as TSA } from "@tables/transaction";
 import Image from "next/image";
-import { RefetchOptions, RefetchQueryFilters, QueryObserverResult } from "react-query/types/core";
 
 interface Items {
     transaction: Transaction & { user: User; item: Item };
     index: number;
-    refetch: <TPageData>(options?: RefetchOptions & RefetchQueryFilters<TPageData>) => Promise<QueryObserverResult>;
 }
 
-export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
+export const UpdateTransaction = ({ transaction, index }: Items) => {
+    const utils = trpc.useContext();
     const [showModal, setShowModal] = useState(false);
     const [status, setStatus] = useState(transaction.status);
     function openModal() {
@@ -23,7 +22,7 @@ export const UpdateTransaction = ({ transaction, index, refetch }: Items) => {
     }
     const { mutate } = trpc.useMutation("transaction.update", {
         onSuccess: () => {
-            refetch();
+            utils.queryClient.resetQueries("item.get");
             closeModal();
         },
     });

@@ -7,17 +7,18 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
 
+
 interface Users {
     user: User;
-    refetch: () => void;
     closeModal: () => void;
     showModal: boolean;
 }
 
-const UserModal = ({ user, refetch, closeModal, showModal }: Users) => {
+const UserModal = ({ user, closeModal, showModal }: Users) => {
+    const utils = trpc.useContext();
     const { mutate } = trpc.useMutation("user.update", {
         onSuccess: () => {
-            refetch();
+            utils.queryClient.resetQueries("user.get");
             closeModal();
         },
     });
