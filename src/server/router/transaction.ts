@@ -36,6 +36,9 @@ export const transactionRouter = createProtectedRouter()
     .mutation("update", {
         input: updateTransaction,
         resolve({ ctx, input }) {
+            if (ctx.session.user.role !== Role.Admin) {
+                throw new Error("Unauthorized");
+            }
             return ctx.prisma.transaction.update({
                 where: {
                     id: input.id,

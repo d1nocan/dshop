@@ -63,6 +63,9 @@ export const protectedItemRouter = createProtectedRouter()
     .mutation("delete", {
         input: selectItem,
         resolve({ ctx, input }) {
+            if (ctx.session.user.role !== Role.Admin) {
+                throw new Error("Unauthorized");
+            }
             return ctx.prisma.item.delete({
                 where: {
                     id: input.id,
