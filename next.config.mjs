@@ -16,7 +16,7 @@ export default defineNextConfig({
     reactStrictMode: true,
     swcMinify: true,
     images: {
-        domains: ["static-cdn.jtvnw.net", env.NEXT_PUBLIC_SUPABASE_URL.split("//")[1]],
+        domains: ["static-cdn.jtvnw.net", env.NEXT_PUBLIC_SUPABASE_URL.split("//")[1], "cloudflare-ipfs.com"],
     },
     webpack(config) {
         config.module.rules.push({
