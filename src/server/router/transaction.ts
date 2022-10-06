@@ -35,10 +35,15 @@ export const transactionRouter = createProtectedRouter()
     })
     .mutation("update", {
         input: updateTransaction,
-        resolve({ ctx, input }) {
+        async resolve({ ctx, input }) {
             if (ctx.session.user.role !== Role.Admin) {
                 throw new Error("Unauthorized");
             }
+            const transaction = await ctx.prisma.transaction.findUnique({
+                where: {
+                    id: input.id,
+                },
+            });
             return ctx.prisma.transaction.update({
                 where: {
                     id: input.id,
@@ -46,6 +51,13 @@ export const transactionRouter = createProtectedRouter()
                 data: {
                     id: input.id,
                     status: input.status as Status,
+                    user: {
+                        update: {
+                            points: {
+                                increment: input.status === Status.Canceled ? transaction?.points : 0,
+                            },
+                        },
+                    },
                 },
             });
         },
