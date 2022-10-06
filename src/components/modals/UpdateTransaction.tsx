@@ -116,32 +116,38 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                         <div className="forms my-4 rounded border border-neutral-200 border-opacity-30 py-4 shadow-lg">
                                             <div className="input-area my-2 mx-auto w-full max-w-xs">
                                                 <span className="mb-1 text-center font-light">Status</span>
-                                                <Listbox value={status} onChange={setStatus}>
-                                                    <Listbox.Button className="relative mx-auto w-60 cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">
-                                                        {status}
-                                                    </Listbox.Button>
-                                                    <Transition
-                                                        as={Fragment}
-                                                        enter="transition ease-out duration-100"
-                                                        enterFrom="opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2"
-                                                        enterTo="opacity-100 scale-100"
-                                                        leave="transition ease-in duration-100"
-                                                        leaveFrom="opacity-100 scale-100"
-                                                        leaveTo="opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2"
-                                                    >
-                                                        <Listbox.Options className="absolute mt-16 max-h-60 w-60 cursor-default overflow-auto rounded-md bg-neutral-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 sm:text-sm">
-                                                            {Object.values(Status).map((status) => (
-                                                                <Listbox.Option
-                                                                    key={status}
-                                                                    value={status}
-                                                                    className="relative mx-auto cursor-default select-none py-2 duration-300 hover:text-violet-500"
-                                                                >
-                                                                    {status}
-                                                                </Listbox.Option>
-                                                            ))}
-                                                        </Listbox.Options>
-                                                    </Transition>
-                                                </Listbox>
+                                                {transaction.status === Status.Pending ? (
+                                                    <Listbox value={status} onChange={setStatus}>
+                                                        <Listbox.Button className="relative mx-auto w-60 cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">
+                                                            {status}
+                                                        </Listbox.Button>
+                                                        <Transition
+                                                            as={Fragment}
+                                                            enter="transition ease-out duration-100"
+                                                            enterFrom="opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2"
+                                                            enterTo="opacity-100 scale-100"
+                                                            leave="transition ease-in duration-100"
+                                                            leaveFrom="opacity-100 scale-100"
+                                                            leaveTo="opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2"
+                                                        >
+                                                            <Listbox.Options className="absolute mt-16 max-h-60 w-60 cursor-default overflow-auto rounded-md bg-neutral-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 sm:text-sm">
+                                                                {Object.values(Status).map((status) => (
+                                                                    <Listbox.Option
+                                                                        key={status}
+                                                                        value={status}
+                                                                        className="relative mx-auto cursor-default select-none py-2 duration-300 hover:text-violet-500"
+                                                                    >
+                                                                        {status}
+                                                                    </Listbox.Option>
+                                                                ))}
+                                                            </Listbox.Options>
+                                                        </Transition>
+                                                    </Listbox>
+                                                ) : (
+                                                    <span className="mb-1 text-center font-light">
+                                                        {transaction.status}
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
