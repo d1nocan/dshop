@@ -88,8 +88,8 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                                 />
                                             </div>
                                         </div>
-                                        <h3 className="text-lg font-semibold">{user.name}</h3>
-                                        <span className="text-lg font-light blur duration-200 hover:blur-0">
+                                        <h3 className="text-lg font-semibold mt-4">{user.name}</h3>
+                                        <span className="text-lg font-light blur duration-200 hover:blur-0 cursor-default">
                                             ID: {user.id}
                                         </span>
                                         <Dialog.Description>
