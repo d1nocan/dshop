@@ -1,5 +1,4 @@
-import { useSession } from "next-auth/react";
-import { Item, Role, Status, Transaction, User } from "@prisma/client";
+import { Item, Transaction, User } from "@prisma/client";
 import Button from "@general/button";
 
 type Props = {
