@@ -78,6 +78,14 @@ input[type="number"]::-webkit-outer-spin-button {
             }
         }
 
+        &.secondary {
+            @apply text-neutral-900 bg-transparent dark:text-neutral-200;
+
+            &:hover {
+                @apply text-neutral-900 dark:text-neutral-50;
+            }
+        }
+
         &.danger {
             @apply text-red-500;
 
