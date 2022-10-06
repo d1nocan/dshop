@@ -6,8 +6,10 @@ import { createItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
 import Button from "@general/button";
+import ModalLoading from "./ModalLoading";
 
 export const CreateItem = () => {
+    const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -44,6 +46,7 @@ export const CreateItem = () => {
         },
     });
     async function onSubmit() {
+        setLoading(true);
         const filelist = (document.getElementById("filecrt") as HTMLInputElement).files as FileList;
         if (filelist.length > 0) {
             const link = (await uploadImage(filelist)) as string;
@@ -89,6 +92,7 @@ export const CreateItem = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
+                                    {loading && <ModalLoading />}
                                     <form>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Item
@@ -200,16 +204,14 @@ export const CreateItem = () => {
                                                     {...register("inputRequired")}
                                                 />
                                             </div>
-                                            <div className="input-area my-2 w-full max-w-xs">
-                                                <label className="label">
-                                                    <span className="label-text">Is hidden item?</span>
-                                                    <input
-                                                        title="Is hidden item?"
-                                                        type="checkbox"
-                                                        className="toggle"
-                                                        {...register("isHidden")}
-                                                    />
-                                                </label>
+                                            <div className="input-area ml-2 flex w-full max-w-xs flex-row items-center justify-between">
+                                                <span className="label-text">Is hidden item?</span>
+                                                <input
+                                                    title="Is hidden item?"
+                                                    type="checkbox"
+                                                    className="toggle"
+                                                    {...register("isHidden")}
+                                                />
                                             </div>
                                             {watch("inputRequired") && (
                                                 <div className="input-area mx-auto w-full max-w-xs">

@@ -4,9 +4,10 @@ import { trpc } from "@utils/trpc";
 import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { updateItem } from "@schemas/item";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
 import Button from "@general/button";
+import ModalLoading from "./ModalLoading";
 
 interface Items {
     item: Item;
@@ -16,6 +17,7 @@ interface Items {
 
 export const EditItem = ({ item, showModal, closeModal }: Items) => {
     const utils = trpc.useContext();
+    const [loading, setLoading] = useState(false);
     const { mutate } = trpc.useMutation("item.update", {
         onSuccess: () => {
             utils.queryClient.resetQueries(["item.get"]);
@@ -34,7 +36,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
         getValues,
         setValue,
         reset,
-        formState: { errors, isSubmitting },
+        formState: { errors },
     } = useForm({
         resolver: zodResolver(updateItem),
         defaultValues: {
@@ -51,6 +53,7 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
         },
     });
     async function onSubmit() {
+        setLoading(true);
         const filelist = (document.getElementById(`fileupl-${item?.id}`) as HTMLInputElement).files as FileList;
         if (filelist.length > 0) {
             const link = (await uploadImage(filelist)) as string;
@@ -93,16 +96,12 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
+                                    {loading && <ModalLoading />}
                                     <form>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Edit : {item.name}
                                         </Dialog.Title>
                                         <div className="modal-body">
-                                            {isSubmitting && (
-                                                <div className="absolute mt-7 flex h-full w-full bg-neutral-900 opacity-100 duration-300">
-                                                    <div className="m-auto aspect-square w-[5vh] animate-spin rounded-full border-2 border-b-0 border-l-0 border-neutral-100"></div>
-                                                </div>
-                                            )}
                                             <div className="input-area lg:col-span-2">
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>

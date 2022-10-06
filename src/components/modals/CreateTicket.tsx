@@ -5,8 +5,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { createTicket } from "@schemas/ticket";
 import { Fragment, useState } from "react";
 import Button from "@general/button";
+import ModalLoading from "./ModalLoading";
 
 export const CreateTicket = () => {
+    const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -63,6 +65,7 @@ export const CreateTicket = () => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal h-[60vh]">
+                                    {loading && <ModalLoading />}
                                     <form>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Ticket
@@ -100,6 +103,7 @@ export const CreateTicket = () => {
                                                 type="primary"
                                                 outline
                                                 onClick={handleSubmit(() => {
+                                                    setLoading(true);
                                                     mutate(getValues());
                                                 })}
                                             >

@@ -25,7 +25,7 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                 <div className="card-body relative">
                     <div className="image-box">
                         <Image
-                            src={user.image as string ?? "/dalle.png"}
+                            src={(user.image as string) ?? "/dalle.png"}
                             alt={user.name as string}
                             layout="fill"
                             priority={true}

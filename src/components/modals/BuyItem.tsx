@@ -4,8 +4,9 @@ import { trpc } from "@utils/trpc";
 import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { selectItem } from "@schemas/item";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Button from "@general/button";
+import ModalLoading from "./ModalLoading";
 
 interface Items {
     item: Item;
@@ -15,6 +16,7 @@ interface Items {
 }
 
 export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
+    const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
     const { mutate, error } = trpc.useMutation("item.buy", {
         onSuccess: () => {
@@ -34,6 +36,7 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
             input: "",
         },
     });
+    console.log(errors);
     return (
         <>
             <Transition appear show={showModal && !isGuest} as={Fragment}>
@@ -61,11 +64,8 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
-                                    <form
-                                        onSubmit={handleSubmit(() => {
-                                            mutate(getValues());
-                                        })}
-                                    >
+                                    {loading && (!errors || !error) && <ModalLoading />}
+                                    <form className="p-6">
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             {item.name}
                                         </Dialog.Title>
@@ -102,6 +102,10 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                                 outline
                                                 className={`${item.quantity === 0 && "cursor-not-allowed"}`}
                                                 disabled={item.quantity === 0}
+                                                onClick={handleSubmit(() => {
+                                                    setLoading(true);
+                                                    mutate(getValues());
+                                                })}
                                             >
                                                 {item.quantity > 0 ? "Buy" : "Out of stock"}
                                             </Button>

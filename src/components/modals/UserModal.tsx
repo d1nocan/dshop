@@ -2,11 +2,12 @@ import { Role, User } from "@prisma/client";
 import { Dialog, Transition } from "@headlessui/react";
 import { trpc } from "src/utils/trpc";
 import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
 import Button from "@general/button";
+import ModalLoading from "./ModalLoading";
 
 interface Users {
     user: User;
@@ -15,6 +16,7 @@ interface Users {
 }
 
 const UserModal = ({ user, closeModal, showModal }: Users) => {
+    const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
     const { mutate } = trpc.useMutation("user.update", {
         onSuccess: () => {
@@ -74,11 +76,12 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
+                                    {loading && <ModalLoading />}
                                     <form className="text-center">
                                         <div className="flex justify-center">
                                             <div className="relative h-24 w-24">
                                                 <Image
-                                                    src={user.image as string}
+                                                    src={(user.image as string) || "/dalle.png"}
                                                     alt={user.name as string}
                                                     layout="fill"
                                                     className="rounded-xl"
@@ -92,7 +95,7 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                         <Dialog.Description>
                                             <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
                                                 <span className="mb-1 font-light">Role</span>
-                                                <select title="Role" className="input" {...register("role")}>
+                                                <select title="Role" className="input w-56" {...register("role")}>
                                                     {Object.keys(Role).map((role, index) => (
                                                         <option
                                                             key={index}
@@ -147,7 +150,10 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                             <Button
                                                 type="primary"
                                                 outline
-                                                onClick={handleSubmit(() => mutate(getValues()))}
+                                                onClick={handleSubmit(() => {
+                                                    setLoading(true);
+                                                    mutate(getValues());
+                                                })}
                                             >
                                                 Save
                                             </Button>

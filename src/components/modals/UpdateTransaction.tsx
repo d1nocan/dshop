@@ -5,6 +5,7 @@ import { Fragment, useState } from "react";
 import { default as TSA } from "@tables/transaction";
 import Image from "next/image";
 import Button from "@general/button";
+import ModalLoading from "./ModalLoading";
 
 interface Items {
     transaction: Transaction & { user: User; item: Item };
@@ -12,6 +13,7 @@ interface Items {
 }
 
 export const UpdateTransaction = ({ transaction, index }: Items) => {
+    const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
     const [showModal, setShowModal] = useState(false);
     const [status, setStatus] = useState(transaction.status);
@@ -23,7 +25,7 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
     }
     const { mutate } = trpc.useMutation("transaction.update", {
         onSuccess: () => {
-            utils.queryClient.resetQueries("item.get");
+            utils.queryClient.resetQueries("transaction.get");
             closeModal();
         },
     });
@@ -55,6 +57,7 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
+                                    {loading && <ModalLoading />}
                                     <form>
                                         <Dialog.Title className="mb-4 text-center text-2xl font-black">
                                             ID: {transaction.id}
@@ -81,7 +84,7 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                                 <div className="flex justify-center">
                                                     <div className="relative h-24 w-24">
                                                         <Image
-                                                            src={transaction.item.image as string}
+                                                            src={(transaction.item.image as string) || "/dalle.png"}
                                                             alt={transaction.item.name as string}
                                                             layout="fill"
                                                             className="rounded-3xl"
@@ -126,7 +129,7 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                                         leaveFrom="opacity-100 scale-100"
                                                         leaveTo="opacity-0 scale-0 -translate-x-1/2 -translate-y-1/2"
                                                     >
-                                                        <Listbox.Options className="absolute ml-10 mt-16 max-h-60 w-60 cursor-default overflow-auto rounded-md bg-neutral-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 sm:text-sm">
+                                                        <Listbox.Options className="absolute mt-16 max-h-60 w-60 cursor-default overflow-auto rounded-md bg-neutral-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 sm:text-sm">
                                                             {Object.values(Status).map((status) => (
                                                                 <Listbox.Option
                                                                     key={status}
@@ -145,7 +148,10 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                             <Button
                                                 type="primary"
                                                 outline
-                                                onClick={() => mutate({ status: status, id: transaction.id })}
+                                                onClick={() => {
+                                                    setLoading(true);
+                                                    mutate({ status: status, id: transaction.id });
+                                                }}
                                             >
                                                 Update
                                             </Button>
