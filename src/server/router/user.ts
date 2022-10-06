@@ -1,11 +1,14 @@
+import { getPage } from "./../../schemas/user";
 import { selectUser, updateUser } from "@schemas/user";
 import { Role } from "@prisma/client";
 import { createProtectedRouter } from "./protected-router";
 import { createRouter } from "./context";
 
 export const userRouter = createRouter().query("get", {
-    resolve({ ctx }) {
-        return ctx.prisma.user.findMany({
+    input: getPage,
+    async resolve({ ctx, input }) {
+        const total = await ctx.prisma.user.count();
+        const users = await ctx.prisma.user.findMany({
             where: {
                 role: {
                     not: ctx.session?.user?.role === Role.Admin ? undefined : Role.Banned,
@@ -14,7 +17,13 @@ export const userRouter = createRouter().query("get", {
             orderBy: {
                 points: "desc",
             },
+            take: 20,
+            skip: (input.page - 1) * 20,
         });
+        return {
+            total,
+            users,
+        };
     },
 });
 
@@ -36,7 +45,9 @@ export const protectedUserRouter = createProtectedRouter()
                 where: {
                     id: input.id,
                 },
-                data: input,
+                data: {
+                    ...input,
+                },
             });
         },
     });
