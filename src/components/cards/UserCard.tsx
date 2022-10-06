@@ -28,7 +28,7 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                             src={(user.image as string) ?? "/dalle.png"}
                             alt={user.name as string}
                             layout="fill"
-                            priority={true}
+                            priority
                             objectFit="contain"
                             className="rounded-xl"
                             placeholder="blur"
