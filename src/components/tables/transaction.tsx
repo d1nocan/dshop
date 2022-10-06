@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { Item, Role, Transaction, User } from "@prisma/client";
+import { Item, Role, Status, Transaction, User } from "@prisma/client";
 import Button from "@general/button";
 
 type Props = {
@@ -20,8 +20,8 @@ const Transaction = ({ index, transaction, onClick }: Props) => {
             <td className="py-3 px-6 text-left">{transaction.status}</td>
             {session.data?.user?.role === Role.Admin && (
                 <td className="py-3 px-6 text-center">
-                    <Button type="primary" outline onClick={onClick}>
-                        EDIT
+                    <Button type="secondary" outline onClick={onClick}>
+                        {transaction.status === Status.Pending ? "EDIT" : "VIEW"}
                     </Button>
                 </td>
             )}

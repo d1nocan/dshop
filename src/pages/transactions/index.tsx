@@ -26,7 +26,7 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
                                 <th className="py-3 px-6 text-left">Input</th>
                                 <th className="py-3 px-6 text-left">Points</th>
                                 <th className="py-3 px-6 text-left">Status</th>
-                                {isAdmin && <th className="py-3 px-6 text-center">Edit</th>}
+                                {isAdmin && <th className="py-3 px-6 text-center"></th>}
                             </tr>
                         </thead>
                         <tbody className="text-sm font-light text-neutral-50">
