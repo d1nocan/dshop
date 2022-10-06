@@ -106,7 +106,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .input {
-    @apply form-input dark:bg-neutral-900 min-w-[10em] max-w-[20em] rounded-xl text-center w-full mx-auto focus:ring-violet-500 focus:ring-1 focus:border-violet-500;
+    @apply form-input dark:bg-neutral-900 min-w-[5em] max-w-[20em] rounded-xl text-center mx-auto focus:ring-violet-500 focus:ring-1 focus:border-violet-500;
 }
 
 .textarea {
@@ -126,7 +126,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .card-body {
-    @apply flex flex-col py-8 dark:bg-neutral-800 bg-neutral-200 text-neutral-900 z-10 rounded-2xl dark:text-neutral-100 duration-300;
+    @apply flex h-full min-h-[21rem] max-h-[32rem] flex-col pt-8 dark:bg-neutral-800 bg-neutral-200 text-neutral-900 z-10 rounded-2xl dark:text-neutral-100 duration-300;
 }
 
 .image-box {
@@ -134,7 +134,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .input-area {
-    @apply flex flex-col w-full min-w-[10em] max-w-[20em] mx-auto my-2 gap-2 text-center;
+    @apply flex flex-col w-full min-w-[10em] max-w-[15em] mx-auto my-2 gap-2 text-center;
 }
 
 .alert {
