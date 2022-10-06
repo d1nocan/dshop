@@ -13,4 +13,5 @@ export const createTransaction = z.object({
 export const updateTransaction = z.object({
     id: z.string(),
     status: z.nativeEnum(Status),
+    response: z.string(),
 });

@@ -90,6 +90,7 @@ model Transaction {
     itemId    String
     points    BigInt
     input     String?  @default("")
+    response  String?  @default("")
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     item      Item     @relation(fields: [itemId, points], references: [id, price], onDelete: Cascade)
 }

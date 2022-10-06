@@ -6,6 +6,9 @@ import { default as TSA } from "@tables/transaction";
 import Image from "next/image";
 import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { updateTransaction } from "@schemas/transaction";
 
 interface Items {
     transaction: Transaction & { user: User; item: Item };
@@ -16,7 +19,14 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
     const [showModal, setShowModal] = useState(false);
-    const [status, setStatus] = useState(transaction.status);
+    const { register, handleSubmit, reset, setValue, watch } = useForm({
+        resolver: zodResolver(updateTransaction),
+        defaultValues: {
+            id: transaction.id,
+            status: transaction.status,
+            response: transaction.response || "",
+        },
+    });
     function openModal() {
         setShowModal(true);
     }
@@ -26,6 +36,7 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
     const { mutate } = trpc.useMutation("transaction.update", {
         onSuccess: () => {
             utils.queryClient.resetQueries("transaction.get");
+            reset();
             closeModal();
         },
     });
@@ -117,9 +128,9 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                             <div className="input-area my-2 mx-auto w-full max-w-xs">
                                                 <span className="mb-1 text-center font-light">Status</span>
                                                 {transaction.status === Status.Pending ? (
-                                                    <Listbox value={status} onChange={setStatus}>
+                                                    <Listbox onChange={(e) => setValue("status", e as Status)}>
                                                         <Listbox.Button className="relative mx-auto w-60 cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">
-                                                            {status}
+                                                            {watch("status")}
                                                         </Listbox.Button>
                                                         <Transition
                                                             as={Fragment}
@@ -149,20 +160,37 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
                                                     </span>
                                                 )}
                                             </div>
+                                            <div className="input-area my-2 mx-auto w-full max-w-xs">
+                                                <span className="mb-1 text-center font-light">Message</span>
+                                                {transaction.status === Status.Pending ? (
+                                                    <textarea
+                                                        className="textarea"
+                                                        title="Message"
+                                                        rows={3}
+                                                        {...register("response")}
+                                                    />
+                                                ) : (
+                                                    <span className="mb-1 text-center font-light">
+                                                        {transaction.response}
+                                                    </span>
+                                                )}
+                                            </div>
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <Button
-                                                type="primary"
-                                                outline
-                                                onClick={() => {
-                                                    setLoading(true);
-                                                    mutate({ status: status, id: transaction.id });
-                                                }}
-                                            >
-                                                Update
-                                            </Button>
+                                            {transaction.status === Status.Pending && (
+                                                <Button
+                                                    type="primary"
+                                                    outline
+                                                    onClick={handleSubmit((_data) => {
+                                                        setLoading(true);
+                                                        mutate(_data);
+                                                    })}
+                                                >
+                                                    Update
+                                                </Button>
+                                            )}
                                             <Button type="danger" outline onClick={closeModal}>
-                                                Cancel
+                                                Close
                                             </Button>
                                         </div>
                                     </form>
