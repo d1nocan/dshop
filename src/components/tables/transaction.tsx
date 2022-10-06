@@ -9,7 +9,6 @@ type Props = {
 };
 
 const Transaction = ({ index, transaction, onClick }: Props) => {
-    const session = useSession();
     return (
         <>
             <td className="py-3 px-6 text-left">{index}</td>
@@ -18,13 +17,11 @@ const Transaction = ({ index, transaction, onClick }: Props) => {
             <td className="max-w-md overflow-auto py-3 px-6 text-left">{transaction.input}</td>
             <td className="py-3 px-6 text-left">{transaction.points.toString()}</td>
             <td className="py-3 px-6 text-left">{transaction.status}</td>
-            {session.data?.user?.role === Role.Admin || transaction.status !== Status.Pending && (
-                <td className="py-3 px-6 text-center">
-                    <Button type="secondary" outline onClick={onClick}>
-                        VIEW
-                    </Button>
-                </td>
-            )}
+            <td className="py-3 px-6 text-center">
+                <Button type="secondary" outline onClick={onClick}>
+                    VIEW
+                </Button>
+            </td>
         </>
     );
 };
