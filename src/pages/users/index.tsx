@@ -6,24 +6,49 @@ import Loading from "@general/loading";
 import Alert from "@general/alert";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 const UserCard = dynamic(() => import("@cards/UserCard"));
 
 interface Props {
-    isAdmin: boolean;
+    isAdmin?: boolean;
 }
 
 const Users: NextPage<Props> = ({ isAdmin }) => {
-    const { data, isLoading } = trpc.useQuery(["user.get"]);
+    const [page, setPage] = useState(1);
+    const { data, isLoading } = trpc.useQuery(["user.get", { page: page }]);
+    const { total, users } = data || {};
     if (isLoading) return <Loading />;
+    const PageButton = () => (
+        <div className="my-10 flex flex-row justify-center gap-8">
+            <button
+                type="button"
+                className="rounded-md bg-neutral-200 px-4 py-2 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
+                onClick={() => setPage((prev) => prev - 1)}
+                disabled={page === 1}
+            >
+                {`<`}
+            </button>
+            <button
+                type="button"
+                className="rounded-md bg-neutral-200 px-4 py-2 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
+                onClick={() => setPage((prev) => prev + 1)}
+                disabled={page * 20 > (total as number)}
+            >
+                {`>`}
+            </button>
+        </div>
+    );
     return (
         <>
-            <div className="container mx-auto flex flex-wrap justify-center gap-4 py-10 px-6">
-                {data?.map((user, index) => (
-                    <UserCard key={index} user={user} isAdmin={isAdmin} />
+            <PageButton />
+            <div className="container mx-auto flex flex-wrap justify-center gap-4 px-6">
+                {users?.map((user, index) => (
+                    <UserCard key={index} user={user} isAdmin={isAdmin as boolean} />
                 ))}
-                {data?.length === 0 && !isLoading && <Alert type="info" message="No users found" />}
+                {users?.length === 0 && !isLoading && <Alert type="info" message="No users found" />}
             </div>
+            <PageButton />
         </>
     );
 };
