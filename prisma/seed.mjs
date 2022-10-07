@@ -1,5 +1,5 @@
 import { PrismaClient, Role } from "@prisma/client";
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
 const prisma = new PrismaClient();
 const roles = [Role.Admin, Role.User];
@@ -9,8 +9,8 @@ async function main() {
             data: {
                 name: faker.internet.userName(),
                 email: faker.internet.email(),
-                points: BigInt(faker.random.numeric(4)),
-                role: roles[Math.random(Math.random() * roles.length)],
+                points: BigInt(faker.random.numeric(Math.round(Math.random() * 6))),
+                role: roles[Math.round(Math.random() * roles.length)],
                 image: faker.internet.avatar(),
             },
         });
