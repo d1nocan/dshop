@@ -18,14 +18,14 @@ const Image = dynamic(() => import("next/image"));
 
 const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
     const session = useSession();
-    const { data, refetch } = trpc.useQuery(["ticket.select", { id: id as string }]);
-    const { mutate } = trpc.useMutation("ticket.addMessage", {
+    const { data, refetch } = trpc.ticket.select.useQuery({ id: id as string });
+    const { mutate } = trpc.ticket.addMessage.useMutation({
         onSuccess: () => {
             reset();
             refetch();
         },
     });
-    const { mutate: updateTicket } = trpc.useMutation("ticket.update", {
+    const { mutate: updateTicket } = trpc.ticket.update.useMutation({
         onSuccess: () => {
             reset();
             refetch();

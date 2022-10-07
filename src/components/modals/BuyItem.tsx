@@ -18,9 +18,10 @@ interface Items {
 export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
-    const { mutate, error } = trpc.useMutation("item.buy", {
+    const { mutate, error } = trpc.item.buy.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries(["item.get"]);
+            utils.item.get.invalidate();
+            setLoading(false);
             closeModal();
         },
     });

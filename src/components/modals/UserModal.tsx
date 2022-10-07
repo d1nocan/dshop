@@ -18,9 +18,10 @@ interface Users {
 const UserModal = ({ user, closeModal, showModal }: Users) => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
-    const { mutate } = trpc.useMutation("user.update", {
+    const { mutate } = trpc.user.update.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries("user.get");
+            utils.user.get.invalidate();
+            setLoading(false);
             closeModal();
         },
     });
@@ -88,8 +89,8 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                                 />
                                             </div>
                                         </div>
-                                        <h3 className="text-lg font-semibold mt-4">{user.name}</h3>
-                                        <span className="text-lg font-light blur duration-200 hover:blur-0 cursor-default">
+                                        <h3 className="mt-4 text-lg font-semibold">{user.name}</h3>
+                                        <span className="cursor-default text-lg font-light blur duration-200 hover:blur-0">
                                             ID: {user.id}
                                         </span>
                                         <Dialog.Description>

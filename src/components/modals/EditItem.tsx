@@ -18,15 +18,17 @@ interface Items {
 export const EditItem = ({ item, showModal, closeModal }: Items) => {
     const utils = trpc.useContext();
     const [loading, setLoading] = useState(false);
-    const { mutate } = trpc.useMutation("item.update", {
+    const { mutate } = trpc.item.update.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries(["item.get"]);
+            utils.item.get.invalidate();
+            setLoading(false);
             closeModal();
         },
     });
-    const { mutate: deleteMutate } = trpc.useMutation("item.delete", {
+    const { mutate: deleteMutate } = trpc.item.delete.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries(["item.get"]);
+            utils.item.get.invalidate();
+            setLoading(false);
             closeModal();
         },
     });

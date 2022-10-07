@@ -36,7 +36,7 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                         />
                     </div>
                     <div className="max-h-40 items-center text-center">
-                        <h2 className="m-2 text-xl font-black break-all">{user.name}</h2>
+                        <h2 className="m-2 break-all text-xl font-black">{user.name}</h2>
                         <p>Points: {user.points.toString()}</p>
                         <p>Role: {user.role}</p>
                         <div className="mt-2">

@@ -17,9 +17,10 @@ export const CreateTicket = () => {
         setShowModal(false);
     }
     const utils = trpc.useContext();
-    const { mutate, error } = trpc.useMutation("ticket.create", {
+    const { mutate, error } = trpc.ticket.create.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries(["ticket.get"]);
+            utils.ticket.get.invalidate();
+            setLoading(false);
             setShowModal(false);
         },
     });

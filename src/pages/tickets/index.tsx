@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Tickets: NextPage<Props> = ({ isAdmin }) => {
-    const { data: tickets, isLoading } = trpc.useQuery(["ticket.get"]);
+    const { data: tickets, isLoading } = trpc.ticket.get.useQuery();
     if (isLoading) return <Loading />;
     return (
         <>

@@ -16,7 +16,7 @@ interface Props {
 
 const Users: NextPage<Props> = ({ isAdmin }) => {
     const [page, setPage] = useState(1);
-    const { data, isLoading } = trpc.useQuery(["user.get", { page: page }]);
+    const { data, isLoading } = trpc.user.get.useQuery({ page: page });
     const { total, users } = data || {};
     if (isLoading) return <Loading />;
     const PageButton = () => (

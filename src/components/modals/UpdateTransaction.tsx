@@ -35,10 +35,11 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
     function closeModal() {
         setShowModal(false);
     }
-    const { mutate } = trpc.useMutation("transaction.update", {
+    const { mutate } = trpc.transaction.update.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries("transaction.get");
+            utils.transaction.get.invalidate();
             reset();
+            setLoading(false);
             closeModal();
         },
     });

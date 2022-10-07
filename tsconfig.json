@@ -24,7 +24,8 @@
             "@cards/*": ["./src/components/cards/*"],
             "@modals/*": ["./src/components/modals/*"],
             "@tables/*": ["./src/components/tables/*"],
-            "@utils/*": ["./src/utils/*"]
+            "@utils/*": ["./src/utils/*"],
+            "@server/*": ["./src/server/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
