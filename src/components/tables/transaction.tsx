@@ -2,15 +2,13 @@ import { Item, Transaction, User } from "@prisma/client";
 import Button from "@general/button";
 
 type Props = {
-    index: number;
     transaction: Transaction & { user: User; item: Item };
     onClick: () => void;
 };
 
-const Transaction = ({ index, transaction, onClick }: Props) => {
+const Transaction = ({ transaction, onClick }: Props) => {
     return (
         <>
-            <td className="py-3 px-6 text-left">{index}</td>
             <td className="py-3 px-6 text-left">{transaction.user.name}</td>
             <td className="py-3 px-6 text-left">{transaction.id}</td>
             <td className="max-w-md overflow-auto py-3 px-6 text-left">{transaction.input}</td>

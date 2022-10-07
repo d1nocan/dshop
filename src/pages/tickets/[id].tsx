@@ -78,8 +78,8 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                     </div>
                 )}
                 <ul className="mx-auto mb-10 w-4/6">
-                    {data?.messages?.map((message, index) => (
-                        <li key={index} className="m-4">
+                    {data?.messages?.map((message) => (
+                        <li key={message.id} className="m-4">
                             <div
                                 className={`relative flex w-fit flex-col ${
                                     session.data?.user?.id === message.userId ? "ml-auto" : "mr-auto"

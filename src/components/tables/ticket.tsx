@@ -4,14 +4,12 @@ import Link from "next/link";
 import Button from "@general/button";
 
 type Props = {
-    index: number;
     ticket: Ticket & { user: User };
 };
 
-const Ticket = ({ index, ticket }: Props) => {
+const Ticket = ({ ticket }: Props) => {
     return (
         <tr className="border-b border-neutral-200 bg-neutral-200 text-neutral-900 duration-300 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700">
-            <td className="py-3 px-6 text-left">{index}</td>
             <td className="py-3 px-6 text-left">
                 <div className="flex items-center space-x-3">
                     <div className="relative h-10 w-10">

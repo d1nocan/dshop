@@ -97,9 +97,9 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                             <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
                                                 <span className="mb-1 font-light">Role</span>
                                                 <select title="Role" className="input w-56" {...register("role")}>
-                                                    {Object.keys(Role).map((role, index) => (
+                                                    {Object.keys(Role).map((role) => (
                                                         <option
-                                                            key={index}
+                                                            key={role}
                                                             value={role}
                                                             defaultChecked={role === user.role}
                                                         >

@@ -22,8 +22,8 @@ const Store: NextPage<Props> = ({ isAdmin, isGuest }) => {
         <>
             {isAdmin && <CreateItem />}
             <div className="container mx-auto flex flex-wrap justify-center gap-6 py-10 px-6">
-                {data?.map((item, index) => (
-                    <ItemCard key={index} item={item} isAdmin={isAdmin} isGuest={isGuest} />
+                {data?.map((item) => (
+                    <ItemCard key={item.id} item={item} isAdmin={isAdmin} isGuest={isGuest} />
                 ))}
                 {data?.length === 0 && <Alert message="No items found" type="info" />}
             </div>

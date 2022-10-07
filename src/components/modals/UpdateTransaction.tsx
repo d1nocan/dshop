@@ -13,10 +13,9 @@ import { useSession } from "next-auth/react";
 
 interface Items {
     transaction: Transaction & { user: User; item: Item };
-    index: number;
 }
 
-export const UpdateTransaction = ({ transaction, index }: Items) => {
+export const UpdateTransaction = ({ transaction }: Items) => {
     const session = useSession();
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
@@ -45,7 +44,7 @@ export const UpdateTransaction = ({ transaction, index }: Items) => {
     });
     return (
         <>
-            <TSA index={index} transaction={transaction} onClick={openModal} />
+            <TSA transaction={transaction} onClick={openModal} />
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child

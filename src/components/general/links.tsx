@@ -27,12 +27,12 @@ export const Links = () => {
                     leaveTo="transform opacity-0 scale-95"
                 >
                     <Menu.Items className="absolute z-10 mt-10 w-40 divide-y divide-neutral-200 divide-opacity-30 rounded-2xl bg-neutral-700 p-4 capitalize text-neutral-100">
-                        {links.map((link, index) => {
+                        {links.map((link) => {
                             if (link.roles && !link.roles.includes(session?.user?.role as Role)) {
                                 return null;
                             }
                             return (
-                                <Menu.Item key={index}>
+                                <Menu.Item key={link.href}>
                                     <NextLink
                                         href={link.href}
                                         className="group flex w-full items-center rounded-md py-2 px-2 text-sm capitalize"

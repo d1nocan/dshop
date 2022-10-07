@@ -43,8 +43,8 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
         <>
             <PageButton />
             <div className="container mx-auto flex flex-wrap justify-center gap-4 px-6">
-                {users?.map((user, index) => (
-                    <UserCard key={index} user={user} isAdmin={isAdmin as boolean} />
+                {users?.map((user) => (
+                    <UserCard key={user.id} user={user} isAdmin={isAdmin as boolean} />
                 ))}
                 {users?.length === 0 && !isLoading && <Alert type="info" message="No users found" />}
             </div>

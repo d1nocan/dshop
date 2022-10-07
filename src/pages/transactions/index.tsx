@@ -20,7 +20,6 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
                     <table className="mx-auto w-10/12 min-w-max table-auto">
                         <thead>
                             <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
-                                <th className="py-3 px-6 text-left"></th>
                                 <th className="py-3 px-6 text-left">Name</th>
                                 <th className="py-3 px-6 text-left">ID</th>
                                 <th className="py-3 px-6 text-left">Input</th>
@@ -30,12 +29,12 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
                             </tr>
                         </thead>
                         <tbody className="text-sm font-light text-neutral-50">
-                            {transactions?.map((transaction, index) => (
+                            {transactions?.map((transaction) => (
                                 <tr
-                                    key={index}
+                                    key={transaction.id}
                                     className="border-b border-neutral-200 bg-neutral-200 text-neutral-900 duration-300 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700"
                                 >
-                                    <UpdateTransaction index={index} transaction={transaction} />
+                                    <UpdateTransaction transaction={transaction} />
                                 </tr>
                             ))}
                         </tbody>
