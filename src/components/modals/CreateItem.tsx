@@ -18,9 +18,10 @@ export const CreateItem = () => {
         setShowModal(false);
     }
     const utils = trpc.useContext();
-    const { mutate } = trpc.useMutation("item.create", {
+    const { mutate } = trpc.item.create.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries(["item.get"]);
+            utils.item.get.invalidate();
+            setLoading(false);
             closeModal();
         },
     });

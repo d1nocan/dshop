@@ -18,9 +18,10 @@ interface Users {
 const UserModal = ({ user, closeModal, showModal }: Users) => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
-    const { mutate } = trpc.useMutation("user.update", {
+    const { mutate } = trpc.user.update.useMutation({
         onSuccess: () => {
-            utils.queryClient.resetQueries("user.get");
+            utils.user.get.invalidate();
+            setLoading(false);
             closeModal();
         },
     });
