@@ -11,7 +11,7 @@ interface Props {
 const UpdateTransaction = dynamic(() => import("@modals/UpdateTransaction"));
 
 const Transactions: NextPage<Props> = ({ isAdmin }) => {
-    const { data: transactions, isLoading } = trpc.useQuery(["transaction.get"]);
+    const { data: transactions, isLoading } = trpc.transaction.get.useQuery();
     if (isLoading) return <Loading />;
     return (
         <>

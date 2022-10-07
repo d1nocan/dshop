@@ -5,9 +5,9 @@ import { useState } from "react";
 
 const LivePanel: NextPage = () => {
     const [inputs, setInput] = useState<{ [key: number]: string | number }>({});
-    const { mutate: givePoints } = trpc.useMutation("twitch.givePoints");
-    const { mutate: giveItem } = trpc.useMutation("twitch.giveItem");
-    const { data: items } = trpc.useQuery(["item.get"]);
+    const { mutate: givePoints } = trpc.twitch.givePoints.useMutation();
+    const { mutate: giveItem } = trpc.twitch.giveItem.useMutation();
+    const { data: items } = trpc.item.get.useQuery();
     return (
         <div className="container mx-auto flex flex-wrap justify-center gap-6 py-10 px-6">
             <div className="card">

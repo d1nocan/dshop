@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const giveIt = z.object({
+export const givePoints = z.object({
     points: z.number().nullable(),
     user: z.string().nullable(),
 });

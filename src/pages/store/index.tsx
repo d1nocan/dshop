@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Store: NextPage<Props> = ({ isAdmin, isGuest }) => {
-    const { data, isLoading, error, isError } = trpc.useQuery(["item.get"]);
+    const { data, isLoading, error, isError } = trpc.item.get.useQuery();
     if (isError) return <Alert message={error.message} type="error" />;
     if (isLoading) return <Loading />;
     return (
