@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
 import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
+import { useSession } from "next-auth/react";
 
 interface Users {
     user: User;
@@ -16,6 +17,7 @@ interface Users {
 }
 
 const UserModal = ({ user, closeModal, showModal }: Users) => {
+    const session = useSession();
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
     const { mutate } = trpc.user.update.useMutation({
@@ -102,6 +104,11 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                                             key={role}
                                                             value={role}
                                                             defaultChecked={role === user.role}
+                                                            disabled={
+                                                                Object.keys(Role).indexOf(
+                                                                    session.data?.user?.role.toString() as string,
+                                                                ) >= Object.keys(Role).indexOf(role)
+                                                            }
                                                         >
                                                             {role}
                                                         </option>
