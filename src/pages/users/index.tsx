@@ -33,7 +33,7 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
                 type="button"
                 className="rounded-md bg-neutral-200 px-4 py-2 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
                 onClick={() => setPage((prev) => prev + 1)}
-                disabled={page * 20 > (total as number)}
+                disabled={page * 25 > (total as number)}
             >
                 {`>`}
             </button>

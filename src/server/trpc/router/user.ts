@@ -15,8 +15,8 @@ export const userRouter = t.router({
             orderBy: {
                 points: "desc",
             },
-            take: 20,
-            skip: (input.page - 1) * 20,
+            take: 25,
+            skip: (input.page - 1) * 25,
         });
         return {
             total,
