@@ -4,6 +4,7 @@ import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import Alert from "@general/alert";
 import Loading from "@general/loading";
+import FAQ from "@general/faq";
 
 const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
 const Ticket = dynamic(() => import("@tables/ticket"));
@@ -38,6 +39,7 @@ const Tickets: NextPage<Props> = ({ isAdmin }) => {
                 ) : (
                     !isLoading && <Alert type="info" message="No tickets found" />
                 )}
+                <FAQ />
             </div>
         </>
     );
