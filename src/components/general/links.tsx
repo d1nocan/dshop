@@ -3,7 +3,7 @@ import { Role } from "@prisma/client";
 import { links } from "@utils/links";
 import { useSession } from "next-auth/react";
 import { Fragment } from "react";
-import MenuIcon from "../icons/MenuIcon";
+import { List } from "phosphor-react";
 import NextLink from "./nextlink";
 
 export const Links = () => {
@@ -13,9 +13,10 @@ export const Links = () => {
             <Menu>
                 <Menu.Button
                     aria-label="Links"
+                    as="button"
                     className="text-neutral-content hover:bg-neutral-focus flex flex-row items-center justify-center rounded-lg py-2 px-4 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                 >
-                    <MenuIcon />
+                    <List size={22} color="white" weight="bold" />
                 </Menu.Button>
                 <Transition
                     as={Fragment}
@@ -26,7 +27,10 @@ export const Links = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
-                    <Menu.Items className="absolute z-10 mt-10 w-40 divide-y divide-neutral-200 divide-opacity-30 rounded-2xl bg-neutral-700 p-4 capitalize text-neutral-100">
+                    <Menu.Items
+                        as="nav"
+                        className="absolute z-10 mt-10 w-40 divide-y divide-neutral-200 divide-opacity-30 rounded-2xl bg-neutral-700 p-4 capitalize text-neutral-100"
+                    >
                         {links.map((link) => {
                             if (link.roles && !link.roles.includes(session?.user?.role as Role)) {
                                 return null;
