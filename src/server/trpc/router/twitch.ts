@@ -45,4 +45,9 @@ export const twitchRouter = t.router({
             },
         });
     }),
+
+    selectRandom: authedProcedure.mutation(async ({ ctx }) => {
+        const random = await ctx.prisma.user.findMany();
+        return random[Math.floor(Math.random() * random.length)]?.name;
+    }),
 });

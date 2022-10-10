@@ -1,7 +1,7 @@
 import Button from "@general/button";
 import { trpc } from "@utils/trpc";
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LivePanel: NextPage = () => {
     const [inputs, setInput] = useState<{ [key: number]: string | number }>({});
@@ -9,6 +9,12 @@ const LivePanel: NextPage = () => {
     const { mutate: giveItem } = trpc.twitch.giveItem.useMutation();
     const { mutate: createCode } = trpc.code.create.useMutation();
     const { data: items } = trpc.item.get.useQuery();
+    const { data: user, isLoading, mutate: getUser } = trpc.twitch.selectRandom.useMutation();
+    useEffect(() => {
+        if (!isLoading) {
+            setInput({ ...inputs, 8: user as string });
+        }
+    }, [user]);
     return (
         <div className="container mx-auto flex flex-wrap justify-center gap-6 py-10 px-6">
             <div className="card">
@@ -147,6 +153,21 @@ const LivePanel: NextPage = () => {
                         }}
                     >
                         Create
+                    </Button>
+                </div>
+            </div>
+            <div className="card">
+                <div className="card-body relative justify-evenly gap-10 py-6 text-center">
+                    <h1 className="text-xl font-bold">Select Random</h1>
+                    <p className="text-lg font-semibold">{inputs[8]}</p>
+                    <Button
+                        type="primary"
+                        className="mx-auto mb-4 w-3/6"
+                        onClick={() => {
+                            getUser();
+                        }}
+                    >
+                        Select
                     </Button>
                 </div>
             </div>
