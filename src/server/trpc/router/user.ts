@@ -11,6 +11,9 @@ export const userRouter = t.router({
                 role: {
                     not: ctx.session?.user?.role === Role.Admin ? undefined : Role.Banned,
                 },
+                name: {
+                    contains: input.search || undefined,
+                },
             },
             orderBy: {
                 points: "desc",

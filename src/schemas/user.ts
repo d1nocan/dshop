@@ -3,6 +3,7 @@ import { Role } from "@prisma/client";
 
 export const getPage = z.object({
     page: z.number().min(1),
+    search: z.string().nullable(),
 });
 
 export const selectUser = z.object({
