@@ -55,6 +55,7 @@ model User {
     sessions      Session[]
     tickets       Ticket[]
     messages      Message[]     @relation("UserMessages")
+    usedcodes     Code[]
 }
 
 model VerificationToken {
@@ -113,6 +114,14 @@ model Ticket {
     title     String
     user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
     messages  Message[]
+}
+
+model Code {
+    id      String @id @default(cuid())
+    code    String @unique
+    limit   Int    @default(1) // -1 = unlimited
+    points  BigInt
+    whoUsed User[]
 }
 
 enum Role {

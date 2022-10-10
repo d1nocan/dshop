@@ -1,4 +1,5 @@
 import { t } from "../trpc";
+import { codeRouter } from "./code";
 import { itemRouter } from "./item";
 import { ticketRouter } from "./ticket";
 import { transactionRouter } from "./transaction";
@@ -11,6 +12,7 @@ export const appRouter = t.router({
     transaction: transactionRouter,
     user: userRouter,
     twitch: twitchRouter,
+    code: codeRouter,
 });
 
 export type AppRouter = typeof appRouter;
