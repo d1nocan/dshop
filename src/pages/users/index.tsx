@@ -7,7 +7,7 @@ import Alert from "@general/alert";
 import { authOptions } from "@pages/api/auth/[...nextauth]";
 import dynamic from "next/dynamic";
 import { KeyboardEvent, useState } from "react";
-
+import { MagnifyingGlass, ArrowLeft, ArrowRight } from "phosphor-react";
 const UserCard = dynamic(() => import("@cards/UserCard"));
 
 interface Props {
@@ -22,32 +22,34 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
     const searchAction = (e: KeyboardEvent) => {
         if (e.key == "Enter") {
             setSearch((e.target as HTMLInputElement).value);
+            (e.target as HTMLInputElement).value = "";
         }
     };
     const PageButton = () => (
-        <div className="my-10 flex flex-row justify-center gap-8">
+        <div className="mt-10 mb-6 flex flex-row justify-center gap-8">
             <button
                 type="button"
-                className="rounded-md bg-neutral-200 px-4 py-2 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
+                title="Previous Page"
+                className="rounded-md bg-neutral-200 p-4 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
                 onClick={() => setPage((prev) => prev - 1)}
                 disabled={page === 1}
             >
-                {`<`}
+                <ArrowLeft weight="bold" />
             </button>
             <button
                 type="button"
-                className="rounded-md bg-neutral-200 px-4 py-2 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
+                title="Next Page"
+                className="rounded-md bg-neutral-200 p-4 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
                 onClick={() => setPage((prev) => prev + 1)}
                 disabled={page * 25 > (total as number)}
             >
-                {`>`}
+                <ArrowRight weight="bold" />
             </button>
         </div>
     );
     return (
         <>
-            <PageButton />
-            <div className="my-4 flex justify-center">
+            <div className="relative my-10 mx-auto flex w-min">
                 <input
                     title="Search"
                     type="text"
@@ -55,17 +57,25 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
                     className="input text-neutral-50"
                     onKeyDown={searchAction}
                 />
+                <MagnifyingGlass
+                    size={22}
+                    weight="bold"
+                    className="absolute left-auto right-2 top-2 text-neutral-500 opacity-50"
+                />
             </div>
-            {isLoading ? (
-                <Loading />
-            ) : (
-                <div className="container mx-auto flex flex-wrap justify-center gap-4 px-6">
-                    {users?.map((user) => (
-                        <UserCard key={user.id} user={user} isAdmin={isAdmin as boolean} />
-                    ))}
-                    {users?.length === 0 && !isLoading && <Alert type="info" message="No users found" />}
-                </div>
-            )}
+            <PageButton />
+            <div className="container mx-auto flex flex-wrap justify-center gap-4 px-6">
+                {isLoading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        {users?.map((user) => (
+                            <UserCard key={user.id} user={user} isAdmin={isAdmin as boolean} />
+                        ))}
+                        {users?.length === 0 && !isLoading && <Alert type="info" message="No users found" />}
+                    </>
+                )}
+            </div>
         </>
     );
 };

@@ -13,13 +13,14 @@ export const userRouter = t.router({
                 },
                 name: {
                     contains: input.search || undefined,
+                    mode: "insensitive",
                 },
             },
             orderBy: {
                 points: "desc",
             },
-            take: 25,
-            skip: (input.page - 1) * 25,
+            take: input.search ? undefined : 25,
+            skip: input.search ? undefined : (input.page - 1) * 25,
         });
         return {
             total,
