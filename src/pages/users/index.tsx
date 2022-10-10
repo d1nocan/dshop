@@ -1,13 +1,13 @@
 import type { GetServerSideProps, NextPage } from "next";
-import { unstable_getServerSession } from "next-auth/next";
 import { trpc } from "@utils/trpc";
 import { Role } from "@prisma/client";
 import Loading from "@general/loading";
 import Alert from "@general/alert";
-import { authOptions } from "@pages/api/auth/[...nextauth]";
 import dynamic from "next/dynamic";
 import { KeyboardEvent, useState } from "react";
 import { MagnifyingGlass, ArrowLeft, ArrowRight } from "phosphor-react";
+import { getServerAuthSession } from "@server/common/get-server-auth-session";
+
 const UserCard = dynamic(() => import("@cards/UserCard"));
 
 interface Props {
@@ -81,7 +81,7 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions);
+    const session = await getServerAuthSession(ctx);
     const isAdmin = session?.user?.role === Role.Admin;
     return {
         props: {

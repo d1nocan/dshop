@@ -2,7 +2,6 @@ import Image from "next/image";
 import { User } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import Button from "@general/button";
 
 interface UserCard {
     user: User;
@@ -10,6 +9,8 @@ interface UserCard {
 }
 
 const UserModal = dynamic(() => import("@modals/UserModal"));
+
+const Button = dynamic(() => import("@general/button"));
 
 const UserCard = ({ user, isAdmin }: UserCard) => {
     const [showModal, setShowModal] = useState(false);
