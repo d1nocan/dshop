@@ -11,7 +11,7 @@ interface Props {
     userId?: string;
 }
 
-export const TicketForm = ({data, userId}: Props) => {
+export const TicketForm = ({ data, userId }: Props) => {
     const { mutate } = trpc.ticket.addMessage.useMutation({
         onSuccess: () => {
             reset();

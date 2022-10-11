@@ -9,7 +9,6 @@ import { useSession } from "next-auth/react";
 
 const UserCard = dynamic(() => import("@cards/UserCard"));
 
-
 const Users: NextPage = () => {
     const { data: session } = useSession();
     const isAdmin = session?.user?.role === "Admin";

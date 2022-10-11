@@ -26,7 +26,7 @@
             "@tables/*": ["./src/components/tables/*"],
             "@utils/*": ["./src/utils/*"],
             "@server/*": ["./src/server/*"],
-            "@forms/*": ["./src/components/forms/*"],
+            "@forms/*": ["./src/components/forms/*"]
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
