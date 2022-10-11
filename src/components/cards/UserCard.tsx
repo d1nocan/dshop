@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 
@@ -9,7 +8,7 @@ interface UserCard {
 }
 
 const UserModal = dynamic(() => import("@modals/UserModal"));
-
+const Image = dynamic(() => import("next/image"));
 const Button = dynamic(() => import("@general/button"));
 
 const UserCard = ({ user, isAdmin }: UserCard) => {
