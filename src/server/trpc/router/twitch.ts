@@ -1,10 +1,10 @@
 import { Role } from "@prisma/client";
 import { giveItem, givePoints } from "@schemas/twitch";
 import { TRPCError } from "@trpc/server";
-import { t, authedProcedure } from "../trpc";
+import { router, protectedProcedure } from "../trpc";
 
-export const twitchRouter = t.router({
-    givePoints: authedProcedure.input(givePoints).mutation(({ ctx, input }) => {
+export const twitchRouter = router({
+    givePoints: protectedProcedure.input(givePoints).mutation(({ ctx, input }) => {
         return ctx.prisma.user.updateMany({
             where: {
                 name: input.user ?? undefined,
@@ -19,7 +19,7 @@ export const twitchRouter = t.router({
             },
         });
     }),
-    giveItem: authedProcedure.input(giveItem).mutation(async ({ ctx, input }) => {
+    giveItem: protectedProcedure.input(giveItem).mutation(async ({ ctx, input }) => {
         const user = await ctx.prisma.user.findUnique({
             where: {
                 name: input.user,
@@ -46,7 +46,7 @@ export const twitchRouter = t.router({
         });
     }),
 
-    selectRandom: authedProcedure.mutation(async ({ ctx }) => {
+    selectRandom: protectedProcedure.mutation(async ({ ctx }) => {
         const random = await ctx.prisma.user.findMany();
         return random[Math.floor(Math.random() * random.length)]?.name;
     }),

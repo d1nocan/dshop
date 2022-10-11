@@ -1,9 +1,9 @@
 import { selectTicket, updateTicket, createTicket, addMessage } from "@schemas/ticket";
-import { t, authedProcedure } from "../trpc";
+import { router, protectedProcedure } from "../trpc";
 import { Message, Role, TicketStatus } from "@prisma/client";
 
-export const ticketRouter = t.router({
-    get: authedProcedure.query(({ ctx }) => {
+export const ticketRouter = router({
+    get: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.ticket.findMany({
             where: {
                 ...(ctx.session.user.role !== Role.Admin ? { userId: ctx.session.user.id } : {}),
@@ -13,7 +13,7 @@ export const ticketRouter = t.router({
             },
         });
     }),
-    select: authedProcedure.input(selectTicket).query(({ ctx, input }) => {
+    select: protectedProcedure.input(selectTicket).query(({ ctx, input }) => {
         return ctx.prisma.ticket.findUnique({
             where: {
                 id: input.id,
@@ -28,7 +28,7 @@ export const ticketRouter = t.router({
             },
         });
     }),
-    update: authedProcedure.input(updateTicket).mutation(({ ctx, input }) => {
+    update: protectedProcedure.input(updateTicket).mutation(({ ctx, input }) => {
         return ctx.prisma.ticket.update({
             where: {
                 id: input.id,
@@ -39,7 +39,7 @@ export const ticketRouter = t.router({
             },
         });
     }),
-    addMessage: authedProcedure.input(addMessage).mutation(({ ctx, input }) => {
+    addMessage: protectedProcedure.input(addMessage).mutation(({ ctx, input }) => {
         return ctx.prisma.message.create({
             data: {
                 content: input.content,
@@ -57,14 +57,14 @@ export const ticketRouter = t.router({
             },
         });
     }),
-    deleteMessage: authedProcedure.input(selectTicket).mutation(({ ctx, input }) => {
+    deleteMessage: protectedProcedure.input(selectTicket).mutation(({ ctx, input }) => {
         return ctx.prisma.message.delete({
             where: {
                 id: input.id,
             },
         });
     }),
-    create: authedProcedure.input(createTicket).mutation(({ ctx, input }) => {
+    create: protectedProcedure.input(createTicket).mutation(({ ctx, input }) => {
         return ctx.prisma.ticket.create({
             data: {
                 title: input.title,
@@ -83,7 +83,7 @@ export const ticketRouter = t.router({
             },
         });
     }),
-    delete: authedProcedure.input(selectTicket).mutation(({ ctx, input }) => {
+    delete: protectedProcedure.input(selectTicket).mutation(({ ctx, input }) => {
         return ctx.prisma.ticket.delete({
             where: {
                 id: input.id,

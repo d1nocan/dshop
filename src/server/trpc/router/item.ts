@@ -1,10 +1,10 @@
-import { t, authedProcedure } from "../trpc";
+import { router, protectedProcedure, publicProcedure } from "../trpc";
 import { selectItem, createItem, updateItem } from "@schemas/item";
 import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
-export const itemRouter = t.router({
-    get: t.procedure.query(({ ctx }) => {
+export const itemRouter = router({
+    get: publicProcedure.query(({ ctx }) => {
         if (ctx.session?.user?.role === Role.Banned) {
             throw new TRPCError({
                 code: "UNAUTHORIZED",
@@ -17,14 +17,14 @@ export const itemRouter = t.router({
             },
         });
     }),
-    select: authedProcedure.input(selectItem).query(({ ctx, input }) => {
+    select: protectedProcedure.input(selectItem).query(({ ctx, input }) => {
         return ctx.prisma.item.findUnique({
             where: {
                 id: input.id,
             },
         });
     }),
-    create: authedProcedure.input(createItem).mutation(({ ctx, input }) => {
+    create: protectedProcedure.input(createItem).mutation(({ ctx, input }) => {
         if (ctx.session.user.role !== Role.Admin) {
             throw new TRPCError({ code: "UNAUTHORIZED" });
         }
@@ -34,7 +34,7 @@ export const itemRouter = t.router({
             },
         });
     }),
-    update: authedProcedure.input(updateItem).mutation(({ ctx, input }) => {
+    update: protectedProcedure.input(updateItem).mutation(({ ctx, input }) => {
         if (ctx.session.user.role !== Role.Admin) {
             throw new TRPCError({ code: "UNAUTHORIZED" });
         }
@@ -47,7 +47,7 @@ export const itemRouter = t.router({
             },
         });
     }),
-    delete: authedProcedure.input(selectItem).mutation(({ ctx, input }) => {
+    delete: protectedProcedure.input(selectItem).mutation(({ ctx, input }) => {
         if (ctx.session.user.role !== Role.Admin) {
             throw new TRPCError({ code: "UNAUTHORIZED" });
         }
@@ -57,7 +57,7 @@ export const itemRouter = t.router({
             },
         });
     }),
-    buy: authedProcedure.input(selectItem).mutation(async ({ ctx, input }) => {
+    buy: protectedProcedure.input(selectItem).mutation(async ({ ctx, input }) => {
         const item = await ctx.prisma.item.findUnique({
             where: {
                 id: input.id,

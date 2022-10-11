@@ -1,10 +1,10 @@
 import { getPage } from "@schemas/user";
 import { selectUser, updateUser } from "@schemas/user";
 import { Role } from "@prisma/client";
-import { t, authedProcedure } from "../trpc";
+import { router, protectedProcedure, publicProcedure } from "../trpc";
 
-export const userRouter = t.router({
-    get: t.procedure.input(getPage).query(async ({ ctx, input }) => {
+export const userRouter = router({
+    get: publicProcedure.input(getPage).query(async ({ ctx, input }) => {
         const total = await ctx.prisma.user.count();
         const users = await ctx.prisma.user.findMany({
             where: {
@@ -27,14 +27,14 @@ export const userRouter = t.router({
             users,
         };
     }),
-    select: authedProcedure.input(selectUser).query(({ ctx, input }) => {
+    select: protectedProcedure.input(selectUser).query(({ ctx, input }) => {
         return ctx.prisma.user.findUnique({
             where: {
                 id: input.id,
             },
         });
     }),
-    update: authedProcedure.input(updateUser).mutation(({ ctx, input }) => {
+    update: protectedProcedure.input(updateUser).mutation(({ ctx, input }) => {
         return ctx.prisma.user.update({
             where: {
                 id: input.id,

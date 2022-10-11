@@ -1,10 +1,10 @@
 import { Role, Status } from "@prisma/client";
 import { selectTransaction, updateTransaction } from "@schemas/transaction";
 import { TRPCError } from "@trpc/server";
-import { t, authedProcedure } from "../trpc";
+import { router, protectedProcedure } from "../trpc";
 
-export const transactionRouter = t.router({
-    get: authedProcedure.query(({ ctx }) => {
+export const transactionRouter = router({
+    get: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.transaction.findMany({
             where: {
                 ...(ctx.session.user.role === Role.Admin ? {} : { userId: ctx.session.user.id }),
@@ -18,7 +18,7 @@ export const transactionRouter = t.router({
             },
         });
     }),
-    select: authedProcedure.input(selectTransaction).query(({ ctx, input }) => {
+    select: protectedProcedure.input(selectTransaction).query(({ ctx, input }) => {
         return ctx.prisma.transaction.findUnique({
             where: {
                 id: input.id,
@@ -29,7 +29,7 @@ export const transactionRouter = t.router({
             },
         });
     }),
-    update: authedProcedure.input(updateTransaction).mutation(async ({ ctx, input }) => {
+    update: protectedProcedure.input(updateTransaction).mutation(async ({ ctx, input }) => {
         if (ctx.session.user.role !== Role.Admin) {
             throw new TRPCError({ code: "UNAUTHORIZED" });
         }

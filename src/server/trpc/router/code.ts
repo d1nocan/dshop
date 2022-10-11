@@ -1,9 +1,9 @@
 import { Code, useCode } from "@schemas/code";
 import { TRPCError } from "@trpc/server";
-import { t, authedProcedure } from "../trpc";
+import { router, protectedProcedure } from "../trpc";
 
-export const codeRouter = t.router({
-    create: authedProcedure.input(Code).mutation(({ input, ctx }) => {
+export const codeRouter = router({
+    create: protectedProcedure.input(Code).mutation(({ input, ctx }) => {
         return ctx.prisma.code.create({
             data: {
                 code: input.code,
@@ -13,7 +13,7 @@ export const codeRouter = t.router({
         });
     }),
 
-    update: authedProcedure.input(Code).mutation(({ input, ctx }) => {
+    update: protectedProcedure.input(Code).mutation(({ input, ctx }) => {
         return ctx.prisma.code.update({
             where: { code: input.code },
             data: {
@@ -23,7 +23,7 @@ export const codeRouter = t.router({
         });
     }),
 
-    use: authedProcedure.input(useCode).mutation(async ({ input, ctx }) => {
+    use: protectedProcedure.input(useCode).mutation(async ({ input, ctx }) => {
         const code = await ctx.prisma.code.findUnique({ where: { code: input.code }, include: { whoUsed: true } });
         if (!code || code.limit === 0) {
             throw new TRPCError({ code: "NOT_FOUND" });
