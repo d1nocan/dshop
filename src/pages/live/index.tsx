@@ -14,6 +14,7 @@ const LivePanel: NextPage = () => {
         if (!isLoading) {
             setInput({ ...inputs, 8: user as string });
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
     return (
         <div className="container mx-auto flex flex-wrap justify-center gap-6 py-10 px-6">
