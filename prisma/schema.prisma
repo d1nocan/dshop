@@ -56,6 +56,7 @@ model User {
     tickets       Ticket[]
     messages      Message[]     @relation("UserMessages")
     usedcodes     Code[]
+    predictions   Select[]
 }
 
 model VerificationToken {
@@ -122,6 +123,28 @@ model Code {
     limit   Int    @default(1) // -1 = unlimited
     points  BigInt
     whoUsed User[]
+}
+
+model Prediction {
+    id        String   @id @default(cuid())
+    title     String
+    options   String[]
+    min       BigInt   @default(0)
+    max       BigInt   @default(0)
+    total     BigInt   @default(0)
+    isActive  Boolean  @default(true)
+    choices   Select[]
+    winOption String?
+}
+
+model Select {
+    id           String     @id @default(cuid())
+    userId       String
+    user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    option       String
+    points       BigInt
+    predictionId String
+    prediction   Prediction @relation(fields: [predictionId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
