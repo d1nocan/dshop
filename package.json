@@ -1,6 +1,6 @@
 {
     "name": "dshop",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "private": true,
     "scripts": {
         "dev": "next dev",
@@ -8,8 +8,8 @@
         "start": "next start",
         "lint": "next lint",
         "postinstall": "prisma generate",
-        "format": "prettier --write --plugin-search-dir=. \"**/*.{ts,tsx,md,mdx,json,js,mjs,cjs,astro}\" --ignore-path .gitignore",
-        "format:check": "prettier --check --plugin-search-dir=. \"**/*.{ts,tsx,md,mdx,json,js,mjs,cjs,astro}\" --ignore-path .gitignore",
+        "format": "prettier --write --plugin-search-dir=. \"**/*.{ts,tsx,md,json,mjs,cjs}\" --ignore-path .gitignore",
+        "format:check": "prettier --check --plugin-search-dir=. \"**/*.{ts,tsx,md,json,mjs,cjs}\" --ignore-path .gitignore",
         "check": "pnpm lint && pnpm format:check"
     },
     "prisma": {
