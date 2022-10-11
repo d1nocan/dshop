@@ -1,12 +1,11 @@
-import Image from "next/image";
-import { Item } from "@prisma/client";
+import type { Item } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import Button from "@general/button";
 
 const EditItem = dynamic(() => import("@modals/EditItem"));
 const BuyItem = dynamic(() => import("@modals/BuyItem"));
-
+const Image = dynamic(() => import("next/image"));
+const Button = dynamic(() => import("@general/button"));
 interface ItemCard {
     item: Item;
     isAdmin: boolean;
