@@ -25,7 +25,8 @@
             "@modals/*": ["./src/components/modals/*"],
             "@tables/*": ["./src/components/tables/*"],
             "@utils/*": ["./src/utils/*"],
-            "@server/*": ["./src/server/*"]
+            "@server/*": ["./src/server/*"],
+            "@forms/*": ["./src/components/forms/*"],
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
