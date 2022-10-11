@@ -1,19 +1,17 @@
 import type { NextPage } from "next";
-import { getSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
-import Alert from "@general/alert";
 import Loading from "@general/loading";
 import FAQ from "@general/faq";
 
 const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
 const Ticket = dynamic(() => import("@tables/ticket"));
+const Alert = dynamic(() => import("@general/alert"));
 
-interface Props {
-    isAdmin?: boolean;
-}
-
-const Tickets: NextPage<Props> = ({ isAdmin }) => {
+const Tickets: NextPage = () => {
+    const { data: session } = useSession();
+    const isAdmin = session?.user?.role === "Admin";
     const { data: tickets, isLoading } = trpc.ticket.get.useQuery();
     if (isLoading) return <Loading />;
     return (
@@ -47,8 +45,6 @@ const Tickets: NextPage<Props> = ({ isAdmin }) => {
 
 Tickets.getInitialProps = async (ctx) => {
     const session = await getSession(ctx);
-    const { Role } = await import("@prisma/client");
-    const isAdmin = session?.user?.role === Role.User;
     if (!session) {
         return {
             redirect: {
@@ -57,9 +53,7 @@ Tickets.getInitialProps = async (ctx) => {
             },
         };
     }
-    return {
-        isAdmin,
-    };
+    return {};
 };
 
 export default Tickets;

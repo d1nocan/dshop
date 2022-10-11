@@ -1,7 +1,6 @@
 import ItemCard from "@cards/ItemCard";
 import Alert from "@general/alert";
 import Loading from "@general/loading";
-import { Role } from "@prisma/client";
 import type { NextPage } from "next";
 import { getSession } from "next-auth/react";
 import dynamic from "next/dynamic";
@@ -33,7 +32,7 @@ const Store: NextPage<Props> = ({ isAdmin, isGuest }) => {
 
 Store.getInitialProps = async (ctx) => {
     const session = await getSession(ctx);
-    const isAdmin = session?.user?.role === Role.Admin;
+    const isAdmin = session?.user?.role === "Admin";
     const isGuest = !session?.user;
     return {
         isAdmin,

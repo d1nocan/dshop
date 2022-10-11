@@ -1,20 +1,18 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { trpc } from "@utils/trpc";
-import { Role } from "@prisma/client";
 import Loading from "@general/loading";
 import Alert from "@general/alert";
 import dynamic from "next/dynamic";
 import { KeyboardEvent, useState } from "react";
 import { MagnifyingGlass, ArrowLeft, ArrowRight } from "phosphor-react";
-import { getServerAuthSession } from "@server/common/get-server-auth-session";
+import { useSession } from "next-auth/react";
 
 const UserCard = dynamic(() => import("@cards/UserCard"));
 
-interface Props {
-    isAdmin?: boolean;
-}
 
-const Users: NextPage<Props> = ({ isAdmin }) => {
+const Users: NextPage = () => {
+    const { data: session } = useSession();
+    const isAdmin = session?.user?.role === "Admin";
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
     const { data, isLoading } = trpc.user.get.useQuery({ page: page, search: search });
@@ -78,17 +76,6 @@ const Users: NextPage<Props> = ({ isAdmin }) => {
             </div>
         </>
     );
-};
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const session = await getServerAuthSession(ctx);
-    const isAdmin = session?.user?.role === Role.Admin;
-    return {
-        props: {
-            session,
-            isAdmin,
-        },
-    };
 };
 
 export default Users;

@@ -2,10 +2,6 @@ import type { Item } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 
-const EditItem = dynamic(() => import("@modals/EditItem"));
-const BuyItem = dynamic(() => import("@modals/BuyItem"));
-const Image = dynamic(() => import("next/image"));
-const Button = dynamic(() => import("@general/button"));
 interface ItemCard {
     item: Item;
     isAdmin: boolean;
@@ -13,6 +9,10 @@ interface ItemCard {
 }
 
 export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
+    const EditItem = dynamic(() => import("@modals/EditItem"));
+    const BuyItem = dynamic(() => import("@modals/BuyItem"));
+    const Image = dynamic(() => import("next/image"));
+    const Button = dynamic(() => import("@general/button"));
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
