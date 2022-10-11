@@ -1,58 +1,35 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { TicketStatus } from "@prisma/client";
-import { addMessage } from "@schemas/ticket";
+import type { TicketStatus } from "@prisma/client";
 import { trpc } from "@utils/trpc";
-import { useSession, getSession } from "next-auth/react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
-import { NextPage } from "next";
-import Button from "@general/button";
+import type { NextPage } from "next";
 
 interface Props {
     id?: string | string[] | undefined;
     isAdmin?: boolean;
+    userId?: string;
 }
 
-const Image = dynamic(() => import("next/image"));
-
-const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
-    const session = useSession();
+const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
+    const Image = dynamic(() => import("next/image"));
+    const TicketForm = dynamic(() => import("@forms/ticket"));
+    const Button = dynamic(() => import("@general/button"));
     const { data, refetch } = trpc.ticket.select.useQuery({ id: id as string });
-    const { mutate } = trpc.ticket.addMessage.useMutation({
-        onSuccess: () => {
-            reset();
-            refetch();
-        },
-    });
     const { mutate: updateTicket } = trpc.ticket.update.useMutation({
         onSuccess: () => {
-            reset();
             refetch();
         },
     });
     const statusColor = (status: TicketStatus | undefined) => {
         switch (status) {
-            case TicketStatus.Open:
+            case "Open":
                 return "text-green-600";
-            case TicketStatus.Closed:
+            case "Closed":
                 return "text-red-600";
             default:
                 return "text-gray-800";
         }
     };
-    const { register, handleSubmit, getValues, reset, setValue } = useForm({
-        resolver: zodResolver(addMessage),
-        defaultValues: {
-            ticketId: data?.id as string,
-            content: "",
-            userId: session.data?.user?.id as string,
-        },
-    });
-    useEffect(() => {
-        reset({ ticketId: data?.id as string, content: "", userId: session.data?.user?.id as string });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, session]);
+
     return (
         <>
             <div className="container m-10 mx-auto flex w-6/12 flex-col rounded-lg bg-neutral-700 p-4">
@@ -63,17 +40,16 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                 {isAdmin && (
                     <div className="flex flex-row justify-center">
                         <Button
-                            type={`${data?.status === TicketStatus.Open ? "danger" : "success"}`}
+                            type={`${data?.status === "Open" ? "danger" : "success"}`}
                             className="duration-300"
                             onClick={() =>
                                 updateTicket({
                                     id: data?.id as string,
-                                    status:
-                                        data?.status === TicketStatus.Open ? TicketStatus.Closed : TicketStatus.Open,
+                                    status: data?.status === "Open" ? "Closed" : "Open",
                                 })
                             }
                         >
-                            {data?.status === TicketStatus.Open ? "Close" : "Open"}
+                            {data?.status === "Open" ? "Close" : "Open"}
                         </Button>
                     </div>
                 )}
@@ -82,7 +58,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                         <li key={message.id} className="m-4">
                             <div
                                 className={`relative flex w-fit flex-col ${
-                                    session.data?.user?.id === message.userId ? "ml-auto" : "mr-auto"
+                                    userId === message.userId ? "ml-auto" : "mr-auto"
                                 } rounded-lg bg-neutral-800 p-4 text-neutral-100`}
                             >
                                 <div className="mb-4">
@@ -104,44 +80,18 @@ const Ticket: NextPage<Props> = ({ id, isAdmin }) => {
                         </li>
                     ))}
                 </ul>
-                {data?.status === TicketStatus.Open && (
-                    <div className="bg-base-300 mx-auto w-2/3 rounded-xl py-10">
-                        <form>
-                            <div className="input-area">
-                                <label className="label">
-                                    <span className="mx-auto text-neutral-100">Message</span>
-                                </label>
-                                <textarea
-                                    className="textarea"
-                                    placeholder="Message"
-                                    {...register("content")}
-                                ></textarea>
-                            </div>
-                            <div className="input-area mt-5">
-                                <Button
-                                    type="primary"
-                                    onClick={handleSubmit(() => {
-                                        setValue("ticketId", data?.id as string);
-                                        mutate(getValues());
-                                    })}
-                                >
-                                    Send
-                                </Button>
-                            </div>
-                        </form>
-                    </div>
-                )}
+                {data?.status === "Open" && <TicketForm data={data} userId={userId} />}
             </div>
         </>
     );
 };
 
 Ticket.getInitialProps = async (ctx) => {
+    const { getSession } = await import("next-auth/react");
     const session = await getSession(ctx);
-    const { Role } = await import("@prisma/client");
     const id = ctx.query?.id;
-    const isAdmin = session?.user?.role === Role.Admin;
-    console.log(session?.user?.role);
+    const isAdmin = session?.user?.role === "Admin";
+    const userId = session?.user?.id;
     if (!session) {
         return {
             redirect: {
@@ -153,6 +103,7 @@ Ticket.getInitialProps = async (ctx) => {
     return {
         isAdmin,
         id,
+        userId,
     };
 };
 
