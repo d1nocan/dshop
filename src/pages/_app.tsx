@@ -4,10 +4,10 @@ import Layout from "@general/layout";
 import { SessionProvider } from "next-auth/react";
 import type { AppType } from "next/app";
 import type { Session } from "next-auth";
-import "../styles/globals.css";
-import { trpc } from "../utils/trpc";
+import "@styles/globals.css";
+import { trpc } from "@utils/trpc";
 
-const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
+const Dshop: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
         <SessionProvider session={session}>
             <Head>
@@ -22,4 +22,4 @@ const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { s
     );
 };
 
-export default trpc.withTRPC(MyApp);
+export default trpc.withTRPC(Dshop);
