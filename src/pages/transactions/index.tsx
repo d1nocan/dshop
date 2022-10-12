@@ -3,6 +3,7 @@ import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import Alert from "@general/alert";
 import Loading from "@general/loading";
+import { getSession } from "next-auth/react";
 
 interface Props {
     isAdmin?: boolean;
@@ -48,10 +49,8 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
 };
 
 Transactions.getInitialProps = async (ctx) => {
-    const { getSession } = await import("next-auth/react");
-    const { Role } = await import("@prisma/client");
     const session = await getSession(ctx);
-    const isAdmin = session?.user?.role === Role.Admin;
+    const isAdmin = session?.user?.role === "Admin";
     if (!session) {
         return {
             redirect: {

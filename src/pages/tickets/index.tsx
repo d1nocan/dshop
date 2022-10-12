@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import Loading from "@general/loading";
@@ -9,9 +9,11 @@ const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
 const Ticket = dynamic(() => import("@tables/ticket"));
 const Alert = dynamic(() => import("@general/alert"));
 
-const Tickets: NextPage = () => {
-    const { data: session } = useSession();
-    const isAdmin = session?.user?.role === "Admin";
+interface Props {
+    isAdmin?: boolean;
+}
+
+const Tickets: NextPage = ({ isAdmin }: Props) => {
     const { data: tickets, isLoading } = trpc.ticket.get.useQuery();
     if (isLoading) return <Loading />;
     return (
@@ -45,6 +47,7 @@ const Tickets: NextPage = () => {
 
 Tickets.getInitialProps = async (ctx) => {
     const session = await getSession(ctx);
+    const isAdmin = session?.user?.role === "Admin";
     if (!session) {
         return {
             redirect: {
@@ -53,7 +56,9 @@ Tickets.getInitialProps = async (ctx) => {
             },
         };
     }
-    return {};
+    return {
+        isAdmin,
+    };
 };
 
 export default Tickets;
