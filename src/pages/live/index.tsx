@@ -36,7 +36,7 @@ const LivePanel: NextPage = () => {
                         className="mx-auto w-3/6"
                         onClick={() => {
                             givePoints({ points: (inputs[0] as number) || 0, user: null });
-                            setInput({ 0: 0 });
+                            setInput({ ...inputs, 0: 0 });
                         }}
                     >
                         Give
@@ -106,7 +106,7 @@ const LivePanel: NextPage = () => {
                         onClick={() => {
                             console.log(inputs);
                             giveItem({ user: inputs[3] as string, itemId: inputs[4] as string });
-                            setInput({ 3: "", 4: 0 });
+                            setInput({ ...inputs, 3: "", 4: 0 });
                         }}
                     >
                         Give
