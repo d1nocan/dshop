@@ -38,7 +38,15 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
                         <h2 className="m-2 text-2xl font-semibold">{item.name}</h2>
                         <div className="my-auto break-words">
                             <p>{item.price.toString()} Points</p>
-                            {!isGuest && <p>{item.quantity !== 0 ? `${item.quantity} Left` : "Out Of Stock"}</p>}
+                            {!isGuest && (
+                                <p>
+                                    {item.quantity !== 0
+                                        ? item.quantity === -1
+                                            ? "∞ Left"
+                                            : `${item.quantity} Left`
+                                        : "Out Of Stock"}
+                                </p>
+                            )}
                         </div>
                         {!isGuest && (
                             <Button onClick={openModal} type="primary" className="mt-2">
