@@ -24,10 +24,10 @@ const Tickets: NextPage = ({ isAdmin }: Props) => {
                     <table className="mx-auto w-10/12 min-w-max table-auto">
                         <thead>
                             <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
-                                <th className="py-3 px-6 text-left">Name</th>
-                                <th className="py-3 px-6 text-left">Title</th>
-                                <th className="py-3 px-6 text-left">Status</th>
-                                <th className="py-3 px-6 text-left"></th>
+                                <th className="px-6 py-3 text-left">Name</th>
+                                <th className="px-6 py-3 text-left">Title</th>
+                                <th className="px-6 py-3 text-left">Status</th>
+                                <th className="px-6 py-3 text-left"></th>
                             </tr>
                         </thead>
                         <tbody>

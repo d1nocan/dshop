@@ -41,7 +41,7 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                         <p>Role: {user.role}</p>
                         <div className="mt-2">
                             {isAdmin && (
-                                <Button onClick={openModal} type="primary">
+                                <Button onClick={openModal} type="primary" className="px-2">
                                     Details
                                 </Button>
                             )}

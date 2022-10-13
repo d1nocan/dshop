@@ -41,7 +41,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .button {
-    @apply px-6 py-2 rounded-lg text-neutral-100 duration-300;
+    @apply text-center py-2 px-4 rounded-lg text-neutral-100 duration-300;
 
     &.primary {
         @apply bg-violet-500;
@@ -53,15 +53,15 @@ input[type="number"]::-webkit-outer-spin-button {
 
     &.danger {
         @apply bg-red-500;
-    };
+    }
 
     &.success {
         @apply bg-green-500;
-    };
+    }
 
     &.warning {
         @apply bg-yellow-500;
-    };
+    }
 
     &.outline {
         @apply bg-transparent text-neutral-900 dark:text-neutral-200;
@@ -92,7 +92,7 @@ input[type="number"]::-webkit-outer-spin-button {
             &:hover {
                 @apply bg-red-500 text-neutral-100;
             }
-        };
+        }
 
         &.success {
             @apply text-green-500;
@@ -100,7 +100,7 @@ input[type="number"]::-webkit-outer-spin-button {
             &:hover {
                 @apply bg-green-500 text-neutral-100;
             }
-        };
+        }
 
         &.warning {
             @apply text-yellow-500;
@@ -108,8 +108,7 @@ input[type="number"]::-webkit-outer-spin-button {
             &:hover {
                 @apply bg-yellow-500 text-neutral-100;
             }
-        };
-
+        }
     }
 }
 
