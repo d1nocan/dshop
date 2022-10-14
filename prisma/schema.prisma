@@ -56,7 +56,7 @@ model User {
     tickets       Ticket[]
     messages      Message[]     @relation("UserMessages")
     usedcodes     Code[]
-    predictions   Select[]
+    predictions   Vote[]
 }
 
 model VerificationToken {
@@ -126,23 +126,25 @@ model Code {
 }
 
 model Prediction {
-    id        String   @id @default(cuid())
-    title     String
-    options   String[]
-    min       BigInt   @default(0)
-    max       BigInt   @default(0)
-    total     BigInt   @default(0)
-    isActive  Boolean  @default(true)
-    choices   Select[]
-    winOption String?
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    endsAt    DateTime?
+    question  String
+    options   Json
+    min       BigInt?
+    max       BigInt?
+    total     BigInt?
+    Vote      Vote[]
+    winOption Int?
 }
 
-model Select {
+model Vote {
     id           String     @id @default(cuid())
+    createdAt    DateTime   @default(now())
+    choice       Int
     userId       String
     user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-    option       String
-    points       BigInt
+    points       BigInt?
     predictionId String
     prediction   Prediction @relation(fields: [predictionId], references: [id], onDelete: Cascade)
 }
