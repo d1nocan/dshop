@@ -1,15 +1,59 @@
+import { makePrediction } from "./../../../schemas/prediction";
 import { createPrediction, selectPrediction, setWinners } from "@schemas/prediction";
 import { router, protectedProcedure } from "../trpc";
 
 export const predictionRouter = router({
     get: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.prediction.findMany({
-            where: {
-                isActive: ctx.session.user.role === "Admin" ? undefined : true,
+            take: 1,
+            orderBy: {
+                createdAt: "desc",
+            },
+            include: {
+                Vote: {
+                    orderBy: {
+                        choice: "asc",
+                    },
+                },
             },
         });
     }),
-
+    make: protectedProcedure.input(makePrediction).mutation(async ({ ctx, input }) => {
+        if (input.bet && ctx.session.user.points < input.bet) {
+            throw new Error("You don't have enough point");
+        }
+        await ctx.prisma.prediction.update({
+            where: {
+                id: input.predictionId,
+            },
+            data: {
+                total: {
+                    increment: input.bet || BigInt(0),
+                },
+            },
+        });
+        return await ctx.prisma.user.update({
+            where: {
+                id: ctx.session.user.id,
+            },
+            data: {
+                points: {
+                    decrement: input.bet || 0,
+                },
+                predictions: {
+                    create: {
+                        prediction: {
+                            connect: {
+                                id: input.predictionId,
+                            },
+                        },
+                        choice: input.optionId,
+                        points: input.bet || BigInt(0),
+                    },
+                },
+            },
+        });
+    }),
     create: protectedProcedure.input(createPrediction).mutation(({ ctx, input }) => {
         return ctx.prisma.prediction.create({
             data: input,
@@ -22,36 +66,26 @@ export const predictionRouter = router({
                 id: input.id,
             },
             data: {
-                isActive: false,
+                endsAt: new Date(),
             },
         });
     }),
 
-    winners: protectedProcedure.input(setWinners).query(async ({ ctx, input }) => {
+    winners: protectedProcedure.input(setWinners).mutation(async ({ ctx, input }) => {
         const data = await ctx.prisma.prediction.findUnique({
             where: {
                 id: input.id,
             },
             include: {
-                choices: {
+                Vote: {
                     where: {
-                        option: input.option,
+                        choice: input.option,
                     },
                 },
             },
         });
-        const totalwinners = data?.choices.map((e) => e.userId);
-        ctx.prisma.prediction.update({
-            where: {
-                id: input.id,
-            },
-            data: {
-                winOption: {
-                    set: input.option,
-                },
-            },
-        });
-        ctx.prisma.user.updateMany({
+        const totalwinners = data?.Vote.map((e) => e.userId);
+        await ctx.prisma.user.updateMany({
             where: {
                 id: {
                     in: totalwinners ?? [],
@@ -59,8 +93,16 @@ export const predictionRouter = router({
             },
             data: {
                 points: {
-                    increment: Number(data?.total) / Number(totalwinners?.length) || 1,
+                    increment: Number((Number(data?.total) / Number(totalwinners?.length)).toFixed()) || 1,
                 },
+            },
+        });
+        return await ctx.prisma.prediction.update({
+            where: {
+                id: input.id,
+            },
+            data: {
+                winOption: input.option,
             },
         });
     }),

@@ -24,4 +24,9 @@ export const links = [
         href: "/live",
         roles: [Role.Admin],
     },
+    {
+        name: "Create Bet",
+        href: "/live/create",
+        roles: [Role.Admin],
+    },
 ];
