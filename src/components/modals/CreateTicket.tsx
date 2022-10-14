@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { createTicket } from "@schemas/ticket";
 import { Fragment, useState } from "react";
-import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
 
 export const CreateTicket = () => {
@@ -38,9 +37,9 @@ export const CreateTicket = () => {
     });
     return (
         <>
-            <Button type="primary" onClick={openModal} className="mx-auto mt-10 flex font-bold">
+            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
                 Create Ticket
-            </Button>
+            </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child
@@ -100,19 +99,23 @@ export const CreateTicket = () => {
                                             )}
                                         </div>
                                         <div className="mt-10 flex justify-end gap-4">
-                                            <Button
-                                                type="primary"
-                                                outline
+                                            <button
+                                                type="button"
+                                                className="button primary outline"
                                                 onClick={handleSubmit(() => {
                                                     setLoading(true);
                                                     mutate(getValues());
                                                 })}
                                             >
                                                 Buy
-                                            </Button>
-                                            <Button type="danger" onClick={closeModal} outline>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="button danger outline"
+                                                onClick={closeModal}
+                                            >
                                                 Cancel
-                                            </Button>
+                                            </button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

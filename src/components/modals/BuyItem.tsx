@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { selectItem } from "@schemas/item";
 import { Fragment, useState } from "react";
-import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
 
 interface Items {
@@ -98,10 +97,11 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                             </p>
                                         )}
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <Button
-                                                type="success"
-                                                outline
-                                                className={`${item.quantity === 0 && "cursor-not-allowed"}`}
+                                            <button
+                                                type="button"
+                                                className={`${
+                                                    item.quantity === 0 && "cursor-not-allowed"
+                                                } button success outline`}
                                                 disabled={item.quantity === 0}
                                                 onClick={handleSubmit(() => {
                                                     setLoading(true);
@@ -109,10 +109,14 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                                 })}
                                             >
                                                 {item.quantity > 0 ? "Buy" : "Out of stock"}
-                                            </Button>
-                                            <Button type="danger" onClick={closeModal} outline>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={closeModal}
+                                                className="button danger outline"
+                                            >
                                                 Cancel
-                                            </Button>
+                                            </button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

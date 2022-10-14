@@ -21,7 +21,7 @@ export default function Navbar() {
     }, [theme]);
     return (
         <>
-            <div className="bg-neutral text-neutral-content relative mx-auto flex h-16 w-11/12 flex-wrap items-center justify-between rounded-b-xl bg-neutral-800">
+            <div className="relative mx-auto flex h-16 w-11/12 flex-wrap items-center justify-between rounded-b-xl bg-neutral-800">
                 <div className="inline-flex flex-1 justify-start">
                     <Links />
                     <Switch

@@ -12,7 +12,6 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
     const EditItem = dynamic(() => import("@modals/EditItem"));
     const BuyItem = dynamic(() => import("@modals/BuyItem"));
     const Image = dynamic(() => import("next/image"));
-    const Button = dynamic(() => import("@general/button"));
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -49,9 +48,9 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
                             )}
                         </div>
                         {!isGuest && (
-                            <Button onClick={openModal} type="primary" className="mt-2">
+                            <button onClick={openModal} type="button" className="button primary mt-2">
                                 {isAdmin ? "Edit" : "Get"}
-                            </Button>
+                            </button>
                         )}
                     </div>
                 </div>

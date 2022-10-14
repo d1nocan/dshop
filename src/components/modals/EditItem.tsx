@@ -6,7 +6,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { updateItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
-import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
 
 interface Items {
@@ -239,21 +238,25 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <Button type="success" outline onClick={onSubmit}>
+                                            <button type="button" className="button success outline" onClick={onSubmit}>
                                                 Update
-                                            </Button>
-                                            <Button
-                                                type="danger"
-                                                outline
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="button danger outline"
                                                 onClick={() => {
                                                     deleteMutate({ id: item.id });
                                                 }}
                                             >
                                                 Delete
-                                            </Button>
-                                            <Button type="warning" outline onClick={closeModal}>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="button warning outline"
+                                                onClick={closeModal}
+                                            >
                                                 Cancel
-                                            </Button>
+                                            </button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

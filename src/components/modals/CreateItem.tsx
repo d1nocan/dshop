@@ -5,7 +5,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { createItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
-import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
 
 export const CreateItem = () => {
@@ -58,9 +57,9 @@ export const CreateItem = () => {
     }
     return (
         <>
-            <Button type="primary" onClick={openModal} className="mx-auto mt-10 flex font-bold">
+            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
                 Create Item
-            </Button>
+            </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
@@ -234,12 +233,16 @@ export const CreateItem = () => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <Button type="success" outline onClick={onSubmit}>
+                                            <button type="button" className="button success outline" onClick={onSubmit}>
                                                 Create
-                                            </Button>
-                                            <Button type="danger" outline onClick={closeModal}>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="button danger outline"
+                                                onClick={closeModal}
+                                            >
                                                 Cancel
-                                            </Button>
+                                            </button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

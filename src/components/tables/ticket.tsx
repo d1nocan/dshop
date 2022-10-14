@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Ticket, User } from "@prisma/client";
 import Link from "next/link";
-import Button from "@general/button";
 
 type Props = {
     ticket: Ticket & { user: User };
@@ -33,9 +32,9 @@ const Ticket = ({ ticket }: Props) => {
             <td className="py-3 px-6 text-left">{ticket.status}</td>
             <td className="py-3 px-6 text-right">
                 <Link href={`./tickets/${ticket.id}`}>
-                    <Button type="primary" className="button button primary outline">
+                    <button type="button" className="button primary outline">
                         Details
-                    </Button>
+                    </button>
                 </Link>
             </td>
         </tr>

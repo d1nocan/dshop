@@ -1,5 +1,4 @@
 import { Item, Transaction, User } from "@prisma/client";
-import Button from "@general/button";
 
 type Props = {
     transaction: Transaction & { user: User; item: Item };
@@ -15,9 +14,9 @@ const Transaction = ({ transaction, onClick }: Props) => {
             <td className="py-3 px-6 text-left">{transaction.points.toString()}</td>
             <td className="py-3 px-6 text-left">{transaction.status}</td>
             <td className="py-3 px-6 text-center">
-                <Button type="secondary" outline onClick={onClick}>
+                <button type="button" className="button secondary outline" onClick={onClick}>
                     VIEW
-                </Button>
+                </button>
             </td>
         </>
     );

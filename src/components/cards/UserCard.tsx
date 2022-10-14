@@ -9,7 +9,6 @@ interface UserCard {
 
 const UserModal = dynamic(() => import("@modals/UserModal"));
 const Image = dynamic(() => import("next/image"));
-const Button = dynamic(() => import("@general/button"));
 
 const UserCard = ({ user, isAdmin }: UserCard) => {
     const [showModal, setShowModal] = useState(false);
@@ -41,9 +40,9 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                         <p>Role: {user.role}</p>
                         <div className="mt-2">
                             {isAdmin && (
-                                <Button onClick={openModal} type="primary" className="px-2">
+                                <button onClick={openModal} type="button" className="button primary px-2">
                                     Details
-                                </Button>
+                                </button>
                             )}
                         </div>
                     </div>

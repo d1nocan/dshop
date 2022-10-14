@@ -6,7 +6,6 @@ import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
-import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
 import { useSession } from "next-auth/react";
 
@@ -155,19 +154,23 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                             </div>
                                         </Dialog.Description>
                                         <div className="mt-6 flex flex-row justify-end gap-4">
-                                            <Button
-                                                type="primary"
-                                                outline
+                                            <button
+                                                type="button"
+                                                className="button primary outline"
                                                 onClick={handleSubmit(() => {
                                                     setLoading(true);
                                                     mutate(getValues());
                                                 })}
                                             >
                                                 Save
-                                            </Button>
-                                            <Button type="danger" outline onClick={closeModal}>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="button danger outline"
+                                                onClick={closeModal}
+                                            >
                                                 Cancel
-                                            </Button>
+                                            </button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

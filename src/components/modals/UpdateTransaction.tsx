@@ -4,7 +4,6 @@ import { Dialog, Transition, Listbox } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { default as TSA } from "@tables/transaction";
 import Image from "next/image";
-import Button from "@general/button";
 import ModalLoading from "./ModalLoading";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -183,20 +182,24 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                         <div className="flew-row mt-6 flex justify-end gap-4">
                                             {transaction.status === Status.Pending &&
                                                 session.data?.user?.role === Role.Admin && (
-                                                    <Button
-                                                        type="primary"
-                                                        outline
+                                                    <button
+                                                        type="button"
+                                                        className="button primary outline"
                                                         onClick={handleSubmit((_data) => {
                                                             setLoading(true);
                                                             mutate(_data);
                                                         })}
                                                     >
                                                         Update
-                                                    </Button>
+                                                    </button>
                                                 )}
-                                            <Button type="danger" outline onClick={closeModal}>
+                                            <button
+                                                type="button"
+                                                className="button danger outline"
+                                                onClick={closeModal}
+                                            >
                                                 Close
-                                            </Button>
+                                            </button>
                                         </div>
                                     </form>
                                 </Dialog.Panel>

@@ -12,7 +12,6 @@ interface Props {
 const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
     const Image = dynamic(() => import("next/image"));
     const TicketForm = dynamic(() => import("@forms/ticket"));
-    const Button = dynamic(() => import("@general/button"));
     const { data, refetch } = trpc.ticket.select.useQuery({ id: id as string });
     const { mutate: updateTicket } = trpc.ticket.update.useMutation({
         onSuccess: () => {
@@ -39,9 +38,9 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
                 <h2 className={`text-center ${statusColor(data?.status)} mb-4 text-2xl`}>{data?.status}</h2>
                 {isAdmin && (
                     <div className="flex flex-row justify-center">
-                        <Button
-                            type={`${data?.status === "Open" ? "danger" : "success"}`}
-                            className="duration-300"
+                        <button
+                            type="button"
+                            className={`${data?.status === "Open" ? "danger" : "success"} duration-300`}
                             onClick={() =>
                                 updateTicket({
                                     id: data?.id as string,
@@ -50,7 +49,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
                             }
                         >
                             {data?.status === "Open" ? "Close" : "Open"}
-                        </Button>
+                        </button>
                     </div>
                 )}
                 <ul className="mx-auto mb-10 w-4/6">

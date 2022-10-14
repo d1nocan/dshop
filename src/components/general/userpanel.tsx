@@ -4,7 +4,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { User } from "phosphor-react";
 import { Fragment, useState } from "react";
-import Button from "./button";
 
 export const UserPanel = () => {
     const { data: session, status } = useSession();
@@ -64,24 +63,23 @@ export const UserPanel = () => {
                                             {error.message === "NOT_FOUND" ? "Not Found" : "Already used"}
                                         </p>
                                     )}
-                                    <Button
-                                        type="secondary"
-                                        outline
-                                        className="mx-auto w-24 scale-90 text-start"
+                                    <button
+                                        type="button"
+                                        className="button secondary mx-auto w-24 scale-90 text-start outline"
                                         onClick={() => mutate({ code: code })}
                                     >
                                         Redeem
-                                    </Button>
+                                    </button>
                                 </div>
                             </>
                         )}
-                        <Button
-                            type="primary"
-                            className="mx-auto mb-2 w-2/3"
+                        <button
+                            type="button"
+                            className="button primary mx-auto mb-2 w-2/3"
                             onClick={() => (status === "authenticated" ? signOut() : signIn())}
                         >
                             {status === "authenticated" ? "Sign Out" : "Sign In"}
-                        </Button>
+                        </button>
                     </Popover.Panel>
                 </Transition>
             </Popover>

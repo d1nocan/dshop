@@ -1,4 +1,3 @@
-import Button from "@general/button";
 import { trpc } from "@utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addMessage } from "@schemas/ticket";
@@ -39,15 +38,16 @@ export const TicketForm = ({ data, userId }: Props) => {
                     <textarea className="textarea" placeholder="Message" {...register("content")}></textarea>
                 </div>
                 <div className="input-area mt-5">
-                    <Button
-                        type="primary"
+                    <button
+                        type="button"
+                        className="button primary"
                         onClick={handleSubmit(() => {
                             setValue("ticketId", data?.id as string);
                             mutate(getValues());
                         })}
                     >
                         Send
-                    </Button>
+                    </button>
                 </div>
             </form>
         </div>
