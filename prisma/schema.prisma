@@ -133,7 +133,7 @@ model Prediction {
     options   Json
     min       BigInt?
     max       BigInt?
-    total     BigInt?
+    total     BigInt    @default(dbgenerated("0"))
     Vote      Vote[]
     winOption Int?
 }
