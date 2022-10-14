@@ -1,7 +1,11 @@
-import Button from "@general/button";
 import { trpc } from "@utils/trpc";
 import { NextPage } from "next";
+import { CrownSimple } from "phosphor-react";
 import { useEffect, useState } from "react";
+
+type choice = {
+    text: string;
+};
 
 const LivePanel: NextPage = () => {
     const [inputs, setInput] = useState<{ [key: number]: string | number }>({});
@@ -9,6 +13,9 @@ const LivePanel: NextPage = () => {
     const { mutate: giveItem } = trpc.twitch.giveItem.useMutation();
     const { mutate: createCode } = trpc.code.create.useMutation();
     const { data: items } = trpc.item.get.useQuery();
+    const { data: predictions } = trpc.prediction.get.useQuery();
+    const { mutate: closePrediction } = trpc.prediction.close.useMutation();
+    const { mutate: setWinner } = trpc.prediction.winners.useMutation();
     const { data: user, isLoading, mutate: getUser } = trpc.twitch.selectRandom.useMutation();
     useEffect(() => {
         if (!isLoading) {
@@ -31,16 +38,16 @@ const LivePanel: NextPage = () => {
                             onChange={(e) => setInput({ ...inputs, 0: Number(e.target.value) })}
                         />
                     </div>
-                    <Button
-                        type="primary"
-                        className="mx-auto w-3/6"
+                    <button
+                        type="button"
+                        className="button primary mx-auto w-3/6"
                         onClick={() => {
                             givePoints({ points: (inputs[0] as number) || 0, user: null });
                             setInput({ ...inputs, 0: 0 });
                         }}
                     >
                         Give
-                    </Button>
+                    </button>
                 </div>
             </div>
             <div className="card">
@@ -63,16 +70,16 @@ const LivePanel: NextPage = () => {
                             onChange={(e) => setInput({ ...inputs, 2: Number(e.target.value) })}
                         />
                     </div>
-                    <Button
-                        type="primary"
-                        className="mx-auto mb-4 w-3/6"
+                    <button
+                        type="button"
+                        className="button primary mx-auto mb-4 w-3/6"
                         onClick={() => {
                             givePoints({ points: (inputs[2] as number) || 0, user: inputs[1] as string });
                             setInput({ ...inputs, 1: "", 2: 0 });
                         }}
                     >
                         Give
-                    </Button>
+                    </button>
                 </div>
             </div>
             <div className="card">
@@ -100,9 +107,9 @@ const LivePanel: NextPage = () => {
                             ))}
                         </select>
                     </div>
-                    <Button
-                        type="primary"
-                        className="mx-auto mb-4 w-3/6"
+                    <button
+                        type="button"
+                        className="button primary mx-auto mb-4 w-3/6"
                         onClick={() => {
                             console.log(inputs);
                             giveItem({ user: inputs[3] as string, itemId: inputs[4] as string });
@@ -110,7 +117,7 @@ const LivePanel: NextPage = () => {
                         }}
                     >
                         Give
-                    </Button>
+                    </button>
                 </div>
             </div>
             <div className="card">
@@ -140,9 +147,9 @@ const LivePanel: NextPage = () => {
                             onChange={(e) => setInput({ ...inputs, 7: e.target.value })}
                         />
                     </div>
-                    <Button
-                        type="primary"
-                        className="mx-auto mb-4 w-3/6"
+                    <button
+                        type="button"
+                        className="button primary mx-auto mb-4 w-3/6"
                         onClick={() => {
                             console.log(inputs);
                             createCode({
@@ -154,24 +161,96 @@ const LivePanel: NextPage = () => {
                         }}
                     >
                         Create
-                    </Button>
+                    </button>
                 </div>
             </div>
             <div className="card">
                 <div className="card-body relative justify-evenly gap-10 py-6 text-center">
                     <h1 className="text-xl font-bold">Select Random</h1>
                     <p className="text-lg font-semibold">{inputs[8]}</p>
-                    <Button
-                        type="primary"
-                        className="mx-auto mb-4 w-3/6"
+                    <button
+                        type="button"
+                        className="button primary mx-auto mb-4 w-3/6"
                         onClick={() => {
                             getUser();
                         }}
                     >
                         Select
-                    </Button>
+                    </button>
                 </div>
             </div>
+            {predictions?.map((prediction) => (
+                <div key={prediction.id} className="h-full w-5/6">
+                    <div className="card-body relative justify-around py-10 text-center">
+                        <h1 className="text-2xl font-bold">{prediction.question}</h1>
+                        {(prediction.endsAt as Date) >= new Date() && (
+                            <button
+                                type="button"
+                                className="button danger mx-auto w-24"
+                                onClick={() => closePrediction({ id: prediction.id })}
+                            >
+                                Close
+                            </button>
+                        )}
+                        {prediction.winOption === null && (
+                            <>
+                                <p>Select Winner:</p>
+                                <select
+                                    title="Select"
+                                    className="input mx-auto my-1 w-1/6"
+                                    value={inputs[9]}
+                                    onChange={(e) => setInput({ ...inputs, 9: Number(e.target.value) })}
+                                >
+                                    {(prediction.options as choice[]).map((option, index) => (
+                                        <option key={index} value={index}>
+                                            {option.text}
+                                        </option>
+                                    ))}
+                                </select>
+                                <button
+                                    type="button"
+                                    className="button success mx-auto my-4 w-[10%] outline"
+                                    onClick={() => setWinner({ id: prediction.id, option: inputs[9] as number })}
+                                >
+                                    Set Winner
+                                </button>
+                            </>
+                        )}
+                        <div className="flex flex-row flex-wrap gap-x-2 gap-y-5">
+                            {(prediction.options as choice[])?.map((option, index) => {
+                                const percentage = (
+                                    (prediction.Vote.filter((vote) => vote.choice === index).length /
+                                        prediction.Vote.length) *
+                                    100
+                                ).toFixed();
+                                return (
+                                    <div
+                                        key={index}
+                                        className="relative mx-auto flex w-3/12 flex-col gap-2 rounded-lg border border-neutral-500 border-opacity-30 py-4"
+                                    >
+                                        <span className="text-lg font-semibold capitalize">{option?.text}</span>
+                                        {prediction.winOption === index && (
+                                            <CrownSimple
+                                                size={20}
+                                                className="absolute left-4 text-violet-500"
+                                                weight="bold"
+                                            />
+                                        )}
+                                        <div className="mx-auto h-3 w-2/3 rounded-full bg-gray-50 dark:bg-neutral-700">
+                                            <div
+                                                className={`h-3 rounded-full bg-violet-600`}
+                                                style={{ width: `${percentage}%` }}
+                                            ></div>
+                                        </div>
+                                        <p>{percentage}%</p>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+            ))}
+            ;
         </div>
     );
 };
