@@ -1,5 +1,6 @@
 import { router } from "../trpc";
 import { codeRouter } from "./code";
+import { giveawayRouter } from "./giveaway";
 import { itemRouter } from "./item";
 import { predictionRouter } from "./prediction";
 import { ticketRouter } from "./ticket";
@@ -15,6 +16,7 @@ export const appRouter = router({
     twitch: twitchRouter,
     code: codeRouter,
     prediction: predictionRouter,
+    giveaway: giveawayRouter,
 });
 
 export type AppRouter = typeof appRouter;
