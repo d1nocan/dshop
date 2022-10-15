@@ -1,6 +1,5 @@
 import { trpc } from "@utils/trpc";
 import { NextPage } from "next";
-import { CrownSimple } from "phosphor-react";
 import { useEffect, useState } from "react";
 
 type choice = {
@@ -228,16 +227,15 @@ const LivePanel: NextPage = () => {
                                 return (
                                     <div
                                         key={index}
-                                        className="relative mx-auto flex w-3/12 flex-col gap-2 rounded-lg border border-neutral-500 border-opacity-30 py-4"
+                                        className={`relative mx-auto flex w-3/12 flex-col gap-2 rounded-lg ${
+                                            prediction.winOption === index
+                                                ? "border-4 border-violet-500"
+                                                : "border border-neutral-500 border-opacity-30"
+                                        }  py-4`}
                                     >
-                                        <span className="text-lg font-semibold capitalize">{option?.text}</span>
-                                        {prediction.winOption === index && (
-                                            <CrownSimple
-                                                size={20}
-                                                className="absolute left-4 text-violet-500"
-                                                weight="bold"
-                                            />
-                                        )}
+                                        <div className="mx-auto flex flex-col text-center">
+                                            <span className="text-lg font-semibold capitalize">{option?.text}</span>
+                                        </div>
                                         <div className="mx-auto h-3 w-2/3 rounded-full bg-gray-50 dark:bg-neutral-700">
                                             <div
                                                 className={`h-3 rounded-full bg-violet-600`}
