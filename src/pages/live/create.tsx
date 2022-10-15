@@ -74,7 +74,8 @@ export const CreateVote: NextPage = () => {
                                         {errors.min && <p className="text-red-500">{errors.min.message}</p>}
                                     </div>
                                 </div>
-                                <div className="grid w-full grid-cols-1 gap-x-5 gap-y-3 lg:grid-cols-2">
+                                <p className="-mt-2 font-light">If min equals false, then bet is disabled</p>
+                                <div className="grid w-full grid-cols-1 gap-y-3 lg:grid-cols-2">
                                     {fields.map((field, index) => (
                                         <div key={field.id}>
                                             <section key={field.id}>
@@ -88,7 +89,7 @@ export const CreateVote: NextPage = () => {
                                                     <button
                                                         title="Remove"
                                                         type="button"
-                                                        className="ml-2 rounded-full border-2 border-neutral-900 border-opacity-50 p-1 align-middle transition-colors duration-200 ease-in-out hover:border-opacity-90 hover:bg-neutral-50 dark:border-neutral-100 dark:border-opacity-40 dark:hover:border-opacity-20 dark:hover:bg-neutral-900"
+                                                        className="ml-[-2em] rounded-r-xl border border-neutral-900 px-1 py-2 align-middle transition-colors duration-200 ease-in-out hover:border-opacity-90 hover:bg-neutral-50 dark:border-neutral-100 dark:border-opacity-40 dark:hover:border-opacity-20 dark:hover:bg-neutral-900"
                                                         onClick={() => remove(index)}
                                                     >
                                                         <X size={22} weight="bold" className="text-violet-600" />
