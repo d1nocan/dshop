@@ -42,21 +42,23 @@ model Session {
 }
 
 model User {
-    id            String        @id @default(cuid())
-    name          String        @unique
-    email         String?       @unique
-    emailVerified DateTime?
-    image         String?
-    role          Role          @default(User)
-    points        BigInt        @default(0)
-    cooldown      BigInt        @default(0)
-    transactions  Transaction[]
-    accounts      Account[]
-    sessions      Session[]
-    tickets       Ticket[]
-    messages      Message[]     @relation("UserMessages")
-    usedcodes     Code[]
-    predictions   Vote[]
+    id              String        @id @default(cuid())
+    name            String        @unique
+    email           String?       @unique
+    emailVerified   DateTime?
+    image           String?
+    role            Role          @default(User)
+    points          BigInt        @default(0)
+    cooldown        BigInt        @default(0)
+    transactions    Transaction[]
+    accounts        Account[]
+    sessions        Session[]
+    tickets         Ticket[]
+    messages        Message[]     @relation("UserMessages")
+    usedcodes       Code[]
+    predictions     Vote[]
+    joinedGiveaways Giveaway[]
+    wins            Giveaway[]    @relation("UserWins")
 }
 
 model VerificationToken {
@@ -147,6 +149,17 @@ model Vote {
     points       BigInt?
     predictionId String
     prediction   Prediction @relation(fields: [predictionId], references: [id], onDelete: Cascade)
+}
+
+model Giveaway {
+    id          String   @id @default(cuid())
+    createdAt   DateTime @default(now())
+    endsAt      BigInt
+    title       String
+    totalWinner Int      @default(1)
+    joined      User[]
+    winners     User[]   @relation("UserWins")
+    points      BigInt?  @default(0)
 }
 
 enum Role {
