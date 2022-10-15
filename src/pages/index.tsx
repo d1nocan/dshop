@@ -25,20 +25,8 @@ const PredictionPanel = () => {
                 <div key={prediction.id} className="card mx-auto my-10">
                     <div className="card-body justify-evenly text-center">
                         <p className="text-xl font-bold">{prediction.question}</p>
-                        {prediction.Vote.some((vote) => vote.userId === session.data?.user?.id) ? (
-                            <p>
-                                Your selection:
-                                <br />
-                                {
-                                    (prediction?.options as { text: string }[])?.[
-                                        Number(
-                                            prediction.Vote.find((vote) => vote.userId === session.data?.user?.id)
-                                                ?.choice,
-                                        )
-                                    ]?.text
-                                }
-                            </p>
-                        ) : (prediction.endsAt as Date) >= new Date() ? (
+                        {!prediction.Vote.some((vote) => vote.userId === session.data?.user?.id) &&
+                        (prediction.endsAt as Date) >= new Date() ? (
                             <form
                                 key={prediction.id}
                                 className="flex flex-col gap-4"
@@ -81,7 +69,22 @@ const PredictionPanel = () => {
                             </form>
                         ) : (
                             <div className="flex flex-col gap-4">
-                                <p>This prediction is finished</p>
+                                {(prediction.endsAt as Date) <= new Date() && <p>This prediction is finished</p>}
+                                {prediction.Vote.some((vote) => vote.userId === session.data?.user?.id) && (
+                                    <p>
+                                        Your selection:
+                                        <br />
+                                        {
+                                            (prediction?.options as { text: string }[])?.[
+                                                Number(
+                                                    prediction.Vote.find(
+                                                        (vote) => vote.userId === session.data?.user?.id,
+                                                    )?.choice,
+                                                )
+                                            ]?.text
+                                        }
+                                    </p>
+                                )}
                                 {prediction.winOption !== null && (
                                     <p>
                                         Winner: {(prediction.options as { text: string }[])[prediction.winOption]?.text}
@@ -100,17 +103,14 @@ const Home: NextPage = () => {
     const session = useSession();
     return (
         <section>
-            {session.status === "authenticated" ? (
-                <PredictionPanel />
-            ) : (
-                <div className="my-64 mx-auto max-w-screen-xl px-4 lg:flex lg:h-96 lg:items-center">
-                    <div className="mx-auto max-w-3xl text-center">
-                        <h1 className="select-none bg-gradient-to-r from-purple-200 via-purple-400 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
-                            {env.NEXT_PUBLIC_DEFAULT_SHOP_NAME}
-                        </h1>
-                    </div>
+            <div className="my-64 mx-auto max-w-screen-xl px-4 lg:flex lg:h-96 lg:items-center">
+                <div className="mx-auto max-w-3xl text-center">
+                    <h1 className="select-none bg-gradient-to-r from-purple-200 via-purple-400 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
+                        {env.NEXT_PUBLIC_DEFAULT_SHOP_NAME}
+                    </h1>
                 </div>
-            )}
+            </div>
+            {session.status === "authenticated" && <PredictionPanel />}
         </section>
     );
 };
