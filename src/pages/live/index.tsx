@@ -183,6 +183,8 @@ const LivePanel: NextPage = () => {
                 <div key={prediction.id} className="h-full w-5/6">
                     <div className="card-body relative justify-around py-10 text-center">
                         <h1 className="text-2xl font-bold">{prediction.question}</h1>
+                        <p>Total points: {Number(prediction.total)}</p>
+                        <p>Total bets: {prediction.Vote.length}</p>
                         {(prediction.endsAt as Date) >= new Date() && (
                             <button
                                 type="button"
