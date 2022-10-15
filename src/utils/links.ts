@@ -20,13 +20,18 @@ export const links = [
         roles: [Role.Admin, Role.User, Role.Banned],
     },
     {
-        name: "Live Panel",
-        href: "/live",
-        roles: [Role.Admin],
+        name: "Predictions",
+        href: "/predictions",
+        roles: [Role.Admin, Role.User],
     },
     {
-        name: "Create Bet",
-        href: "/live/create",
+        name: "Giveaways",
+        href: "/giveaways",
+        roles: [Role.Admin, Role.User],
+    },
+    {
+        name: "Live Panel",
+        href: "/live",
         roles: [Role.Admin],
     },
 ];
