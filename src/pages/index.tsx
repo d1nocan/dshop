@@ -10,6 +10,14 @@ const Home: NextPage = () => {
                         {env.NEXT_PUBLIC_DEFAULT_SHOP_NAME}
                     </h1>
                 </div>
+                <div className="mx-auto mt-4 w-max lg:mt-0">
+                    <iframe
+                        title="Twitch stream"
+                        src={`https://player.twitch.tv/?channel=${env.NEXT_PUBLIC_TWITCH_CHANNEL}&parent=localhost`}
+                        allowFullScreen={true}
+                        className="aspect-video w-full rounded-lg border-2 border-violet-500 border-opacity-30 lg:w-[40vw]"
+                    />
+                </div>
             </div>
         </section>
     );
