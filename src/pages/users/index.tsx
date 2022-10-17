@@ -51,7 +51,7 @@ const Users: NextPage = () => {
                     title="Search"
                     type="text"
                     placeholder="Search"
-                    className="input text-neutral-50"
+                    className="input text-neutral-900 dark:text-neutral-50"
                     onKeyDown={searchAction}
                 />
                 <MagnifyingGlass
