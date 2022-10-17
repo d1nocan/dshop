@@ -44,7 +44,7 @@ export const UserPanel = () => {
                     <Popover.Panel
                         className={`absolute -top-2 z-10 flex flex-col ${
                             status === "authenticated" ? "h-72" : "h-32"
-                        } -right-4 w-60 justify-between rounded bg-neutral-700 text-neutral-100`}
+                        } -right-4 w-60 justify-between rounded bg-neutral-200 text-neutral-900 dark:bg-neutral-700 dark:text-neutral-100`}
                     >
                         <p className="mt-5 ml-6 font-bold">{session?.user?.name || "You need to sign in"}</p>
                         {status === "authenticated" && (

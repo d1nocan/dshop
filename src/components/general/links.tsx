@@ -29,7 +29,7 @@ export const Links = () => {
                 >
                     <Menu.Items
                         as="nav"
-                        className="absolute z-10 mt-10 w-40 divide-y divide-neutral-200 divide-opacity-30 rounded-2xl bg-neutral-700 p-4 capitalize text-neutral-100"
+                        className="absolute z-10 mt-10 w-40 divide-y divide-neutral-800 divide-opacity-30 rounded-2xl bg-neutral-200 p-4 capitalize text-neutral-900 dark:divide-neutral-200 dark:divide-opacity-30 dark:bg-neutral-700 dark:text-neutral-100"
                     >
                         {links.map((link) => {
                             if (link.roles && !link.roles.includes(session?.user?.role as Role)) {
