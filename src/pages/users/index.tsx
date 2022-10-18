@@ -38,7 +38,7 @@ const Users: NextPage = () => {
                 title="Next Page"
                 className="rounded-md bg-neutral-200 p-4 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
                 onClick={() => setPage((prev) => prev + 1)}
-                disabled={page * 25 > (total as number)}
+                disabled={page * 25 > (total as number) || users?.length === 0}
             >
                 <ArrowRight weight="bold" />
             </button>
