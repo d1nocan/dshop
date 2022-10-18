@@ -1,6 +1,7 @@
 import type { User } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { CaretRight } from "phosphor-react";
 
 interface UserCard {
     user: User;
@@ -40,8 +41,9 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                         <p>Role: {user.role}</p>
                         <div className="mt-2">
                             {isAdmin && (
-                                <button onClick={openModal} type="button" className="button primary px-2">
+                                <button onClick={openModal} type="button" className="button primary mx-auto flex px-2">
                                     Details
+                                    <CaretRight size={22} weight="bold" className="my-auto" />
                                 </button>
                             )}
                         </div>
