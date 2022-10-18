@@ -50,7 +50,7 @@ const Users: NextPage = () => {
                 <input
                     title="Search"
                     type="text"
-                    placeholder="Search"
+                    placeholder={search ? search : "Search"}
                     className="input text-neutral-900 dark:text-neutral-50"
                     onKeyDown={searchAction}
                 />
