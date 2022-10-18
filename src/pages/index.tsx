@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { env } from "src/env/client.mjs";
-
+import { getBaseUrl } from "@utils/trpc";
 const Home: NextPage = () => {
     return (
         <section>
@@ -13,7 +13,9 @@ const Home: NextPage = () => {
                 <div className="mx-auto mt-4 w-max lg:mt-0">
                     <iframe
                         title="Twitch stream"
-                        src={`https://player.twitch.tv/?channel=${env.NEXT_PUBLIC_TWITCH_CHANNEL}&parent=localhost`}
+                        src={`https://player.twitch.tv/?channel=${env.NEXT_PUBLIC_TWITCH_CHANNEL}&parent=${
+                            getBaseUrl().split("//")[1]?.split(":")[0]
+                        }&muted=true`}
                         allowFullScreen={true}
                         className="aspect-video w-full rounded-lg border-2 border-violet-500 border-opacity-30 lg:w-[40vw]"
                     />
