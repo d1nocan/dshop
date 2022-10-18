@@ -1,6 +1,7 @@
 import { trpc } from "@utils/trpc";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 type choice = {
     text: string;
@@ -8,9 +9,33 @@ type choice = {
 
 const LivePanel: NextPage = () => {
     const [inputs, setInput] = useState<{ [key: number]: string | number }>({});
-    const { mutate: givePoints } = trpc.twitch.givePoints.useMutation();
-    const { mutate: giveItem } = trpc.twitch.giveItem.useMutation();
-    const { mutate: createCode } = trpc.code.create.useMutation();
+    const { mutate: givePoints } = trpc.twitch.givePoints.useMutation({
+        onSuccess: () => {
+            toast(`You give everyone ${inputs[0]} points!`, {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+        },
+    });
+    const { mutate: giveItem } = trpc.twitch.giveItem.useMutation({
+        onSuccess: () => {
+            toast(`You give ${inputs[2]} to ${inputs[1]}!`, {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+        },
+    });
+    const { mutate: createCode } = trpc.code.create.useMutation({
+        onSuccess: () => {
+            toast(`You create a code!`, {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+        },
+    });
     const { data: items } = trpc.item.get.useQuery();
     const { data: predictions } = trpc.prediction.get.useQuery();
     const { mutate: closePrediction } = trpc.prediction.close.useMutation();

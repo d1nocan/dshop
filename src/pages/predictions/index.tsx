@@ -8,16 +8,10 @@ import Link from "next/link";
 export const PredictionPanel = () => {
     const session = useSession();
     const { data: predictions } = trpc.prediction.get.useQuery();
-    const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors },
-    } = useForm<makePredictionInputType>({
+    const { register, handleSubmit, setValue } = useForm<makePredictionInputType>({
         resolver: zodResolver(makePrediction),
     });
     const { mutate } = trpc.prediction.make.useMutation();
-    console.log(errors);
     return (
         <>
             {session.data?.user?.role === "Admin" && (

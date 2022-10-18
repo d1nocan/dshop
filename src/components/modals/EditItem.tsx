@@ -7,6 +7,7 @@ import { updateItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
 import ModalLoading from "./ModalLoading";
+import toast from "react-hot-toast";
 
 interface Items {
     item: Item;
@@ -21,6 +22,11 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
         onSuccess: () => {
             utils.item.get.invalidate();
             setLoading(false);
+            toast("Item updated!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
             closeModal();
         },
     });

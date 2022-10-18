@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { trpc } from "@utils/trpc";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,7 +26,6 @@ export const CreateVote: NextPage = () => {
         name: "options",
     });
     const { mutate, isLoading } = trpc.prediction.create.useMutation();
-    console.log(errors);
     return (
         <div className="container mx-auto flex flex-col flex-wrap place-content-center justify-center gap-10 py-10">
             <div className="relative z-0 w-1/2">
@@ -36,7 +35,6 @@ export const CreateVote: NextPage = () => {
                     <form
                         className="card-body relative flex-wrap justify-around gap-4 pb-6 text-center"
                         onSubmit={handleSubmit((data) => {
-                            console.log(data);
                             mutate(data);
                         })}
                         style={{ maxHeight: "80vh" }}

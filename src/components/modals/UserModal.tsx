@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUser } from "@schemas/user";
 import ModalLoading from "./ModalLoading";
 import { useSession } from "next-auth/react";
-
+import toast from "react-hot-toast";
 interface Users {
     user: User;
     closeModal: () => void;
@@ -23,6 +23,11 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
         onSuccess: () => {
             utils.user.get.invalidate();
             setLoading(false);
+            toast("User updated!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
             closeModal();
         },
     });

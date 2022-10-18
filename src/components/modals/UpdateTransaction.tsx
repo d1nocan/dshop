@@ -1,14 +1,15 @@
-import { Transaction, User, Item, Status, Role } from "@prisma/client";
-import { trpc } from "@utils/trpc";
-import { Dialog, Transition, Listbox } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import { default as TSA } from "@tables/transaction";
-import Image from "next/image";
-import ModalLoading from "./ModalLoading";
-import { useForm } from "react-hook-form";
+import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Item, Role, Status, Transaction, User } from "@prisma/client";
 import { updateTransaction } from "@schemas/transaction";
+import { default as TSA } from "@tables/transaction";
+import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { Fragment, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import ModalLoading from "./ModalLoading";
 
 interface Items {
     transaction: Transaction & { user: User; item: Item };
@@ -38,6 +39,11 @@ export const UpdateTransaction = ({ transaction }: Items) => {
             utils.transaction.get.invalidate();
             reset();
             setLoading(false);
+            toast("Transaction Updated!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
             closeModal();
         },
     });

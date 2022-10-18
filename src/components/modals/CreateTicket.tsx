@@ -5,22 +5,34 @@ import { Dialog, Transition } from "@headlessui/react";
 import { createTicket } from "@schemas/ticket";
 import { Fragment, useState } from "react";
 import ModalLoading from "./ModalLoading";
+import toast from "react-hot-toast";
 
-export const CreateTicket = () => {
+type CreateTicketProps = {
+    showModal: boolean;
+    closeModal: () => void;
+};
+
+export const CreateTicket = ({ showModal, closeModal }: CreateTicketProps) => {
     const [loading, setLoading] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    function openModal() {
-        setShowModal(true);
-    }
-    function closeModal() {
-        setShowModal(false);
-    }
     const utils = trpc.useContext();
-    const { mutate, error } = trpc.ticket.create.useMutation({
+    const { mutate } = trpc.ticket.create.useMutation({
         onSuccess: () => {
             utils.ticket.get.invalidate();
             setLoading(false);
-            setShowModal(false);
+            toast("Ticket Created!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
+            closeModal;
+        },
+        onError: (err) => {
+            setLoading(false);
+            toast(err.message, {
+                icon: "❌",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
         },
     });
     const {
@@ -37,9 +49,6 @@ export const CreateTicket = () => {
     });
     return (
         <>
-            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
-                Create Ticket
-            </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child
@@ -92,11 +101,6 @@ export const CreateTicket = () => {
                                                     <p className="text-red-500">{errors.message.message}</p>
                                                 )}
                                             </div>
-                                            {error && (
-                                                <p className="mt-4 text-center text-lg font-light text-red-500">
-                                                    {error.message}
-                                                </p>
-                                            )}
                                         </div>
                                         <div className="mt-10 flex justify-end gap-4">
                                             <button

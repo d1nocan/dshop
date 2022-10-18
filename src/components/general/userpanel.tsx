@@ -4,11 +4,27 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { User } from "phosphor-react";
 import { Fragment, useState } from "react";
+import { toast } from "react-hot-toast";
 
 export const UserPanel = () => {
     const { data: session, status } = useSession();
     const [code, setCode] = useState("");
-    const { mutate, error } = trpc.code.use.useMutation();
+    const { mutate } = trpc.code.use.useMutation({
+        onError: (err) => {
+            toast(err.message, {
+                icon: "❌",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+        },
+        onSuccess: () => {
+            toast("Code redeemed!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+        },
+    });
     return (
         <>
             <Popover className="relative mt-1 mr-4">
@@ -58,11 +74,6 @@ export const UserPanel = () => {
                                         onChange={(e) => setCode(e.target.value)}
                                         className="input mb-2 h-1/3 w-4/6"
                                     />
-                                    {error && (
-                                        <p className="mx-auto mb-1 -mt-2 w-full text-red-500">
-                                            {error.message === "NOT_FOUND" ? "Not Found" : "Already used"}
-                                        </p>
-                                    )}
                                     <button
                                         type="button"
                                         className="button secondary mx-auto w-24 scale-90 text-start outline"

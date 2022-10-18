@@ -6,6 +6,7 @@ import { createItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
 import ModalLoading from "./ModalLoading";
+import toast from "react-hot-toast";
 
 export const CreateItem = () => {
     const [loading, setLoading] = useState(false);
@@ -21,6 +22,11 @@ export const CreateItem = () => {
         onSuccess: () => {
             utils.item.get.invalidate();
             setLoading(false);
+            toast("Item Created!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
             closeModal();
         },
     });

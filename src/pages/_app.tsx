@@ -6,6 +6,7 @@ import type { AppType } from "next/app";
 import type { Session } from "next-auth";
 import "@styles/globals.css";
 import { trpc } from "@utils/trpc";
+import { Toaster } from "react-hot-toast";
 
 const Dshop: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
@@ -16,6 +17,7 @@ const Dshop: AppType<{ session: Session | null }> = ({ Component, pageProps: { s
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
+            <Toaster />
             <Layout>
                 <Component {...pageProps} />
             </Layout>

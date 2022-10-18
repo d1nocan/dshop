@@ -6,6 +6,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { selectItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import ModalLoading from "./ModalLoading";
+import toast from "react-hot-toast";
 
 interface Items {
     item: Item;
@@ -17,11 +18,24 @@ interface Items {
 export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
-    const { mutate, error } = trpc.item.buy.useMutation({
+    const { mutate } = trpc.item.buy.useMutation({
         onSuccess: () => {
             utils.item.get.invalidate();
             setLoading(false);
+            toast("Item Bought!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
             closeModal();
+        },
+        onError: (err) => {
+            setLoading(false);
+            toast(err.message, {
+                icon: "❌",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
+            });
         },
     });
     const {
@@ -36,7 +50,6 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
             input: "",
         },
     });
-    console.log(errors);
     return (
         <>
             <Transition appear show={showModal && !isGuest} as={Fragment}>
@@ -64,7 +77,7 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel className="modal">
-                                    {loading && (!errors || !error) && <ModalLoading />}
+                                    {loading && <ModalLoading />}
                                     <form className="p-6">
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             {item.name}
@@ -90,11 +103,6 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
                                                 />
                                                 {errors.input && <p className="text-red-500">{errors.input.message}</p>}
                                             </div>
-                                        )}
-                                        {error && (
-                                            <p className="mt-4 text-center text-lg font-light text-red-500">
-                                                {error.message}
-                                            </p>
                                         )}
                                         <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button
