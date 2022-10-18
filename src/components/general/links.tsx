@@ -3,7 +3,7 @@ import { Role } from "@prisma/client";
 import { links } from "@utils/links";
 import { useSession } from "next-auth/react";
 import { Fragment } from "react";
-import { List } from "phosphor-react";
+import { List, Placeholder } from "phosphor-react";
 import NextLink from "./nextlink";
 
 export const Links = () => {
@@ -36,7 +36,12 @@ export const Links = () => {
                                 return null;
                             }
                             return (
-                                <Menu.Item key={link.href}>
+                                <Menu.Item key={link.href} as="div" className="flex flex-row">
+                                    {link.logo ? (
+                                        <link.logo className="my-auto text-xl" />
+                                    ) : (
+                                        <Placeholder className="my-auto text-xl" />
+                                    )}
                                     <NextLink
                                         href={link.href}
                                         className="group flex w-full items-center rounded-md py-2 px-2 text-sm capitalize"
