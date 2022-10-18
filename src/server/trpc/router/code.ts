@@ -26,10 +26,10 @@ export const codeRouter = router({
     use: protectedProcedure.input(useCode).mutation(async ({ input, ctx }) => {
         const code = await ctx.prisma.code.findUnique({ where: { code: input.code }, include: { whoUsed: true } });
         if (!code || code.limit === 0) {
-            throw new TRPCError({ code: "NOT_FOUND" });
+            throw new TRPCError({ message: "Invalid code", code: "BAD_REQUEST" });
         }
         if (code.whoUsed.some((u) => u.id === ctx.session.user.id)) {
-            throw new TRPCError({ code: "BAD_REQUEST" });
+            throw new TRPCError({ message: "You already used this code", code: "BAD_REQUEST" });
         }
         return ctx.prisma.user.update({
             where: { id: ctx.session.user.id },
