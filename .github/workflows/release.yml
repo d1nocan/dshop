@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
 
       - name: Use PnPm
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.2.4
         with:
           version: latest
 
