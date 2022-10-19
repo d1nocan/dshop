@@ -16,14 +16,15 @@ A web application that Twitch streamers use to reward their viewers
 <p>This app uses:</p>
 
 <ul>
+<li><a href="https://typescriptlang.org">TypeScript</a></li>
 <li><a href="https://nextjs.org">Next.js</a></li>
 <li><a href="https://trpc.io">tRPC</a></li>
-<li><a href="https://tailwindcss.com">TailWind CSS</a></li>
-<li><a href="https://typescriptlang.org">TypeScript</a></li>
 <li><a href="https://prisma.io">Prisma</a></li>
 <li><a href="https://next-auth.js.org">NextAuth.js</a></li>
-<li><a href="https://supabase.com">Supabase</a></li>
+<li><a href="https://tailwindcss.com">TailWind CSS</a></li>
 <li><a href="https://react-hook-form.com">React Hook Form</a></li>
+<li><a href="https://supabase.com">Supabase</a></li>
 <li><a href="https://headlessui.com">Headless UI</a></li>
 <li><a href="https://phosphoricons.com">Phosphor Icons</a></li>
+<li><a href="https://react-hot-toast.com">React Hot Toast</a></li>
 </ul>
