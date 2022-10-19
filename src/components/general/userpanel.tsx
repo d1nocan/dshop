@@ -28,12 +28,12 @@ export const UserPanel = () => {
     return (
         <>
             <Popover className="relative mt-1 mr-4">
-                <Popover.Button>
-                    <div
-                        className={`relative z-40 aspect-square w-12 rounded ${
-                            status === "loading" && "animate-pulse bg-neutral-700"
-                        }`}
-                    >
+                <div
+                    className={`relative z-40 aspect-square w-12 rounded ${
+                        status === "loading" && "animate-pulse bg-neutral-700"
+                    }`}
+                >
+                    <Popover.Button>
                         {status === "authenticated" && (
                             <Image
                                 alt={session?.user?.name as string}
@@ -46,8 +46,8 @@ export const UserPanel = () => {
                         {status === "unauthenticated" && (
                             <User size={30} weight="bold" className="mx-auto my-auto h-full dark:text-neutral-50" />
                         )}
-                    </div>
-                </Popover.Button>
+                    </Popover.Button>
+                </div>
                 <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
