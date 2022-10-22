@@ -29,12 +29,16 @@ export const CreateItem = () => {
             });
             closeModal();
         },
+        onError: () => {
+            setLoading(false);
+        },
     });
     const {
         register,
         watch,
         getValues,
         setValue,
+        handleSubmit,
         reset,
         formState: { errors },
     } = useForm({
@@ -99,7 +103,7 @@ export const CreateItem = () => {
                             >
                                 <Dialog.Panel className="modal">
                                     {loading && <ModalLoading />}
-                                    <form>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Item
                                         </Dialog.Title>
@@ -239,7 +243,7 @@ export const CreateItem = () => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button type="button" className="button success outline" onClick={onSubmit}>
+                                            <button type="submit" className="button success outline">
                                                 Create
                                             </button>
                                             <button
