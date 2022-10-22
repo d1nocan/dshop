@@ -1,6 +1,7 @@
 import type { Item } from "@prisma/client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { Pencil, ShoppingBag } from "phosphor-react";
 interface ItemCard {
     item: Item;
     isAdmin: boolean;
@@ -11,8 +12,6 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
     const EditItem = dynamic(() => import("@modals/EditItem"));
     const BuyItem = dynamic(() => import("@modals/BuyItem"));
     const Image = dynamic(() => import("next/image"));
-    const Pencil = dynamic(() => import("phosphor-react").then((p) => p.Pencil));
-    const ShoppingBag = dynamic(() => import("phosphor-react").then((p) => p.ShoppingBag));
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
