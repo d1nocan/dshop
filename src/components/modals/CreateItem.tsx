@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";
 import { createItem } from "@schemas/item";
 import { Fragment, useState } from "react";
-import uploadImage from "@utils/supabase";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
+import { Plus } from "phosphor-react";
 
 export const CreateItem = () => {
     const [loading, setLoading] = useState(false);
@@ -59,6 +59,7 @@ export const CreateItem = () => {
         setLoading(true);
         const filelist = (document.getElementById("filecrt") as HTMLInputElement).files as FileList;
         if (filelist.length > 0) {
+            const uploadImage = await import("@utils/supabase").then((mod) => mod.default);
             const link = (await uploadImage(filelist)) as string;
             setValue("image", link);
         }
@@ -69,6 +70,7 @@ export const CreateItem = () => {
         <>
             <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
                 Create Item
+                <Plus size={22} className="ml-2" />
             </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
