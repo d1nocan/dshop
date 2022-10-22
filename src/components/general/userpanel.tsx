@@ -27,7 +27,7 @@ export const UserPanel = () => {
     });
     return (
         <>
-            <Popover className="relative mt-1 mr-4">
+            <Popover className="relative mr-4">
                 <div
                     className={`relative z-40 aspect-square w-12 rounded ${
                         status === "loading" && "animate-pulse bg-neutral-700"
@@ -44,7 +44,11 @@ export const UserPanel = () => {
                             />
                         )}
                         {status === "unauthenticated" && (
-                            <User size={30} weight="bold" className="mx-auto my-auto h-full dark:text-neutral-50" />
+                            <User
+                                size={30}
+                                weight="bold"
+                                className="mx-auto my-auto mt-2 ml-3 h-full rounded-xl text-neutral-50"
+                            />
                         )}
                     </Popover.Button>
                 </div>
