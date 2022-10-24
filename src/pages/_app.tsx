@@ -1,12 +1,12 @@
 // src/pages/_app.tsx
-import Head from "next/head";
-import Layout from "@general/layout";
-import { SessionProvider } from "next-auth/react";
-import type { AppType } from "next/app";
-import type { Session } from "next-auth";
 import "@styles/globals.css";
 import { trpc } from "@utils/trpc";
+import type { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
+import type { AppType } from "next/app";
+import Head from "next/head";
 import { Toaster } from "react-hot-toast";
+import Navbar from "@navbar/navbar";
 
 const Dshop: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
@@ -18,9 +18,8 @@ const Dshop: AppType<{ session: Session | null }> = ({ Component, pageProps: { s
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
             <Toaster />
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
+            <Navbar />
+            <Component {...pageProps} />
         </SessionProvider>
     );
 };

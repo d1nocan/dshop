@@ -4,8 +4,9 @@ import { links } from "@utils/links";
 import { useSession } from "next-auth/react";
 import { Fragment } from "react";
 import { List, Placeholder } from "phosphor-react";
-import NextLink from "./nextlink";
+import dynamic from "next/dynamic";
 
+const NextLink = dynamic(() => import("@general/nextlink"));
 export const Links = () => {
     const { data: session } = useSession();
     return (

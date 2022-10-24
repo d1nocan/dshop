@@ -1,7 +1,6 @@
 import { Switch } from "@headlessui/react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import { env } from "src/env/client.mjs";
 
 const Links = dynamic(() => import("./links"));
 
@@ -44,7 +43,7 @@ export default function Navbar() {
                 <div className="inline-flex flex-1 flex-shrink-0 items-center">
                     <div className="mx-auto cursor-default text-2xl font-black uppercase tracking-wide text-neutral-100">
                         <Link href="/">
-                            <span>{env.NEXT_PUBLIC_DEFAULT_SHOP_NAME}</span>
+                            <span>DSHOP</span>
                         </Link>
                     </div>
                 </div>

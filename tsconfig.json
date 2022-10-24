@@ -22,6 +22,7 @@
             "@styles/*": ["./src/styles/*"],
             "@general/*": ["./src/components/general/*"],
             "@cards/*": ["./src/components/cards/*"],
+            "@navbar/*": ["./src/components/navbar/*"],
             "@modals/*": ["./src/components/modals/*"],
             "@tables/*": ["./src/components/tables/*"],
             "@utils/*": ["./src/utils/*"],
