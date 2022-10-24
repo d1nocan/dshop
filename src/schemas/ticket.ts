@@ -1,4 +1,4 @@
-import { TicketStatus } from "@prisma/client";
+import type { TicketStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const getUserTickets = z.object({
@@ -9,9 +9,11 @@ export const selectTicket = z.object({
     id: z.string(),
 });
 
+type status = z.ZodType<TicketStatus>;
+
 export const updateTicket = z.object({
     id: z.string(),
-    status: z.nativeEnum(TicketStatus),
+    status: z.enum(["Open", "Closed"]) as status,
 });
 
 export const createTicket = z.object({

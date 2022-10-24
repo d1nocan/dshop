@@ -24,7 +24,7 @@ export const CreateTicket = ({ showModal, closeModal }: CreateTicketProps) => {
                 position: "bottom-center",
                 className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-900",
             });
-            closeModal;
+            closeModal();
         },
         onError: (err) => {
             setLoading(false);
@@ -102,7 +102,7 @@ export const CreateTicket = ({ showModal, closeModal }: CreateTicketProps) => {
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="mt-10 flex justify-end gap-4">
+                                        <div className="mt-10 mb-0 flex justify-end gap-4">
                                             <button
                                                 type="button"
                                                 className="button primary outline"
@@ -111,7 +111,7 @@ export const CreateTicket = ({ showModal, closeModal }: CreateTicketProps) => {
                                                     mutate(getValues());
                                                 })}
                                             >
-                                                Buy
+                                                Create
                                             </button>
                                             <button
                                                 type="button"

@@ -40,7 +40,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
                     <div className="flex flex-row justify-center">
                         <button
                             type="button"
-                            className={`${data?.status === "Open" ? "danger" : "success"} duration-300`}
+                            className={`button ${data?.status === "Open" ? "danger" : "success"} duration-300`}
                             onClick={() =>
                                 updateTicket({
                                     id: data?.id as string,
