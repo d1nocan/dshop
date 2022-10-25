@@ -8,7 +8,8 @@ type choice = {
 };
 
 const LivePanel: NextPage = () => {
-    const [inputs, setInput] = useState<{ [key: number]: string | number }>({});
+    const utils = trpc.useContext();
+    const [inputs, setInput] = useState<{ [key: string | number]: string | number }>({});
     const { mutate: givePoints } = trpc.twitch.givePoints.useMutation({
         onSuccess: () => {
             toast(`You give everyone ${inputs[0]} points!`, {
@@ -38,8 +39,26 @@ const LivePanel: NextPage = () => {
     });
     const { data: items } = trpc.item.get.useQuery();
     const { data: predictions } = trpc.prediction.get.useQuery();
-    const { mutate: closePrediction } = trpc.prediction.close.useMutation();
-    const { mutate: setWinner } = trpc.prediction.winners.useMutation();
+    const { mutate: closePrediction } = trpc.prediction.close.useMutation({
+        onSuccess: () => {
+            toast(`You close the prediction!`, {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+            utils.prediction.get.invalidate();
+        },
+    });
+    const { mutate: setWinner } = trpc.prediction.winners.useMutation({
+        onSuccess: () => {
+            toast(`You select the winner!`, {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+            utils.prediction.get.invalidate();
+        },
+    });
     const { data: user, isLoading, mutate: getUser } = trpc.twitch.selectRandom.useMutation();
     useEffect(() => {
         if (!isLoading) {
@@ -206,41 +225,19 @@ const LivePanel: NextPage = () => {
             {predictions?.map((prediction) => (
                 <div key={prediction.id} className="h-full w-5/6">
                     <div className="card-body relative justify-around py-10 text-center">
-                        <h1 className="text-2xl font-bold">{prediction.question}</h1>
-                        <p>Total points: {Number(prediction.total)}</p>
-                        <p>Total bets: {prediction.Vote.length}</p>
+                        <h1 className="mb-4 text-2xl font-bold">{prediction.question}</h1>
+                        {prediction.total > 0 && <p>Total points: {Number(prediction.total)}</p>}
+                        <p>
+                            Total {prediction.max === prediction.min ? "Guesses" : "Bets"}: {prediction.Vote.length}
+                        </p>
                         {(prediction.endsAt as Date) >= new Date() && (
                             <button
                                 type="button"
-                                className="button danger mx-auto w-24"
+                                className="button danger mx-auto mt-4 w-24"
                                 onClick={() => closePrediction({ id: prediction.id })}
                             >
                                 Close
                             </button>
-                        )}
-                        {prediction.winOption === null && (
-                            <>
-                                <p>Select Winner:</p>
-                                <select
-                                    title="Select"
-                                    className="input mx-auto my-1 w-1/6"
-                                    value={inputs[9]}
-                                    onChange={(e) => setInput({ ...inputs, 9: Number(e.target.value) })}
-                                >
-                                    {(prediction.options as choice[]).map((option, index) => (
-                                        <option key={index} value={index}>
-                                            {option.text}
-                                        </option>
-                                    ))}
-                                </select>
-                                <button
-                                    type="button"
-                                    className="button success mx-auto my-4 w-[10%] outline"
-                                    onClick={() => setWinner({ id: prediction.id, option: inputs[9] as number })}
-                                >
-                                    Set Winner
-                                </button>
-                            </>
                         )}
                         <div className="flex flex-row flex-wrap gap-x-2 gap-y-5">
                             {(prediction.options as choice[])?.map((option, index) => {
@@ -272,6 +269,40 @@ const LivePanel: NextPage = () => {
                                 );
                             })}
                         </div>
+                        {prediction.winOption === null && (
+                            <>
+                                {prediction.max !== prediction.min && (
+                                    <>
+                                        <select
+                                            title="Select"
+                                            className="input mx-auto my-4 h-fit w-1/6"
+                                            value={inputs[prediction.id]}
+                                            onChange={(e) =>
+                                                setInput({ ...inputs, [prediction.id]: Number(e.target.value) })
+                                            }
+                                        >
+                                            {(prediction.options as choice[]).map((option, index) => (
+                                                <option key={index} value={index}>
+                                                    {option.text}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <button
+                                            type="button"
+                                            className="button success mx-auto h-fit w-28 outline"
+                                            onClick={() =>
+                                                setWinner({
+                                                    id: prediction.id,
+                                                    option: (inputs[prediction.id] as number) || 0,
+                                                })
+                                            }
+                                        >
+                                            Set Winner
+                                        </button>
+                                    </>
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
             ))}
