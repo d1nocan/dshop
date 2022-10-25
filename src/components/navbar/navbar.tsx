@@ -21,7 +21,7 @@ export default function Navbar() {
     return (
         <>
             <div className="relative mx-auto flex h-16 w-11/12 flex-wrap items-center justify-between rounded-b-xl bg-neutral-800">
-                <div className="inline-flex flex-1 justify-start">
+                <div className="inline-flex flex-1 justify-start select-none">
                     <Links />
                     <Switch
                         checked={theme}
@@ -41,13 +41,13 @@ export default function Navbar() {
                     </Switch>
                 </div>
                 <div className="inline-flex flex-1 flex-shrink-0 items-center">
-                    <div className="mx-auto cursor-default text-2xl font-black uppercase tracking-wide text-neutral-100">
+                    <div className="mx-auto cursor-default text-2xl font-black uppercase tracking-wide text-neutral-100 select-none">
                         <Link href="/">
                             <span>DSHOP</span>
                         </Link>
                     </div>
                 </div>
-                <div className="inline-flex flex-1 justify-end">
+                <div className="inline-flex flex-1 justify-end select-none">
                     <UserPanel />
                 </div>
             </div>
