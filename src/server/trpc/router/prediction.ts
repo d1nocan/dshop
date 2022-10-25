@@ -5,7 +5,6 @@ import { router, protectedProcedure } from "../trpc";
 export const predictionRouter = router({
     get: protectedProcedure.query(({ ctx }) => {
         return ctx.prisma.prediction.findMany({
-            take: 1,
             orderBy: {
                 createdAt: "desc",
             },
@@ -85,18 +84,19 @@ export const predictionRouter = router({
             },
         });
         const totalwinners = data?.Vote.map((e) => e.userId);
-        await ctx.prisma.user.updateMany({
-            where: {
-                id: {
-                    in: totalwinners ?? [],
+        totalwinners?.length &&
+            (await ctx.prisma.user.updateMany({
+                where: {
+                    id: {
+                        in: totalwinners ?? [],
+                    },
                 },
-            },
-            data: {
-                points: {
-                    increment: Number((Number(data?.total) / Number(totalwinners?.length)).toFixed()) || 1,
+                data: {
+                    points: {
+                        increment: Number((Number(data?.total) / Number(totalwinners?.length)).toFixed()) || 1,
+                    },
                 },
-            },
-        });
+            }));
         return await ctx.prisma.prediction.update({
             where: {
                 id: input.id,

@@ -27,5 +27,5 @@ export type makePredictionInputType = z.infer<typeof makePrediction>;
 
 export const setWinners = z.object({
     id: z.string(),
-    option: z.number().min(0),
+    option: z.number().min(0).optional(),
 });

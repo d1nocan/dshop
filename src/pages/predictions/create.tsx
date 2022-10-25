@@ -5,7 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createPrediction, CreatePredictionInputType } from "@schemas/prediction";
 import { X } from "phosphor-react";
 import Loading from "@general/loading";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+
 export const CreateVote: NextPage = () => {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -25,7 +29,16 @@ export const CreateVote: NextPage = () => {
         control,
         name: "options",
     });
-    const { mutate, isLoading } = trpc.prediction.create.useMutation();
+    const { mutate, isLoading } = trpc.prediction.create.useMutation({
+        onSuccess: () => {
+            toast("Prediction Created!", {
+                icon: "👍",
+                position: "bottom-center",
+                className: "text-neutral-900 bg-neutral-50 dark:text-neutral-50 dark:bg-neutral-800",
+            });
+            router.push("/predictions");
+        },
+    });
     return (
         <div className="container mx-auto flex flex-col flex-wrap place-content-center justify-center gap-10 py-10">
             <div className="relative z-0 w-1/2">
@@ -85,7 +98,7 @@ export const CreateVote: NextPage = () => {
                                             <button
                                                 title="Remove"
                                                 type="button"
-                                                className="ml-[-2em] rounded-r-xl border border-neutral-900 px-1 py-2 align-middle transition-colors duration-200 ease-in-out hover:border-opacity-90 hover:bg-neutral-50 dark:border-neutral-100 dark:border-opacity-40 dark:hover:border-opacity-20 dark:hover:bg-neutral-900"
+                                                className="ml-[-2em] -mt-0.5 rounded-r-xl border border-neutral-900 px-1 py-2 align-middle transition-colors duration-200 ease-in-out hover:border-opacity-90 hover:bg-neutral-50 dark:border-neutral-100 dark:border-opacity-40 dark:hover:border-opacity-20 dark:hover:bg-neutral-900"
                                                 onClick={() => remove(index)}
                                             >
                                                 <X size={22} weight="bold" className="text-violet-600" />
