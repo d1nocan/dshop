@@ -3,15 +3,15 @@ import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import Alert from "@general/alert";
 import Loading from "@general/loading";
-import { getSession } from "next-auth/react";
-
-interface Props {
-    isAdmin?: boolean;
-}
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const UpdateTransaction = dynamic(() => import("@modals/UpdateTransaction"));
 
-const Transactions: NextPage<Props> = ({ isAdmin }) => {
+const Transactions: NextPage = () => {
+    const session = useSession();
+    const router = useRouter();
+    session.status === "unauthenticated" && router.push("/");
     const { data: transactions, isLoading } = trpc.transaction.get.useQuery();
     if (isLoading) return <Loading />;
     return (
@@ -26,7 +26,7 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
                                 <th className="py-3 px-6 text-left">Input</th>
                                 <th className="py-3 px-6 text-left">Points</th>
                                 <th className="py-3 px-6 text-left">Status</th>
-                                {isAdmin && <th className="py-3 px-6 text-center"></th>}
+                                {session.data?.user?.role === "Admin" && <th className="py-3 px-6 text-center"></th>}
                             </tr>
                         </thead>
                         <tbody className="text-sm font-light text-neutral-50">
@@ -46,22 +46,6 @@ const Transactions: NextPage<Props> = ({ isAdmin }) => {
             )}
         </>
     );
-};
-
-Transactions.getInitialProps = async (ctx) => {
-    const session = await getSession(ctx);
-    const isAdmin = session?.user?.role === "Admin";
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
-    return {
-        isAdmin,
-    };
 };
 
 export default Transactions;

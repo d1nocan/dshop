@@ -1,20 +1,20 @@
 import type { NextPage } from "next";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import Loading from "@general/loading";
 import FAQ from "@general/faq";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
 const Ticket = dynamic(() => import("@tables/ticket"));
 const Alert = dynamic(() => import("@general/alert"));
 
-interface Props {
-    isAdmin?: boolean;
-}
-
-const Tickets: NextPage = ({ isAdmin }: Props) => {
+const Tickets: NextPage = () => {
+    const session = useSession();
+    const router = useRouter();
+    session.status === "unauthenticated" && router.push("/");
     const [showModal, setShowModal] = useState(false);
     function openModal() {
         setShowModal(true);
@@ -26,7 +26,7 @@ const Tickets: NextPage = ({ isAdmin }: Props) => {
     if (isLoading) return <Loading />;
     return (
         <>
-            {!isAdmin && (
+            {session.data?.user?.role === "User" && (
                 <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
                     Create Ticket
                 </button>
@@ -56,22 +56,6 @@ const Tickets: NextPage = ({ isAdmin }: Props) => {
             </div>
         </>
     );
-};
-
-Tickets.getInitialProps = async (ctx) => {
-    const session = await getSession(ctx);
-    const isAdmin = session?.user?.role === "Admin";
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
-    return {
-        isAdmin,
-    };
 };
 
 export default Tickets;
