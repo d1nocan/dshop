@@ -33,7 +33,7 @@ export const UserPanel = () => {
                         status === "loading" && "animate-pulse bg-neutral-700"
                     }`}
                 >
-                    <Popover.Button>
+                    <Popover.Button title="User Panel">
                         {status === "authenticated" && (
                             <Image
                                 alt={session?.user?.name as string}
