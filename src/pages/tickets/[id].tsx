@@ -31,8 +31,8 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
 
     return (
         <>
-            <div className="container m-10 mx-auto flex w-6/12 flex-col rounded-lg bg-neutral-700 p-4">
-                <h1 className="mb-4 text-center text-4xl font-bold text-neutral-900 dark:text-neutral-100">
+            <div className="container m-10 mx-auto flex w-[80vw] flex-col rounded-lg bg-neutral-200 p-4 duration-300 dark:bg-neutral-700 lg:w-[60vw]">
+                <h1 className="mb-4 text-center text-4xl font-bold text-neutral-900 duration-300 dark:text-neutral-100">
                     {data?.title}
                 </h1>
                 <h2 className={`text-center ${statusColor(data?.status)} mb-4 text-2xl`}>{data?.status}</h2>
@@ -58,7 +58,7 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
                             <div
                                 className={`relative flex w-fit flex-col ${
                                     userId === message.userId ? "ml-auto" : "mr-auto"
-                                } rounded-lg bg-neutral-800 p-4 text-neutral-100`}
+                                } rounded-lg bg-neutral-300 p-4 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100`}
                             >
                                 <div className="mb-4">
                                     <div className="relative h-12 w-12">

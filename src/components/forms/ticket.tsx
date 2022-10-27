@@ -29,13 +29,17 @@ export const TicketForm = ({ data, userId }: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, userId]);
     return (
-        <div className="bg-base-300 mx-auto w-2/3 rounded-xl py-10">
+        <div className="mx-auto mb-4 w-[50vw] max-w-[25rem] rounded-xl bg-neutral-300 px-4 py-10 duration-300 dark:bg-neutral-600">
             <form>
                 <div className="input-area">
                     <label className="label">
                         <span className="mx-auto text-neutral-100">Message</span>
                     </label>
-                    <textarea className="textarea" placeholder="Message" {...register("content")}></textarea>
+                    <textarea
+                        className="textarea duration-300"
+                        placeholder="Message"
+                        {...register("content")}
+                    ></textarea>
                 </div>
                 <div className="input-area mt-5">
                     <button
