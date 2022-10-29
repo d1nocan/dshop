@@ -38,9 +38,7 @@ export const UserPanel = () => {
                             <Image
                                 alt={session?.user?.name as string}
                                 src={session?.user?.image as string}
-                                layout="fill"
                                 className="rounded-xl"
-                                objectFit="contain"
                             />
                         )}
                         {status === "unauthenticated" && (

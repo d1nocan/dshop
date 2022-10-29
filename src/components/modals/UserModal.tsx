@@ -1,4 +1,4 @@
-import { Role, User } from "@prisma/client";
+import { Role, type User } from "@prisma/client";
 import { Dialog, Transition } from "@headlessui/react";
 import { trpc } from "src/utils/trpc";
 import Image from "next/image";
@@ -90,7 +90,6 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                                 <Image
                                                     src={(user.image as string) || "/dalle.png"}
                                                     alt={user.name as string}
-                                                    layout="fill"
                                                     className="rounded-xl"
                                                 />
                                             </div>

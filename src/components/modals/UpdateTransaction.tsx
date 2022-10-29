@@ -1,6 +1,6 @@
 import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Item, Role, Status, Transaction, User } from "@prisma/client";
+import { type Item, Role, Status, type Transaction, type User } from "@prisma/client";
 import { updateTransaction } from "@schemas/transaction";
 import { default as TSA } from "@tables/transaction";
 import { trpc } from "@utils/trpc";
@@ -88,7 +88,6 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                         <Image
                                                             src={transaction.user.image as string}
                                                             alt={transaction.user.name as string}
-                                                            layout="fill"
                                                             className="rounded-3xl"
                                                         />
                                                     </div>
@@ -104,7 +103,6 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                         <Image
                                                             src={(transaction.item.image as string) || "/dalle.png"}
                                                             alt={transaction.item.name as string}
-                                                            layout="fill"
                                                             className="rounded-3xl"
                                                         />
                                                     </div>

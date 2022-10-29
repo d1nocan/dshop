@@ -27,8 +27,6 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                         <Image
                             src={(user.image as string) ?? "/dalle.png"}
                             alt={user.name as string}
-                            layout="fill"
-                            objectFit="contain"
                             className="rounded-xl"
                             placeholder="blur"
                             loading="lazy"

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Ticket, User } from "@prisma/client";
+import { Ticket, type User } from "@prisma/client";
 import Link from "next/link";
 
 type Props = {
@@ -16,8 +16,6 @@ const Ticket = ({ ticket }: Props) => {
                             <Image
                                 src={ticket.user.image as string}
                                 alt={ticket.user.name as string}
-                                layout="fill"
-                                objectFit="inherit"
                                 className="rounded-xl"
                             />
                         </div>

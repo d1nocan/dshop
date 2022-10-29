@@ -26,13 +26,7 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
                 <div className="card-body relative">
                     <figure className="image-box">
                         {item.image ? (
-                            <Image
-                                src={item.image}
-                                layout="fill"
-                                alt={item.name}
-                                loading="lazy"
-                                className="rounded-xl"
-                            />
+                            <Image src={item.image} alt={item.name} loading="lazy" className="rounded-xl" />
                         ) : (
                             <h1 className="overflow-hidden break-words text-center text-3xl font-extrabold">
                                 {item.name}
