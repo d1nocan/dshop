@@ -1,5 +1,5 @@
 import { trpc } from "@utils/trpc";
-import { NextPage } from "next";
+import { type NextPage } from "next";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 

@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Item } from "@prisma/client";
+import { type Item } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { useForm } from "react-hook-form";
 import { Dialog, Transition } from "@headlessui/react";

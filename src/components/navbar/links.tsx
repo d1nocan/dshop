@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Role } from "@prisma/client";
+import { type Role } from "@prisma/client";
 import { links } from "@utils/links";
 import { useSession } from "next-auth/react";
 import { Fragment } from "react";

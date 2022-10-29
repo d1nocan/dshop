@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { trpc } from "@utils/trpc";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPrediction, CreatePredictionInputType } from "@schemas/prediction";
+import { createPrediction, type CreatePredictionInputType } from "@schemas/prediction";
 import { X } from "phosphor-react";
 import Loading from "@general/loading";
 import toast from "react-hot-toast";

@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { type User } from "@prisma/client";
 import { CreateGiveawaySchema, JoinGiveawaySchema } from "@schemas/giveaway";
 import { router, protectedProcedure } from "../trpc";
 

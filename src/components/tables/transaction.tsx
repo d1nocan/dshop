@@ -1,7 +1,7 @@
-import { Item, Transaction, User } from "@prisma/client";
+import type { Item, Transaction as T, User } from "@prisma/client";
 
 type Props = {
-    transaction: Transaction & { user: User; item: Item };
+    transaction: T & { user: User; item: Item };
     onClick: () => void;
 };
 

@@ -1,4 +1,4 @@
-import { makePrediction, makePredictionInputType } from "@schemas/prediction";
+import { makePrediction, type makePredictionInputType } from "@schemas/prediction";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";

@@ -1,6 +1,6 @@
 import { selectTicket, updateTicket, createTicket, addMessage } from "@schemas/ticket";
 import { router, protectedProcedure } from "../trpc";
-import { Message, Role, TicketStatus } from "@prisma/client";
+import { type Message, Role, type TicketStatus } from "@prisma/client";
 
 export const ticketRouter = router({
     get: protectedProcedure.query(({ ctx }) => {

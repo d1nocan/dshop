@@ -3,7 +3,7 @@ import { trpc } from "@utils/trpc";
 import Loading from "@general/loading";
 import Alert from "@general/alert";
 import dynamic from "next/dynamic";
-import { KeyboardEvent, useState } from "react";
+import { type KeyboardEvent, useState } from "react";
 import { MagnifyingGlass, ArrowLeft, ArrowRight } from "phosphor-react";
 import { useSession } from "next-auth/react";
 
