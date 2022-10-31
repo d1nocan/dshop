@@ -6,7 +6,7 @@ import { forwardRef, type HTMLProps } from "react";
 const NextLink = forwardRef<HTMLAnchorElement, LinkProps & HTMLProps<HTMLAnchorElement>>(
     ({ href, children, ...rest }, ref) => {
         return (
-            <Link href={href} prefetch={false}>
+            <Link href={href} prefetch={false} legacyBehavior>
                 <a ref={ref} {...rest}>
                     {children}
                 </a>
