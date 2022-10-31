@@ -38,6 +38,8 @@ export const UserPanel = () => {
                             <Image
                                 alt={session?.user?.name as string}
                                 src={session?.user?.image as string}
+                                width={48}
+                                height={48}
                                 className="rounded-xl"
                             />
                         )}
