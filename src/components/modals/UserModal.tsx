@@ -1,7 +1,6 @@
 import { Role, type User } from "@prisma/client";
 import { Dialog, Transition } from "@headlessui/react";
 import { trpc } from "src/utils/trpc";
-import Image from "next/image";
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,14 +8,25 @@ import { updateUser } from "@schemas/user";
 import ModalLoading from "./ModalLoading";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { CaretRight } from "phosphor-react";
+import dynamic from "next/dynamic";
+
+// dynamic imports
+const Image = dynamic(() => import("next/image"));
+
 interface Users {
     user: User;
-    closeModal: () => void;
-    showModal: boolean;
 }
 
-const UserModal = ({ user, closeModal, showModal }: Users) => {
+const UserModal = ({ user }: Users) => {
     const session = useSession();
+    const [showModal, setShowModal] = useState(false);
+    function openModal() {
+        setShowModal(true);
+    }
+    function closeModal() {
+        setShowModal(false);
+    }
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
     const { mutate } = trpc.user.update.useMutation({
@@ -51,6 +61,10 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
     });
     return (
         <>
+            <button onClick={openModal} type="button" className="button primary mx-auto flex px-2">
+                Details
+                <CaretRight size={22} weight="bold" className="my-auto" />
+            </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"
@@ -91,6 +105,8 @@ const UserModal = ({ user, closeModal, showModal }: Users) => {
                                                     src={(user.image as string) || "/dalle.png"}
                                                     alt={user.name as string}
                                                     className="rounded-xl"
+                                                    width={128}
+                                                    height={128}
                                                 />
                                             </div>
                                         </div>
