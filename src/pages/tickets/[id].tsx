@@ -2,17 +2,18 @@ import type { TicketStatus } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-interface Props {
-    id?: string | string[] | undefined;
-    isAdmin?: boolean;
-    userId?: string;
-}
-
-const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
+const Ticket: NextPage = () => {
+    const session = useSession();
+    const router = useRouter();
+    const isAdmin = session.data?.user?.role === "Admin";
+    const userId = session.data?.user?.id;
     const Image = dynamic(() => import("next/image"));
     const TicketForm = dynamic(() => import("@forms/ticket"));
-    const { data, refetch } = trpc.ticket.select.useQuery({ id: id as string });
+    const { data, refetch } = trpc.ticket.select.useQuery({ id: router.query.id as string });
     const { mutate: updateTicket } = trpc.ticket.update.useMutation({
         onSuccess: () => {
             refetch();
@@ -28,7 +29,15 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
                 return "text-gray-800";
         }
     };
-
+    useEffect(() => {
+        if (
+            session.status === "unauthenticated" ||
+            (session.data?.user?.role !== "Admin" && data?.userId !== session.data?.user?.id)
+        ) {
+            console.log(data?.userId !== session.data?.user?.id);
+            router.push("/");
+        }
+    }, [data?.userId, router, session.data?.user?.id, session.data?.user?.role, session.status]);
     return (
         <>
             <div className="container m-10 mx-auto flex w-[80vw] flex-col rounded-lg bg-neutral-200 p-4 duration-300 dark:bg-neutral-700 lg:w-[60vw]">
@@ -80,31 +89,10 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
                         </li>
                     ))}
                 </ul>
-                {data?.status === "Open" && <TicketForm data={data} userId={userId} />}
+                {data?.status === "Open" && <TicketForm data={data} userId={userId} refetch={refetch} />}
             </div>
         </>
     );
-};
-
-Ticket.getInitialProps = async (ctx) => {
-    const { getSession } = await import("next-auth/react");
-    const session = await getSession(ctx);
-    const id = ctx.query?.id;
-    const isAdmin = session?.user?.role === "Admin";
-    const userId = session?.user?.id;
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
-    return {
-        isAdmin,
-        id,
-        userId,
-    };
 };
 
 export default Ticket;

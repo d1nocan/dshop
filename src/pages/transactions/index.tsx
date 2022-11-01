@@ -5,13 +5,16 @@ import Alert from "@general/alert";
 import Loading from "@general/loading";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const UpdateTransaction = dynamic(() => import("@modals/UpdateTransaction"));
 
 const Transactions: NextPage = () => {
     const session = useSession();
     const router = useRouter();
-    session.status === "unauthenticated" && router.push("/");
+    useEffect(() => {
+        session.status === "unauthenticated" && router.push("/");
+    }, [router, session.status]);
     const { data: transactions, isLoading } = trpc.transaction.get.useQuery();
     if (isLoading) return <Loading />;
     return (

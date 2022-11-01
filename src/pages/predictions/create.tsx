@@ -7,9 +7,15 @@ import { X } from "phosphor-react";
 import Loading from "@general/loading";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export const CreateVote: NextPage = () => {
+    const session = useSession();
     const router = useRouter();
+    useEffect(() => {
+        session.data?.user?.role !== "Admin" && router.push("/");
+    }, [router, session.data?.user?.role]);
     const {
         register,
         handleSubmit,
@@ -42,7 +48,7 @@ export const CreateVote: NextPage = () => {
     return (
         <div className="container mx-auto flex flex-col flex-wrap place-content-center justify-center gap-10 py-10">
             <div className="relative z-0 w-1/2">
-                {isLoading ? (
+                {isLoading || session.data?.user?.role !== "Admin" ? (
                     <Loading />
                 ) : (
                     <form
