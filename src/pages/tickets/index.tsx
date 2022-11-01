@@ -4,7 +4,6 @@ import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import Loading from "@general/loading";
 import FAQ from "@general/faq";
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 const CreateTicket = dynamic(() => import("@modals/CreateTicket"));
@@ -15,23 +14,11 @@ const Tickets: NextPage = () => {
     const session = useSession();
     const router = useRouter();
     session.status === "unauthenticated" && router.push("/");
-    const [showModal, setShowModal] = useState(false);
-    function openModal() {
-        setShowModal(true);
-    }
-    function closeModal() {
-        setShowModal(false);
-    }
     const { data: tickets, isLoading } = trpc.ticket.get.useQuery();
     if (isLoading) return <Loading />;
     return (
         <>
-            {session.data?.user?.role === "User" && (
-                <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
-                    Create Ticket
-                </button>
-            )}
-            {showModal && <CreateTicket closeModal={closeModal} showModal={showModal} />}
+            {session.data?.user?.role === "User" && <CreateTicket />}
             <div className="container mx-auto mt-10 overflow-x-auto">
                 {(tickets?.length as number) > 0 ? (
                     <table className="mx-auto w-10/12 min-w-max table-auto">

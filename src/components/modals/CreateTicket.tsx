@@ -6,15 +6,17 @@ import { createTicket } from "@schemas/ticket";
 import { Fragment, useState } from "react";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
-
-type CreateTicketProps = {
-    showModal: boolean;
-    closeModal: () => void;
-};
-
-export const CreateTicket = ({ showModal, closeModal }: CreateTicketProps) => {
+import { Plus } from "phosphor-react";
+export const CreateTicket = () => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
+    const [showModal, setShowModal] = useState(false);
+    function openModal() {
+        setShowModal(true);
+    }
+    function closeModal() {
+        setShowModal(false);
+    }
     const { mutate } = trpc.ticket.create.useMutation({
         onSuccess: () => {
             utils.ticket.get.invalidate();
@@ -49,6 +51,10 @@ export const CreateTicket = ({ showModal, closeModal }: CreateTicketProps) => {
     });
     return (
         <>
+            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
+                Create Ticket
+                <Plus size={22} className="ml-2" />
+            </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child
@@ -73,13 +79,13 @@ export const CreateTicket = ({ showModal, closeModal }: CreateTicketProps) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="modal h-[60vh]">
+                                <Dialog.Panel className="modal h-fill">
                                     {loading && <ModalLoading />}
                                     <form>
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Ticket
                                         </Dialog.Title>
-                                        <div className="modal-body">
+                                        <div className="modal-body py-4">
                                             <div className="input-area lg:col-span-2">
                                                 <label className="text-center">
                                                     <span>Title</span>
