@@ -66,6 +66,8 @@ const Ticket: NextPage<Props> = ({ id, isAdmin, userId }) => {
                                             src={(message.user.image as string) || "/dalle.png"}
                                             alt={message.user.name as string}
                                             className="rounded-xl"
+                                            width={44}
+                                            height={44}
                                         />
                                     </div>
                                     <span>{message.user.name}</span>

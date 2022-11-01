@@ -17,6 +17,8 @@ const Ticket = ({ ticket }: Props) => {
                                 src={ticket.user.image as string}
                                 alt={ticket.user.name as string}
                                 className="rounded-xl"
+                                width={40}
+                                height={40}
                             />
                         </div>
                     </div>

@@ -89,6 +89,8 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                             src={transaction.user.image as string}
                                                             alt={transaction.user.name as string}
                                                             className="rounded-3xl"
+                                                            width={128}
+                                                            height={128}
                                                         />
                                                     </div>
                                                 </div>
@@ -104,6 +106,8 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                             src={(transaction.item.image as string) || "/dalle.png"}
                                                             alt={transaction.item.name as string}
                                                             className="rounded-3xl"
+                                                            width={128}
+                                                            height={128}
                                                         />
                                                     </div>
                                                 </div>
@@ -167,15 +171,17 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                 )}
                                             </div>
                                             <div className="input-area my-2 mx-auto w-full max-w-xs">
-                                                <span className="mb-1 text-center font-light">Message</span>
                                                 {transaction.status === Status.Pending &&
                                                 session.data?.user?.role === Role.Admin ? (
-                                                    <textarea
-                                                        className="textarea"
-                                                        title="Message"
-                                                        rows={3}
-                                                        {...register("response")}
-                                                    />
+                                                    <>
+                                                        <span className="mb-1 text-center font-light">Message</span>
+                                                        <textarea
+                                                            className="textarea"
+                                                            title="Message"
+                                                            rows={3}
+                                                            {...register("response")}
+                                                        />
+                                                    </>
                                                 ) : (
                                                     <span className="mb-1 text-center font-light">
                                                         {transaction.response}
