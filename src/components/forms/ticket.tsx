@@ -8,12 +8,14 @@ import type { Ticket } from "@prisma/client";
 interface Props {
     data: Ticket;
     userId?: string;
+    refetch: () => void;
 }
 
-export const TicketForm = ({ data, userId }: Props) => {
+export const TicketForm = ({ data, userId, refetch }: Props) => {
     const { mutate } = trpc.ticket.addMessage.useMutation({
         onSuccess: () => {
             reset();
+            refetch();
         },
     });
     const { register, handleSubmit, getValues, reset, setValue } = useForm({
