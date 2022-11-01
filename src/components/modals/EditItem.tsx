@@ -8,16 +8,21 @@ import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
-
+import { Pencil } from "phosphor-react";
 interface Items {
     item: Item;
-    showModal: boolean;
-    closeModal: () => void;
 }
 
-export const EditItem = ({ item, showModal, closeModal }: Items) => {
+export const EditItem = ({ item }: Items) => {
     const utils = trpc.useContext();
     const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    function openModal() {
+        setShowModal(true);
+    }
+    function closeModal() {
+        setShowModal(false);
+    }
     const { mutate } = trpc.item.update.useMutation({
         onSuccess: () => {
             utils.item.get.invalidate();
@@ -71,6 +76,9 @@ export const EditItem = ({ item, showModal, closeModal }: Items) => {
     }
     return (
         <>
+            <button onClick={openModal} type="button" className="button primary mx-auto mt-2 flex gap-2">
+                Edit <Pencil size={18} className="my-auto" />
+            </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
                     as="div"

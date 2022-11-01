@@ -7,17 +7,22 @@ import { selectItem } from "@schemas/item";
 import { Fragment, useState } from "react";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
-
+import { ShoppingBag } from "phosphor-react";
 interface Items {
     item: Item;
-    closeModal: () => void;
-    showModal: boolean;
     isGuest: boolean;
 }
 
-export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
+export const BuyItem = ({ item, isGuest }: Items) => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
+    const [showModal, setShowModal] = useState(false);
+    function openModal() {
+        setShowModal(true);
+    }
+    function closeModal() {
+        setShowModal(false);
+    }
     const { mutate } = trpc.item.buy.useMutation({
         onSuccess: () => {
             utils.item.get.invalidate();
@@ -52,6 +57,9 @@ export const BuyItem = ({ item, isGuest, closeModal, showModal }: Items) => {
     });
     return (
         <>
+            <button onClick={openModal} type="button" className="button primary mx-auto mt-2 flex gap-2">
+                Get <ShoppingBag size={18} className="my-auto" />
+            </button>
             <Transition appear show={showModal && !isGuest} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child

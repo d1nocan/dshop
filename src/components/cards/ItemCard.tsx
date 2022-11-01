@@ -1,7 +1,5 @@
 import type { Item } from "@prisma/client";
-import { useState } from "react";
 import dynamic from "next/dynamic";
-import { Pencil, ShoppingBag } from "phosphor-react";
 interface ItemCard {
     item: Item;
     isAdmin: boolean;
@@ -12,13 +10,6 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
     const EditItem = dynamic(() => import("@modals/EditItem"));
     const BuyItem = dynamic(() => import("@modals/BuyItem"));
     const Image = dynamic(() => import("next/image"));
-    const [showModal, setShowModal] = useState(false);
-    function openModal() {
-        setShowModal(true);
-    }
-    function closeModal() {
-        setShowModal(false);
-    }
     return (
         <>
             <div className="card relative">
@@ -47,31 +38,10 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
                                 </p>
                             )}
                         </div>
-                        {!isGuest && (
-                            <button
-                                onClick={openModal}
-                                type="button"
-                                className="button primary mx-auto mt-2 flex gap-2"
-                            >
-                                {isAdmin ? (
-                                    <>
-                                        Edit <Pencil size={18} className="my-auto" />
-                                    </>
-                                ) : (
-                                    <>
-                                        Get <ShoppingBag size={18} className="my-auto" />
-                                    </>
-                                )}
-                            </button>
-                        )}
+                        {!isGuest && (isAdmin ? <EditItem item={item} /> : <BuyItem item={item} isGuest={isGuest} />)}
                     </div>
                 </div>
             </div>
-            {isAdmin ? (
-                <EditItem item={item} closeModal={closeModal} showModal={showModal} />
-            ) : (
-                <BuyItem item={item} closeModal={closeModal} showModal={showModal} isGuest={isGuest} />
-            )}
         </>
     );
 };
