@@ -4,12 +4,13 @@ import dynamic from "next/dynamic";
 interface UserCard {
     user: User;
     isAdmin: boolean;
+    userid?: string;
 }
 
 const UserModal = dynamic(() => import("@modals/UserModal"));
 const Image = dynamic(() => import("next/image"));
 
-const UserCard = ({ user, isAdmin }: UserCard) => {
+const UserCard = ({ user, isAdmin, userid }: UserCard) => {
     return (
         <>
             <div className="card">
@@ -30,7 +31,7 @@ const UserCard = ({ user, isAdmin }: UserCard) => {
                         <h2 className="m-2 break-all text-xl font-black">{user.name}</h2>
                         <p>Points: {user.points.toString()}</p>
                         <p>Role: {user.role}</p>
-                        <div className="mt-2">{isAdmin && <UserModal user={user} />}</div>
+                        <div className="mt-2">{isAdmin && userid !== user.id && <UserModal user={user} />}</div>
                     </div>
                 </div>
             </div>

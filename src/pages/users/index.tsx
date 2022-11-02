@@ -67,7 +67,12 @@ const Users: NextPage = () => {
                 ) : (
                     <>
                         {users?.map((user) => (
-                            <UserCard key={user.id} user={user} isAdmin={isAdmin as boolean} />
+                            <UserCard
+                                key={user.id}
+                                user={user}
+                                isAdmin={isAdmin as boolean}
+                                userid={session?.user?.id}
+                            />
                         ))}
                         {users?.length === 0 && !isLoading && <Alert type="info" message="No users found" />}
                     </>
