@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { CaretRight } from "phosphor-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 // dynamic imports
 const Image = dynamic(() => import("next/image"));
@@ -111,68 +112,73 @@ const UserModal = ({ user }: Users) => {
                                             </div>
                                         </div>
                                         <h3 className="mt-4 text-lg font-semibold">{user.name}</h3>
-                                        <span className="cursor-default text-lg font-light blur duration-200 hover:blur-0">
-                                            ID: {user.id}
+                                        <span className="cursor-default text-lg font-semibold">
+                                            ID:{" "}
+                                            <span className="blur duration-200 hover:blur-0 font-light">{user.id}</span>
                                         </span>
-                                        <Dialog.Description>
-                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
-                                                <span className="mb-1 font-light">Role</span>
-                                                <select title="Role" className="input w-56" {...register("role")}>
-                                                    {Object.keys(Role).map((role) => (
-                                                        <option
-                                                            key={role}
-                                                            value={role}
-                                                            defaultChecked={role === user.role}
-                                                            disabled={
-                                                                Object.keys(Role).indexOf(
-                                                                    session.data?.user?.role.toString() as string,
-                                                                ) >= Object.keys(Role).indexOf(role)
-                                                            }
-                                                        >
-                                                            {role}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                {errors.role && (
-                                                    <span className="mt-1 font-light text-red-500">
-                                                        {errors.role.message}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
-                                                <span className="mb-1 font-light">Points</span>
-                                                <input
-                                                    title="Points"
-                                                    type="number"
-                                                    className="input"
-                                                    {...register("points", {
-                                                        setValueAs: (value) => BigInt(value),
-                                                    })}
-                                                ></input>
-                                                {errors.points && (
-                                                    <span className="mt-1 text-center font-light text-red-500">
-                                                        {errors.points.message}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
-                                                <span className="mb-1 text-center font-light">Cooldown</span>
-                                                <input
-                                                    title="Cooldown"
-                                                    type="number"
-                                                    min="0"
-                                                    className="input"
-                                                    {...register("cooldown", {
-                                                        setValueAs: (value) => BigInt(value),
-                                                    })}
-                                                ></input>
-                                                {errors.cooldown && (
-                                                    <span className="mt-1 text-center font-light text-red-500">
-                                                        {errors.cooldown.message}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </Dialog.Description>
+                                        <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
+                                            <span className="mb-1 font-light">Role</span>
+                                            <select title="Role" className="input w-56" {...register("role")}>
+                                                {Object.keys(Role).map((role) => (
+                                                    <option
+                                                        key={role}
+                                                        value={role}
+                                                        defaultChecked={role === user.role}
+                                                        disabled={
+                                                            Object.keys(Role).indexOf(
+                                                                session.data?.user?.role.toString() as string,
+                                                            ) >= Object.keys(Role).indexOf(role)
+                                                        }
+                                                    >
+                                                        {role}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            {errors.role && (
+                                                <span className="mt-1 font-light text-red-500">
+                                                    {errors.role.message}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
+                                            <span className="mb-1 font-light">Points</span>
+                                            <input
+                                                title="Points"
+                                                type="number"
+                                                className="input"
+                                                {...register("points", {
+                                                    setValueAs: (value) => BigInt(value),
+                                                })}
+                                            ></input>
+                                            {errors.points && (
+                                                <span className="mt-1 text-center font-light text-red-500">
+                                                    {errors.points.message}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
+                                            <span className="mb-1 text-center font-light">Cooldown</span>
+                                            <input
+                                                title="Cooldown"
+                                                type="number"
+                                                min="0"
+                                                className="input"
+                                                {...register("cooldown", {
+                                                    setValueAs: (value) => BigInt(value),
+                                                })}
+                                            ></input>
+                                            <span className="mt-1 text-center font-light">
+                                                You can calculate{" "}
+                                                <Link href="https://www.epochconverter.com" className="text-violet-500">
+                                                    there
+                                                </Link>
+                                            </span>
+                                            {errors.cooldown && (
+                                                <span className="mt-1 text-center font-light text-red-500">
+                                                    {errors.cooldown.message}
+                                                </span>
+                                            )}
+                                        </div>
                                         <div className="mt-6 flex flex-row justify-end gap-4">
                                             <button
                                                 type="button"
