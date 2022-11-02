@@ -72,10 +72,10 @@ export const itemRouter = router({
         if (ctx.session.user.points < item.price) {
             throw new TRPCError({ code: "BAD_REQUEST", message: "Not enough points" });
         }
-        if (item.cooldown > 0 && BigInt(Date.now()) - item.lastBuy < item.cooldown) {
+        if (item.cooldown > 0 && BigInt(Math.round(Date.now() / 1000)) - item.lastBuy < item.cooldown) {
             throw new TRPCError({ code: "BAD_REQUEST", message: "Item is on cooldown." });
         }
-        if (ctx.session.user.cooldown > Date.now()) {
+        if (ctx.session.user.cooldown > Math.round(Date.now() / 1000)) {
             throw new TRPCError({ code: "BAD_REQUEST", message: "You are on cooldown." });
         }
         await ctx.prisma.user.update({
@@ -86,7 +86,7 @@ export const itemRouter = router({
                 points: {
                     decrement: item.price,
                 },
-                cooldown: Date.now() + Number(process.env.DEFAULT_USER_COOLDOWN) * 1000,
+                cooldown: Math.round(Date.now() / 1000) + Number(process.env.DEFAULT_USER_COOLDOWN),
             },
         });
         return ctx.prisma.item.update({
@@ -97,7 +97,7 @@ export const itemRouter = router({
                 quantity: {
                     decrement: 1,
                 },
-                lastBuy: BigInt(Date.now()),
+                lastBuy: BigInt(Math.round(Date.now() / 1000)),
                 transactions: {
                     create: {
                         user: {
