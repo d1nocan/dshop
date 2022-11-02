@@ -61,7 +61,7 @@ export const BuyItem = ({ item, isGuest }: Items) => {
                 Get <ShoppingBag size={18} className="my-auto" />
             </button>
             <Transition appear show={showModal && !isGuest} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Dialog as="div" className="relative z-50" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
