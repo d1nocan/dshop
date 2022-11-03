@@ -26,7 +26,7 @@ export const Links = () => {
                                         (link) =>
                                             (link.roles.includes(session?.user?.role as Role) ||
                                                 link.roles.length == 0) && (
-                                                <li>
+                                                <li key={link.name}>
                                                     <Link
                                                         className="block select-none rounded-md p-3 py-2 px-3 text-[15px] text-base font-medium leading-none text-violet-500 no-underline outline-none hover:bg-violet-500 hover:bg-opacity-10 focus:relative focus:shadow-sm"
                                                         href={link.href}
