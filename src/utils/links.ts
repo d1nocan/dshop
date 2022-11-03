@@ -57,7 +57,7 @@ export const Admin: Nav = {
     title: "Admin",
     links: [
         {
-            name: "Live Panel",
+            name: "Panel",
             href: "/live",
             roles: ["Admin"],
         },
