@@ -1,53 +1,68 @@
 import type { Role } from "@prisma/client";
-import { Users, Storefront, Ticket, Notepad, Question, Gift, GearSix } from "phosphor-react";
-import type { IconProps } from "phosphor-react";
 
-type links = {
+type link = {
     name: string;
     href: string;
-    roles?: Role[];
-    logo: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>;
-}[];
+    roles: Role[];
+};
 
-export const links: links = [
-    {
-        name: "Users",
-        href: "/users",
-        logo: Users,
-    },
-    {
-        name: "Store",
-        href: "/store",
-        logo: Storefront,
-    },
-    {
-        name: "Tickets",
-        href: "/tickets",
-        roles: ["Admin", "User", "Banned"],
-        logo: Ticket,
-    },
-    {
-        name: "Transactions",
-        href: "/transactions",
-        roles: ["Admin", "User", "Banned"],
-        logo: Notepad,
-    },
-    {
-        name: "Predictions",
-        href: "/predictions",
-        roles: ["Admin", "User"],
-        logo: Question,
-    },
-    {
-        name: "Giveaways",
-        href: "/giveaways",
-        roles: ["Admin", "User"],
-        logo: Gift,
-    },
-    {
-        name: "Live Panel",
-        href: "/live",
-        roles: ["Admin"],
-        logo: GearSix,
-    },
-];
+type Nav = {
+    title: string;
+    links: link[];
+};
+
+export const Store: Nav = {
+    title: "Store",
+    links: [
+        {
+            name: "Store",
+            href: "/store",
+            roles: [],
+        },
+        {
+            name: "Transactions",
+            href: "/transactions",
+            roles: ["Admin", "User", "Banned"],
+        },
+        {
+            name: "Giveaways",
+            href: "/giveaways",
+            roles: ["Admin", "User"],
+        },
+    ],
+};
+
+export const View: Nav = {
+    title: "View",
+    links: [
+        {
+            name: "Users",
+            href: "/users",
+            roles: [],
+        },
+        {
+            name: "Tickets",
+            href: "/tickets",
+            roles: ["Admin", "User", "Banned"],
+        },
+        {
+            name: "Predictions",
+            href: "/predictions",
+            roles: ["Admin", "User"],
+        },
+    ],
+};
+
+export const Admin: Nav = {
+    title: "Admin",
+    links: [
+        {
+            name: "Live Panel",
+            href: "/live",
+            roles: ["Admin"],
+        },
+    ],
+};
+
+// store 0, view 1, support 2, admin 3
+export const links: Nav[] = [Store, View, Admin];
