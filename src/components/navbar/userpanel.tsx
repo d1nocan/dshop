@@ -27,13 +27,13 @@ export const UserPanel = () => {
     });
     return (
         <>
-            <Popover className="relative mr-4">
+            <Popover className="relative h-full sm:mr-4">
                 <div
-                    className={`relative z-40 aspect-square w-12 rounded ${
+                    className={`relative z-10 mt-2 aspect-square w-12 rounded ${
                         status === "loading" && "animate-pulse bg-neutral-700"
                     }`}
                 >
-                    <Popover.Button title="User Panel">
+                    <Popover.Button title="User Panel" className="scale-90">
                         {status === "authenticated" && (
                             <Image
                                 alt={session?.user?.name as string}
@@ -55,16 +55,16 @@ export const UserPanel = () => {
                 <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-0 -translate-y-1/2 translate-x-1/2"
+                    enterFrom="transform opacity-0 scale-0 -translate-y-1/2 sm:translate-x-1/2"
                     enterTo="transform opacity-100 scale-100"
                     leave="transition ease-in duration-100"
                     leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-0 -translate-y-1/2 translate-x-1/2"
+                    leaveTo="transform opacity-0 scale-0 -translate-y-1/2 sm:translate-x-1/2"
                 >
                     <Popover.Panel
-                        className={`absolute -top-2 z-10 flex flex-col ${
+                        className={`absolute -top-2 flex flex-col ${
                             status === "authenticated" ? "h-72" : "h-32"
-                        } -right-4 w-60 justify-between rounded bg-neutral-200 text-neutral-900 dark:bg-neutral-700 dark:text-neutral-100`}
+                        } -left-[23vw] w-60 justify-between rounded bg-neutral-200 text-neutral-900 dark:bg-neutral-700 dark:text-neutral-100 sm:-right-4`}
                     >
                         <p className="mt-5 ml-6 font-bold">{session?.user?.name || "You need to sign in"}</p>
                         {status === "authenticated" && (

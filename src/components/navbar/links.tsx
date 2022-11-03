@@ -8,7 +8,7 @@ import { CaretDown } from "phosphor-react";
 export const Links = () => {
     const { data: session } = useSession();
     return (
-        <Root className="relative z-[1] mx-auto flex w-fit">
+        <Root className="relative z-20 mx-auto flex w-fit">
             <List className="flex list-none rounded-md p-2">
                 {links.map((part) =>
                     part.links.length > 1 ? (
@@ -56,12 +56,12 @@ export const Links = () => {
                         </Item>
                     ),
                 )}
-                <Indicator className="top-full z-10 flex h-[10px] items-end justify-center overflow-hidden transition-transform motion-safe:data-[state='visible']:animate-fadeIn motion-safe:data-[state='hidden']:animate-fadeOut">
-                    <div className="relative top-[70%] h-3 w-3 rotate-45 transform rounded-tl-sm bg-neutral-50" />
+                <Indicator className="top-full z-30 flex h-[10px] items-end justify-center overflow-hidden transition-transform motion-safe:data-[state='visible']:animate-fadeIn motion-safe:data-[state='hidden']:animate-fadeOut">
+                    <div className="relative top-[70%] h-3.5 w-3.5 rotate-45 transform rounded-tl-sm bg-violet-500" />
                 </Indicator>
             </List>
             <div className="absolute top-full -left-12 flex w-full justify-center">
-                <Viewport className="relative mt-3 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md bg-neutral-50 motion-safe:transition-[width,_height] motion-safe:duration-300 motion-safe:ease-in-out motion-safe:data-[state='open']:animate-scaleIn motion-safe:data-[state='closed']:animate-scaleOut dark:bg-neutral-900 sm:w-[var(--radix-navigation-menu-viewport-width)]" />
+                <Viewport className="relative mt-3 h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] overflow-hidden rounded-md bg-neutral-50 motion-safe:transition-[width,_height] motion-safe:duration-300 motion-safe:ease-in-out motion-safe:data-[state='open']:animate-scaleIn motion-safe:data-[state='closed']:animate-scaleOut dark:bg-neutral-900" />
             </div>
         </Root>
     );

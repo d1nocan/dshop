@@ -20,34 +20,33 @@ export default function Navbar() {
     }, [theme]);
     return (
         <>
-            <div className="relative mx-auto flex h-16 w-11/12 flex-wrap items-center justify-between rounded-b-xl bg-neutral-800">
-                <div className="inline-flex flex-1 select-none justify-start">
-                    <div className="mx-6 cursor-default select-none text-2xl font-black uppercase tracking-wide text-neutral-100">
-                        <Link href="/">
-                            <span>DSHOP</span>
+            <div className="relative mx-auto flex w-screen flex-row flex-wrap items-center justify-between rounded-b-xl bg-neutral-300 bg-opacity-20 px-4 dark:bg-neutral-800 dark:bg-opacity-20 lg:px-10">
+                <div className="order-1 mt-2 inline-flex flex-1 select-none flex-col justify-start sm:flex-row">
+                    <div className="ml-4 cursor-default select-none text-2xl font-bold tracking-wide text-neutral-800 dark:text-neutral-100 md:mr-6">
+                        <Link href="/" className="relative">
+                            <span className="-ml-4 tracking-wide sm:ml-0">DShop</span>
+                            <span className="absolute -left-3.5 -z-10 text-violet-500 blur-sm sm:left-0.5">DShop</span>
                         </Link>
                     </div>
                     <Switch
                         checked={theme}
                         onCheckedChange={setTheme}
                         aria-label="Change Theme"
-                        className={`${
-                            theme ? "bg-neutral-900" : "bg-neutral-100"
-                        } relative my-auto ml-2 inline-flex h-6 w-12 shrink-0 scale-75 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                        className={`absolute left-auto right-20 my-auto inline-flex h-6 w-12 shrink-0 scale-75 cursor-pointer rounded-full border-2 border-transparent bg-neutral-500 transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 md:relative md:left-0 md:right-0`}
                     >
                         <span className="sr-only">Change Theme</span>
                         <Thumb
                             aria-hidden="true"
                             className={`${
-                                !theme ? "translate-x-6 bg-neutral-900" : "translate-x-0 bg-neutral-50"
-                            } pointer-events-none inline-block h-5 w-5 transform rounded-full shadow-lg ring-0 transition duration-200 ease-in-out`}
+                                !theme ? "translate-x-6" : "translate-x-0"
+                            } pointer-events-none inline-block h-5 w-5 transform rounded-full bg-neutral-50 shadow-lg ring-0 transition duration-200 ease-in-out`}
                         />
                     </Switch>
                 </div>
-                <div className="inline-flex flex-1 flex-shrink-0 items-center">
+                <div className="order-3 mt-2 inline-flex flex-1 flex-shrink-0 basis-11/12 items-center md:order-2 md:basis-0">
                     <Links />
                 </div>
-                <div className="inline-flex flex-1 select-none justify-end">
+                <div className="order-2 inline-flex h-max flex-1 select-none justify-end md:order-3">
                     <UserPanel />
                 </div>
             </div>
