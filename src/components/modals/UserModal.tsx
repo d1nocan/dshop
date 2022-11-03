@@ -114,7 +114,7 @@ const UserModal = ({ user }: Users) => {
                                         <h3 className="mt-4 text-lg font-semibold">{user.name}</h3>
                                         <span className="cursor-default text-lg font-semibold">
                                             ID:{" "}
-                                            <span className="blur duration-200 hover:blur-0 font-light">{user.id}</span>
+                                            <span className="font-light blur duration-200 hover:blur-0">{user.id}</span>
                                         </span>
                                         <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
                                             <span className="mb-1 font-light">Role</span>
