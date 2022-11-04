@@ -20,12 +20,12 @@ export default function Navbar() {
     }, [theme]);
     return (
         <>
-            <div className="relative mx-auto flex w-screen flex-row flex-wrap items-center justify-between rounded-b-xl bg-neutral-300 bg-opacity-20 px-4 dark:bg-neutral-800 dark:bg-opacity-20 lg:px-10">
+            <div className="relative mx-auto flex w-full flex-row flex-wrap items-center justify-between rounded-b-xl bg-neutral-300 bg-opacity-20 px-4 dark:bg-neutral-800 dark:bg-opacity-20 lg:px-10">
                 <div className="order-1 mt-2 inline-flex flex-1 select-none flex-col justify-start sm:flex-row">
                     <div className="ml-4 cursor-default select-none text-2xl font-bold tracking-wide text-neutral-800 dark:text-neutral-100 md:mr-6">
                         <Link href="/" className="relative">
-                            <span className="-ml-4 tracking-wide sm:ml-0">DShop</span>
-                            <span className="absolute -left-3.5 -z-10 text-violet-500 blur-sm sm:left-0.5">DShop</span>
+                            <span className="z-0 -ml-4 tracking-wide sm:ml-0">DShop</span>
+                            <span className="absolute -right-0.5 -z-10 text-violet-500">DShop</span>
                         </Link>
                     </div>
                     <Switch
@@ -43,7 +43,7 @@ export default function Navbar() {
                         />
                     </Switch>
                 </div>
-                <div className="order-3 mt-2 inline-flex flex-1 flex-shrink-0 basis-11/12 items-center md:order-2 md:basis-0">
+                <div className="order-3 inline-flex flex-1 flex-shrink-0 basis-11/12 justify-center md:order-2 md:basis-0">
                     <Links />
                 </div>
                 <div className="order-2 inline-flex h-max flex-1 select-none justify-end md:order-3">
