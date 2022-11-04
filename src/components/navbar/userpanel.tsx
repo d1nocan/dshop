@@ -1,11 +1,41 @@
-import { Popover, Transition } from "@headlessui/react";
+import { useState, type FC, type ChangeEvent } from "react";
+import { w } from "windstitch";
 import { trpc } from "@utils/trpc";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { User } from "phosphor-react";
-import { Fragment, useState } from "react";
 import { toast } from "react-hot-toast";
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
+const contentStyles =
+    "min-w-[200px] bg-neutral-50 dark:bg-neutral-800 rounded-md p-3 [box-shadow:'0px_10px_38px_-10px_rgba(22,23,24,0.35),_0px_10px_20px_-15px_rgba(22,23,24,0.2)'] motion-safe:";
+const StyledContent = w(DropdownMenuPrimitive.Content, {
+    className: contentStyles + " flex flex-col gap-1.5",
+});
+const StyledArrow = w(DropdownMenuPrimitive.Arrow, {
+    className: "fill-neutral-200 dark:fill-neutral-800",
+});
+
+const Content: FC<DropdownMenuPrimitive.DropdownMenuContentProps> = ({ children, ...props }) => (
+    <DropdownMenuPrimitive.Portal>
+        <StyledContent {...props}>
+            {children}
+            <StyledArrow />
+        </StyledContent>
+    </DropdownMenuPrimitive.Portal>
+);
+
+const itemStyles =
+    "mx-auto text-md font-semibold text-neutral-900 p-2 dark:text-neutral-50 leading-none items-center relative select-none data-[disabled]:text-violet-100 data-[disabled]:cursor-none";
+const StyledItem = w(DropdownMenuPrimitive.Item, {
+    className: itemStyles,
+});
+const StyledSeparator = w(DropdownMenuPrimitive.Separator, {
+    className: "h-[1px] bg-violet-300 m-1",
+});
+const IconButton = w.button(
+    "[all:unset] [font-family:inherit] rounded-full h-8 w-8 inline-flex items-center justify-center text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 focus:ring-offset-neutral-50 dark:focus:ring-offset-neutral-800",
+);
 export const UserPanel = () => {
     const { data: session, status } = useSession();
     const [code, setCode] = useState("");
@@ -27,20 +57,16 @@ export const UserPanel = () => {
     });
     return (
         <>
-            <Popover className="relative h-full sm:mr-4">
-                <div
-                    className={`relative z-10 mt-2 aspect-square w-12 rounded ${
-                        status === "loading" && "animate-pulse bg-neutral-700"
-                    }`}
-                >
-                    <Popover.Button title="User Panel" className="scale-90">
+            <DropdownMenuPrimitive.Root>
+                <DropdownMenuPrimitive.Trigger asChild>
+                    <IconButton>
                         {status === "authenticated" && (
                             <Image
                                 alt={session?.user?.name as string}
                                 src={session?.user?.image as string}
-                                width={48}
-                                height={48}
-                                className="rounded-xl"
+                                width={44}
+                                height={44}
+                                className="my-2 rounded-xl"
                             />
                         )}
                         {status === "unauthenticated" && (
@@ -50,54 +76,40 @@ export const UserPanel = () => {
                                 className="mx-auto my-auto mt-2 ml-3 h-full rounded-xl text-neutral-50"
                             />
                         )}
-                    </Popover.Button>
-                </div>
-                <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-0 -translate-y-1/2 sm:translate-x-1/2"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-100"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-0 -translate-y-1/2 sm:translate-x-1/2"
-                >
-                    <Popover.Panel
-                        className={`absolute -top-2 flex flex-col ${
-                            status === "authenticated" ? "h-72" : "h-32"
-                        } -left-[23vw] w-60 justify-between rounded bg-neutral-200 text-neutral-900 dark:bg-neutral-700 dark:text-neutral-100 sm:-right-4`}
+                    </IconButton>
+                </DropdownMenuPrimitive.Trigger>
+                <Content sideOffset={5}>
+                    <StyledItem as="h1">{session?.user?.name || "You need to sign in"}</StyledItem>
+                    {status === "authenticated" && <StyledItem as="h2">Points: {session?.user?.points}</StyledItem>}
+                    <StyledItem
+                        as="button"
+                        className="button primary mx-auto my-2 w-28 scale-90"
+                        onClick={() => (status === "authenticated" ? signOut() : signIn())}
                     >
-                        <p className="mt-5 ml-6 font-bold">{session?.user?.name || "You need to sign in"}</p>
-                        {status === "authenticated" && (
-                            <>
-                                <p className="ml-6 font-semibold">Points: {session?.user?.points}</p>
-                                <div className="relative -mt-2 flex flex-col justify-center text-center">
-                                    <p className="font-semibold">Code:</p>
-                                    <input
-                                        title="Code"
-                                        value={code}
-                                        onChange={(e) => setCode(e.target.value)}
-                                        className="input mb-2 h-1/3 w-4/6"
-                                    />
-                                    <button
-                                        type="button"
-                                        className="button secondary mx-auto w-24 scale-90 text-start outline"
-                                        onClick={() => mutate({ code: code })}
-                                    >
-                                        Redeem
-                                    </button>
-                                </div>
-                            </>
-                        )}
-                        <button
-                            type="button"
-                            className="button primary mx-auto mb-2 w-2/3"
-                            onClick={() => (status === "authenticated" ? signOut() : signIn())}
-                        >
-                            {status === "authenticated" ? "Sign Out" : "Sign In"}
-                        </button>
-                    </Popover.Panel>
-                </Transition>
-            </Popover>
+                        {status === "authenticated" ? "Sign Out" : "Sign In"}
+                    </StyledItem>
+                    {status === "authenticated" && (
+                        <>
+                            <StyledSeparator />
+                            <StyledItem as="p">Code:</StyledItem>
+                            <StyledItem
+                                as="input"
+                                value={code}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setCode(e.target.value)}
+                                className="input -mt-1.5 flex h-1/2 w-4/6 font-light"
+                            ></StyledItem>
+                            <StyledItem
+                                as="button"
+                                className="button secondary mx-auto my-4 w-24 scale-90 text-start font-semibold outline"
+                                onClick={() => mutate({ code: code })}
+                            >
+                                Redeem
+                            </StyledItem>
+                            <StyledSeparator />
+                        </>
+                    )}
+                </Content>
+            </DropdownMenuPrimitive.Root>
         </>
     );
 };
