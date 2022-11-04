@@ -306,7 +306,6 @@ const LivePanel: NextPage = () => {
                     </div>
                 </div>
             ))}
-            ;
         </div>
     );
 };
