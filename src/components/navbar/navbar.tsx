@@ -32,7 +32,7 @@ export default function Navbar() {
                         checked={theme}
                         onCheckedChange={setTheme}
                         aria-label="Change Theme"
-                        className={`absolute left-auto right-20 my-auto inline-flex h-6 w-12 shrink-0 scale-75 cursor-pointer rounded-full border-2 border-transparent bg-neutral-500 transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 md:relative md:left-0 md:right-0`}
+                        className={`absolute left-auto right-20 my-auto mt-1 inline-flex h-6 w-12 shrink-0 scale-75 cursor-pointer rounded-full border-2 border-transparent bg-neutral-500 transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 md:relative md:left-0 md:right-0`}
                     >
                         <span className="sr-only">Change Theme</span>
                         <Thumb
@@ -43,10 +43,10 @@ export default function Navbar() {
                         />
                     </Switch>
                 </div>
-                <div className="order-3 inline-flex flex-1 flex-shrink-0 basis-11/12 justify-center md:order-2 md:basis-0">
+                <div className="order-3 mb-4 inline-flex flex-1 flex-shrink-0 basis-11/12 justify-center md:order-2 md:mb-0 md:basis-0">
                     <Links />
                 </div>
-                <div className="order-2 inline-flex h-max flex-1 select-none justify-end md:order-3">
+                <div className="order-2 mt-2 inline-flex h-max flex-1 select-none justify-end md:order-3">
                     <UserPanel />
                 </div>
             </div>
