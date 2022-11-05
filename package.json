@@ -30,6 +30,7 @@
         "@trpc/next": "10.0.0-proxy-beta.15",
         "@trpc/react": "10.0.0-proxy-beta.15",
         "@trpc/server": "10.0.0-proxy-beta.15",
+        "class-variance-authority": "^0.2.4",
         "next": "^13.0.1",
         "next-auth": "^4.15.0",
         "phosphor-react": "^1.4.1",
@@ -41,7 +42,6 @@
         "sharp": "^0.31.1",
         "superjson": "1.10.1",
         "uuid": "^9.0.0",
-        "windstitch": "^0.3.0",
         "zod": "^3.19.1"
     },
     "devDependencies": {
