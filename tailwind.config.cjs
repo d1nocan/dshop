@@ -82,6 +82,22 @@ module.exports = {
                         opacity: "0",
                     },
                 },
+                slideDown: {
+                    "0%": {
+                        height: 0,
+                    },
+                    "100%": {
+                        height: "var(--radix-accordion-content-height)",
+                    },
+                },
+                slideUp: {
+                    "0%": {
+                        height: "var(--radix-accordion-content-height)",
+                    },
+                    "100%": {
+                        height: 0,
+                    },
+                },
             },
             animation: {
                 enterFromLeft: "enterFromLeft 0.25s ease",
@@ -92,6 +108,8 @@ module.exports = {
                 fadeOut: "fadeOut 0.2s ease",
                 scaleIn: "scaleIn 0.2s ease",
                 scaleOut: "scaleOut 0.2s ease",
+                slideDown: "slideDown 0.3s cubic-bezier(0.87, 0, 0.13, 1)",
+                slideUp: "slideUp 0.3s cubic-bezier(0.87, 0, 0.13, 1)",
             },
         },
     },
