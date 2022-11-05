@@ -10,7 +10,7 @@ import { forwardRef, type ComponentProps } from "react";
 const MenuStyle = cva("relative z-20 justify-center flex flex-col w-fit");
 
 const ListStyle = cva(
-    "[all:_'unset'] flex justify-center bg-neutral-50 dark:bg-neutral-900 p-1 rounded-md list-none shadow-md",
+    "[all:_'unset'] flex justify-center bg-neutral-50 dark:bg-neutral-900 rounded-md list-none shadow-md",
 );
 
 const ItemStyle = cva(
@@ -20,7 +20,7 @@ const ItemStyle = cva(
 const TriggerStyle = cva("[all:_'unset'] " + ItemStyle() + " group flex items-center justify-between gap-1");
 
 const CaretStyle = cva(
-    "relative text-violet-500 top-[1px] transform group-data-[state=open]:-rotate-180 motion-safe:transform motion-safe:transition motion-safe:duration-200 motion-safe:ease-linear",
+    "relative text-violet-500 transform group-data-[state=open]:-rotate-180 motion-safe:transform motion-safe:transition motion-safe:duration-200 motion-safe:ease-linear",
 );
 
 const LinkStyle = cva(ItemStyle() + " block no-underline text-base leading-none");

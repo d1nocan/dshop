@@ -21,7 +21,7 @@ export default function Navbar() {
     return (
         <>
             <div className="relative mx-auto flex w-full flex-row flex-wrap items-center justify-between rounded-b-xl bg-neutral-300 bg-opacity-20 px-4 dark:bg-neutral-800 dark:bg-opacity-20 lg:px-10">
-                <div className="order-1 mt-2 inline-flex flex-1 select-none flex-col justify-start sm:flex-row">
+                <div className="order-1 mt-2 inline-flex flex-1 select-none flex-row justify-start">
                     <div className="ml-4 cursor-default select-none text-2xl font-bold tracking-wide text-neutral-800 dark:text-neutral-100 md:mr-6">
                         <Link href="/" className="relative">
                             <span className="z-0 -ml-4 tracking-wide sm:ml-0">DShop</span>
@@ -32,7 +32,7 @@ export default function Navbar() {
                         checked={theme}
                         onCheckedChange={setTheme}
                         aria-label="Change Theme"
-                        className={`absolute left-auto right-20 my-auto mt-1 inline-flex h-6 w-12 shrink-0 scale-75 cursor-pointer rounded-full border-2 border-transparent bg-neutral-500 transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 md:relative md:left-0 md:right-0`}
+                        className={`absolute left-auto right-20 my-auto mt-1 inline-flex h-6 w-12 shrink-0 scale-75 cursor-pointer rounded-full border-2 border-transparent bg-neutral-500 transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 md:relative md:left-0 md:right-0 md:-ml-2.5 lg:ml-0`}
                     >
                         <span className="sr-only">Change Theme</span>
                         <Thumb
