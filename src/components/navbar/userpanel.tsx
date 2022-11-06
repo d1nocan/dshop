@@ -68,7 +68,7 @@ export const UserPanel = () => {
                             <User
                                 size={44}
                                 weight="bold"
-                                className="mx-auto -mt-1 mb-2.5 h-full scale-75 rounded-xl text-neutral-50"
+                                className="mx-auto -mt-1 mb-2.5 h-full scale-75 rounded-xl text-neutral-900 dark:text-neutral-50"
                             />
                         )}
                     </button>
