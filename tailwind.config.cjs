@@ -98,6 +98,26 @@ module.exports = {
                         height: 0,
                     },
                 },
+                slideDownAndFade: {
+                    "0%": {
+                        opacity: 0,
+                        transform: "translateY(-2px)",
+                    },
+                    "100%": {
+                        opacity: 1,
+                        transform: "translateY(0px)",
+                    },
+                },
+                slideUpAndFade: {
+                    "0%": {
+                        opacity: 1,
+                        transform: "translateY(px)",
+                    },
+                    "100%": {
+                        opacity: 0,
+                        transform: "translateY(-2px)",
+                    },
+                },
             },
             animation: {
                 enterFromLeft: "enterFromLeft 0.25s ease",
@@ -110,6 +130,8 @@ module.exports = {
                 scaleOut: "scaleOut 0.2s ease",
                 slideDown: "slideDown 0.3s cubic-bezier(0.87, 0, 0.13, 1)",
                 slideUp: "slideUp 0.3s cubic-bezier(0.87, 0, 0.13, 1)",
+                slideDownAndFade: "slideDownAndFade 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                slideUpAndFade: "slideUpAndFade 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
             },
         },
     },
