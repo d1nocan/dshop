@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import { Root, Trigger, Content, Arrow, Separator } from "@radix-ui/react-dropdown-menu";
 
 const ContentStyles = cva(
-    "min-w-[200px] z-50 bg-neutral-50 dark:bg-neutral-800 rounded-md p-3 [box-shadow:'0px_10px_38px_-10px_rgba(22,23,24,0.35),_0px_10px_20px_-15px_rgba(22,23,24,0.2)'] motion-safe:",
+    "min-w-[200px] z-50 bg-neutral-50 dark:bg-neutral-800 rounded-md p-3 [box-shadow:'0px_10px_38px_-10px_rgba(22,23,24,0.35),_0px_10px_20px_-15px_rgba(22,23,24,0.2)'] motion-safe:transform motion-safe:data-[state='open']:animate-slideDownAndFade motion-safe:data-[state='closed']:animate-slideUpAndFade",
 );
 const ContentStyle = cva(ContentStyles() + " flex flex-col gap-1.5");
 
