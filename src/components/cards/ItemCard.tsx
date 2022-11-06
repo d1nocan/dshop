@@ -6,15 +6,17 @@ interface ItemCard {
     isGuest: boolean;
 }
 
+const EditItem = dynamic(() => import("@modals/EditItem"));
+const BuyItem = dynamic(() => import("@modals/BuyItem"));
+const Image = dynamic(() => import("next/image"));
+
 export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
-    const EditItem = dynamic(() => import("@modals/EditItem"));
-    const BuyItem = dynamic(() => import("@modals/BuyItem"));
-    const Image = dynamic(() => import("next/image"));
     return (
         <>
             <div className="card relative">
                 {/* <div className="absolute z-0 invisible -inset-1 animate-pulse bg-gradient-to-r from-indigo-300 to-purple-400 blur-sm xl:visible "></div> */}
                 <div className="card-body relative">
+                    {isAdmin && <EditItem item={item} />}
                     <figure className="image-box">
                         {item.image ? (
                             <Image
@@ -45,7 +47,7 @@ export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
                                 </p>
                             )}
                         </div>
-                        {!isGuest && (isAdmin ? <EditItem item={item} /> : <BuyItem item={item} isGuest={isGuest} />)}
+                        {!isGuest && <BuyItem item={item} isGuest={isGuest} />}
                     </div>
                 </div>
             </div>

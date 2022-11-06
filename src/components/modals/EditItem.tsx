@@ -8,7 +8,7 @@ import { Fragment, useState } from "react";
 import uploadImage from "@utils/supabase";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
-import { Pencil } from "phosphor-react";
+import { PencilSimple } from "phosphor-react";
 interface Items {
     item: Item;
 }
@@ -76,8 +76,13 @@ export const EditItem = ({ item }: Items) => {
     }
     return (
         <>
-            <button onClick={openModal} type="button" className="button primary mx-auto mt-2 flex gap-2">
-                Edit <Pencil size={18} className="my-auto" />
+            <button
+                title="Edit item"
+                onClick={openModal}
+                type="button"
+                className="absolute right-2 top-2 mx-auto flex gap-2 p-1"
+            >
+                <PencilSimple size={18} className="my-auto" />
             </button>
             <Transition appear show={showModal} as={Fragment}>
                 <Dialog
