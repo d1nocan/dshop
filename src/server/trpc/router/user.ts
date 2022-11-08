@@ -2,6 +2,7 @@ import { getPage } from "@schemas/user";
 import { selectUser, updateUser } from "@schemas/user";
 import { Role } from "@prisma/client";
 import { router, protectedProcedure, publicProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
 
 export const userRouter = router({
     get: publicProcedure.input(getPage).query(async ({ ctx, input }) => {
@@ -35,6 +36,9 @@ export const userRouter = router({
         });
     }),
     update: protectedProcedure.input(updateUser).mutation(({ ctx, input }) => {
+        if (ctx.session?.user?.role !== Role.Admin) {
+            throw new TRPCError({ code: "UNAUTHORIZED" });
+        }
         return ctx.prisma.user.update({
             where: {
                 id: input.id,

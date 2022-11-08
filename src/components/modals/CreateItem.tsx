@@ -7,6 +7,8 @@ import { Fragment, useState } from "react";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
 import { Plus } from "phosphor-react";
+import { buttonStyle } from "@styles/button";
+import { checkboxStyle, inputAreaStyle, inputStyle, textAreaStyle } from "@styles/input";
 
 export const CreateItem = () => {
     const [loading, setLoading] = useState(false);
@@ -68,7 +70,11 @@ export const CreateItem = () => {
     }
     return (
         <>
-            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
+            <button
+                type="button"
+                onClick={openModal}
+                className={buttonStyle({ theme: "primary" }) + " mx-auto mt-10 font-bold"}
+            >
                 Create Item
                 <Plus size={22} className="ml-2" />
             </button>
@@ -110,14 +116,14 @@ export const CreateItem = () => {
                                             Create Item
                                         </Dialog.Title>
                                         <div className="modal-body">
-                                            <div className="input-area lg:col-span-2">
+                                            <div className={inputAreaStyle() + " lg:col-span-2"}>
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>
                                                 </label>
                                                 <input
                                                     title="Item Name"
                                                     type="text"
-                                                    className="input"
+                                                    className={inputStyle({ size: "xl" })}
                                                     {...register("name")}
                                                 />
                                                 {errors.name && (
@@ -126,13 +132,13 @@ export const CreateItem = () => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="input-area lg:col-span-2">
+                                            <div className={inputAreaStyle() + " lg:col-span-2"}>
                                                 <label className="label">
                                                     <span className="label-text">Item Description</span>
                                                 </label>
                                                 <textarea
                                                     title="Item Description"
-                                                    className="textarea w-fit"
+                                                    className={textAreaStyle()}
                                                     {...register("description")}
                                                 ></textarea>
                                                 {errors.description && (
@@ -141,14 +147,14 @@ export const CreateItem = () => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="input-area w-full max-w-xs">
+                                            <div className={inputAreaStyle()}>
                                                 <label className="label">
                                                     <span className="label-text">Price</span>
                                                 </label>
                                                 <input
                                                     title="Price"
                                                     type="number"
-                                                    className="input input-bordered w-full max-w-xs"
+                                                    className={inputStyle()}
                                                     {...register("price", {
                                                         setValueAs: (value) => BigInt(value),
                                                     })}
@@ -162,14 +168,14 @@ export const CreateItem = () => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="input-area w-full max-w-xs">
+                                            <div className={inputAreaStyle()}>
                                                 <label className="label">
                                                     <span className="label-text">Quantity</span>
                                                 </label>
                                                 <input
                                                     title="Quantity"
                                                     type="number"
-                                                    className="input input-bordered w-full max-w-xs"
+                                                    className={inputStyle()}
                                                     {...register("quantity", { valueAsNumber: true })}
                                                 />
                                                 <label className="label">
@@ -181,21 +187,21 @@ export const CreateItem = () => {
                                                     </p>
                                                 )}
                                             </div>
-                                            <div className="input-area my-2 w-full max-w-xs">
+                                            <div className={inputAreaStyle()}>
                                                 <label className="label">
                                                     <span className="label-text">Global Cooldown</span>
                                                 </label>
                                                 <input
                                                     title="Global cooldown (seconds)"
                                                     type="number"
-                                                    className="input input-bordered w-full max-w-xs"
+                                                    className={inputStyle()}
                                                     {...register("cooldown", { valueAsNumber: true })}
                                                 />
                                                 <label className="label">
                                                     <span className="label-text-alt">Seconds</span>
                                                 </label>
                                             </div>
-                                            <div className="input-area flex w-full max-w-xs flex-row justify-center">
+                                            <div className={inputAreaStyle()}>
                                                 <label className="label">
                                                     <span className="label-text">Image</span>
                                                 </label>
@@ -204,36 +210,36 @@ export const CreateItem = () => {
                                                     type="file"
                                                     accept="image/*"
                                                     id="filecrt"
-                                                    className="file:bg-primary hover:file:bg-primary-focus w-fit max-w-xs px-2 text-sm file:mx-8 file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300 lg:mb-8 lg:mt-2 file:lg:mx-2"
+                                                    className="file:bg-primary hover:file:bg-primary-focus -ml-4 w-fit max-w-xs px-2 text-sm file:mx-8 file:mr-4 file:rounded-full file:border-0 file:py-1 file:px-2 file:text-sm file:font-semibold file:text-neutral-900 file:duration-300 lg:ml-3 lg:mb-8 lg:mt-2 file:lg:mx-2"
                                                 />
                                             </div>
-                                            <div className="input-area ml-2 flex w-full max-w-xs flex-row items-center justify-between">
+                                            <div className={inputAreaStyle()}>
                                                 <span className="label-text">Is input required?</span>
                                                 <input
                                                     title="Is input required?"
                                                     type="checkbox"
-                                                    className="toggle"
+                                                    className={checkboxStyle() + " mx-auto"}
                                                     {...register("inputRequired")}
                                                 />
                                             </div>
-                                            <div className="input-area ml-2 flex w-full max-w-xs flex-row items-center justify-between">
+                                            <div className={inputAreaStyle()}>
                                                 <span className="label-text">Is hidden item?</span>
                                                 <input
                                                     title="Is hidden item?"
                                                     type="checkbox"
-                                                    className="toggle"
+                                                    className={checkboxStyle() + " mx-auto"}
                                                     {...register("isHidden")}
                                                 />
                                             </div>
                                             {watch("inputRequired") && (
-                                                <div className="input-area mx-auto w-full max-w-xs">
+                                                <div className={inputAreaStyle() + " lg:col-span-2"}>
                                                     <label className="label">
                                                         <span className="label-text">Type wanted input</span>
                                                     </label>
                                                     <input
                                                         type="text"
                                                         placeholder="Enter your input"
-                                                        className="input input-bordered text-primary-content w-full max-w-xs"
+                                                        className={inputStyle({ size: "xl" })}
                                                         {...register("input")}
                                                     />
                                                     {errors.input && (
@@ -245,12 +251,15 @@ export const CreateItem = () => {
                                             )}
                                         </div>
                                         <div className="flew-row mt-6 flex justify-end gap-4">
-                                            <button type="submit" className="button success outline">
+                                            <button
+                                                type="submit"
+                                                className={buttonStyle({ theme: "success", outline: true })}
+                                            >
                                                 Create
                                             </button>
                                             <button
                                                 type="button"
-                                                className="button danger outline"
+                                                className={buttonStyle({ theme: "danger", outline: true })}
                                                 onClick={closeModal}
                                             >
                                                 Cancel

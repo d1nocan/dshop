@@ -40,88 +40,8 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-.button {
-    @apply text-center py-2 px-4 rounded-lg text-neutral-100 duration-300;
-
-    &.primary {
-        @apply bg-violet-500;
-    }
-
-    &.secondary {
-        @apply bg-neutral-900 dark:bg-neutral-200 dark:text-neutral-900;
-    }
-
-    &.danger {
-        @apply bg-red-500;
-    }
-
-    &.success {
-        @apply bg-green-500;
-    }
-
-    &.warning {
-        @apply bg-yellow-500;
-    }
-
-    &.outline {
-        @apply bg-transparent text-neutral-900 dark:text-neutral-200;
-
-        &:hover {
-            @apply bg-opacity-60;
-        }
-
-        &.primary {
-            @apply text-violet-500;
-
-            &:hover {
-                @apply bg-violet-500 text-neutral-100;
-            }
-        }
-
-        &.secondary {
-            @apply text-neutral-900 bg-transparent dark:text-neutral-200;
-
-            &:hover {
-                @apply text-neutral-900 dark:text-neutral-50;
-            }
-        }
-
-        &.danger {
-            @apply text-red-500;
-
-            &:hover {
-                @apply bg-red-500 text-neutral-100;
-            }
-        }
-
-        &.success {
-            @apply text-green-500;
-
-            &:hover {
-                @apply bg-green-500 text-neutral-100;
-            }
-        }
-
-        &.warning {
-            @apply text-yellow-500;
-
-            &:hover {
-                @apply bg-yellow-500 text-neutral-100;
-            }
-        }
-    }
-}
-
-.input {
-    @apply form-input dark:bg-neutral-900 min-w-[5em] max-w-[20em] rounded-xl text-center mx-auto focus:ring-violet-500 focus:ring-1 focus:border-violet-500;
-}
-
-.textarea {
-    @apply form-textarea w-full mx-auto rounded-xl dark:bg-neutral-900 dark:text-neutral-100 focus:ring-violet-500 focus:ring-1 focus:border-violet-500;
-}
-
 .modal {
-    @apply z-50 w-full min-w-[20rem] max-w-[35rem] transform overflow-hidden rounded-2xl flex flex-col bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 p-6 align-middle shadow-xl transition-all;
+    @apply z-50 w-screen md:min-w-[20rem] md:max-w-[35rem] transform overflow-hidden rounded-2xl flex flex-col bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-100 p-6 align-middle shadow-xl transition-all;
 }
 
 .modal-body {
@@ -133,15 +53,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .card-body {
-    @apply flex h-full min-h-[21rem] max-h-[32rem] flex-col pt-8 dark:bg-neutral-800 bg-neutral-200 text-neutral-900 z-10 rounded-2xl dark:text-neutral-100 duration-300;
+    @apply flex h-full min-h-[21rem] max-h-[42rem] flex-col pt-8 dark:bg-neutral-800 bg-neutral-200 text-neutral-900 z-10 rounded-2xl dark:text-neutral-100 duration-300;
 }
 
 .image-box {
     @apply relative mx-auto aspect-square w-28 mb-4 flex items-center justify-center overflow-hidden;
-}
-
-.input-area {
-    @apply flex flex-col w-full min-w-[10em] max-w-[15em] mx-auto my-2 gap-2 text-center;
 }
 
 .alert {

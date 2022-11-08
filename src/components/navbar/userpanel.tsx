@@ -6,13 +6,15 @@ import Image from "next/image";
 import { User } from "phosphor-react";
 import { toast } from "react-hot-toast";
 import { Root, Trigger, Content, Arrow, Separator } from "@radix-ui/react-dropdown-menu";
+import { inputStyle } from "@styles/input";
+import { buttonStyle } from "@styles/button";
 
 const ContentStyles = cva(
-    "min-w-[200px] z-50 bg-neutral-50 dark:bg-neutral-800 rounded-md p-3 [box-shadow:'0px_10px_38px_-10px_rgba(22,23,24,0.35),_0px_10px_20px_-15px_rgba(22,23,24,0.2)'] motion-safe:transform motion-safe:data-[state='open']:animate-slideDownAndFade motion-safe:data-[state='closed']:animate-slideUpAndFade",
+    "min-w-[200px] z-50 bg-neutral-50 dark:bg-neutral-800 rounded-md px-8 py-5 mr-2 [box-shadow:'0px_10px_38px_-10px_rgba(22,23,24,0.35),_0px_10px_20px_-15px_rgba(22,23,24,0.2)'] motion-safe:transform motion-safe:data-[state='open']:animate-slideDownAndFade motion-safe:data-[state='closed']:animate-slideUpAndFade",
 );
 const ContentStyle = cva(ContentStyles() + " flex flex-col gap-1.5");
 
-const ArrowStyle = cva("fill-neutral-200 dark:fill-neutral-800");
+const ArrowStyle = cva("fill-neutral-200 mr-2 dark:fill-neutral-800");
 
 const ItemStyles = cva(
     "mx-auto text-md font-semibold text-neutral-900 p-2 dark:text-neutral-50 leading-none items-center relative select-none data-[disabled]:text-violet-100",
@@ -78,7 +80,7 @@ export const UserPanel = () => {
                     {status === "authenticated" && <h2 className={ItemStyles()}>Points: {session?.user?.points}</h2>}
                     <button
                         type="button"
-                        className={ItemStyles() + " button primary mx-auto my-2 w-28 scale-90"}
+                        className={ItemStyles() + buttonStyle({ theme: "primary", outline: true }) + " my-2"}
                         onClick={() => (status === "authenticated" ? signOut() : signIn())}
                     >
                         {status === "authenticated" ? "Sign Out" : "Sign In"}
@@ -91,15 +93,12 @@ export const UserPanel = () => {
                                 value={code}
                                 title="Enter code"
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setCode(e.target.value)}
-                                className={ItemStyles() + " input -mt-1.5 flex h-1/2 w-4/6 font-light"}
+                                className={ItemStyles() + inputStyle()}
                                 disabled={false}
                             />
                             <button
                                 type="button"
-                                className={
-                                    ItemStyles() +
-                                    " button secondary mx-auto my-4 w-24 scale-90 text-start font-semibold outline"
-                                }
+                                className={ItemStyles() + buttonStyle({ theme: "secondary", outline: true }) + " my-2"}
                                 onClick={() => mutate({ code: code })}
                             >
                                 Redeem

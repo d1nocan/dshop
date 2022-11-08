@@ -5,10 +5,9 @@ interface ItemCard {
     isAdmin: boolean;
     isGuest: boolean;
 }
-
+const Image = dynamic(() => import("next/image"));
 const EditItem = dynamic(() => import("@modals/EditItem"));
 const BuyItem = dynamic(() => import("@modals/BuyItem"));
-const Image = dynamic(() => import("next/image"));
 
 export const ItemCard = ({ item, isGuest, isAdmin }: ItemCard) => {
     return (

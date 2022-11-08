@@ -2,6 +2,8 @@ import { Dialog, Listbox, Transition } from "@headlessui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type Item, Role, Status, type Transaction, type User } from "@prisma/client";
 import { updateTransaction } from "@schemas/transaction";
+import { buttonStyle } from "@styles/button";
+import { inputAreaStyle, textAreaStyle } from "@styles/input";
 import { default as TSA } from "@tables/transaction";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
@@ -51,7 +53,7 @@ export const UpdateTransaction = ({ transaction }: Items) => {
         <>
             <TSA transaction={transaction} onClick={openModal} />
             <Transition appear show={showModal} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Dialog as="div" className="relative z-30" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -119,22 +121,23 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                         <div className="my-4 rounded border border-neutral-200 border-opacity-30 py-4 shadow-lg">
                                             {transaction.item.input && (
                                                 <>
-                                                    <p className="mt-4 text-center font-bold">Input</p>
-                                                    <p className="mt-4 text-center">
-                                                        {transaction.item.input}: {transaction.input}
+                                                    <p className="mt-4 text-center font-bold">
+                                                        {transaction.item.input}:
                                                     </p>
+                                                    <p className="mt-4 text-center">{transaction.input || "None"}</p>
                                                 </>
                                             )}
+                                            <p className="mt-4 text-center font-bold">Time:</p>
                                             <p
                                                 className={`text-center ${
                                                     transaction.item.input && "mt-4"
                                                 } break-words`}
                                             >
-                                                Time: {new Date(Number(transaction.createdAt)).toUTCString()}
+                                                {new Date(Number(transaction.createdAt)).toUTCString()}
                                             </p>
                                         </div>
                                         <div className="forms my-4 rounded border border-neutral-200 border-opacity-30 py-4 shadow-lg">
-                                            <div className="input-area my-2 mx-auto w-full max-w-xs">
+                                            <div className={inputAreaStyle()}>
                                                 <span className="mb-1 text-center font-light">Status</span>
                                                 {transaction.status === Status.Pending &&
                                                 session.data?.user?.role === Role.Admin ? (
@@ -170,13 +173,13 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="input-area my-2 mx-auto w-full max-w-xs">
+                                            <div className={inputAreaStyle()}>
                                                 {transaction.status === Status.Pending &&
                                                 session.data?.user?.role === Role.Admin ? (
                                                     <>
                                                         <span className="mb-1 text-center font-light">Message</span>
                                                         <textarea
-                                                            className="textarea"
+                                                            className={textAreaStyle()}
                                                             title="Message"
                                                             rows={3}
                                                             {...register("response")}
@@ -194,7 +197,7 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                 session.data?.user?.role === Role.Admin && (
                                                     <button
                                                         type="button"
-                                                        className="button primary outline"
+                                                        className={buttonStyle({ theme: "success", outline: true })}
                                                         onClick={handleSubmit((_data) => {
                                                             setLoading(true);
                                                             mutate(_data);
@@ -205,7 +208,7 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                 )}
                                             <button
                                                 type="button"
-                                                className="button danger outline"
+                                                className={buttonStyle({ theme: "danger", outline: true })}
                                                 onClick={closeModal}
                                             >
                                                 Close

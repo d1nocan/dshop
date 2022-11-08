@@ -14,7 +14,7 @@ export const transactionRouter = router({
                 item: true,
             },
             orderBy: {
-                createdAt: "desc",
+                status: "asc",
             },
         });
     }),

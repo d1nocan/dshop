@@ -22,28 +22,18 @@ const Tickets: NextPage = () => {
     return (
         <>
             {session.data?.user?.role === "User" && <CreateTicket />}
-            <div className="container mx-auto mt-10 overflow-x-auto">
+            <div className="container mx-auto mt-10 flex flex-row flex-wrap justify-center gap-4 px-6">
                 {(tickets?.length as number) > 0 ? (
-                    <table className="mx-auto w-10/12 min-w-max table-auto">
-                        <thead>
-                            <tr className="text-sm uppercase leading-normal dark:bg-neutral-900 dark:text-neutral-100">
-                                <th className="px-6 py-3 text-left">Name</th>
-                                <th className="px-6 py-3 text-left">Title</th>
-                                <th className="px-6 py-3 text-left">Status</th>
-                                <th className="px-6 py-3 text-left"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tickets?.map((ticket) => (
-                                <Ticket key={ticket.id} ticket={ticket} />
-                            ))}
-                        </tbody>
-                    </table>
+                    <>
+                        {tickets?.map((ticket) => (
+                            <Ticket key={ticket.id} ticket={ticket} />
+                        ))}
+                    </>
                 ) : (
                     !isLoading && <Alert type="info" message="No tickets found" />
                 )}
-                <FAQ />
             </div>
+            <FAQ />
         </>
     );
 };

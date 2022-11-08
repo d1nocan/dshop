@@ -5,6 +5,9 @@ import { router, protectedProcedure } from "../trpc";
 
 export const twitchRouter = router({
     givePoints: protectedProcedure.input(givePoints).mutation(({ ctx, input }) => {
+        if (ctx.session?.user?.role !== Role.Admin) {
+            throw new TRPCError({ code: "UNAUTHORIZED" });
+        }
         return ctx.prisma.user.updateMany({
             where: {
                 name: input.user ?? undefined,
@@ -20,6 +23,9 @@ export const twitchRouter = router({
         });
     }),
     giveItem: protectedProcedure.input(giveItem).mutation(async ({ ctx, input }) => {
+        if (ctx.session?.user?.role !== Role.Admin) {
+            throw new TRPCError({ code: "UNAUTHORIZED" });
+        }
         const user = await ctx.prisma.user.findUnique({
             where: {
                 name: input.user,
@@ -47,6 +53,9 @@ export const twitchRouter = router({
     }),
 
     selectRandom: protectedProcedure.mutation(async ({ ctx }) => {
+        if (ctx.session?.user?.role !== Role.Admin) {
+            throw new TRPCError({ code: "UNAUTHORIZED" });
+        }
         const random = await ctx.prisma.user.findMany();
         return random[Math.floor(Math.random() * random.length)]?.name;
     }),

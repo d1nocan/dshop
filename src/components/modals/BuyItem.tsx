@@ -8,6 +8,8 @@ import { Fragment, useState } from "react";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
 import { ShoppingBag } from "phosphor-react";
+import { buttonStyle } from "@styles/button";
+import { inputStyle } from "@styles/input";
 interface Items {
     item: Item;
     isGuest: boolean;
@@ -57,7 +59,11 @@ export const BuyItem = ({ item, isGuest }: Items) => {
     });
     return (
         <>
-            <button onClick={openModal} type="button" className="button primary mx-auto mt-2 flex gap-2">
+            <button
+                onClick={openModal}
+                type="button"
+                className={buttonStyle({ theme: "primary" }) + " mx-auto mt-2 gap-2"}
+            >
                 Get <ShoppingBag size={18} className="my-auto" />
             </button>
             <Transition appear show={showModal && !isGuest} as={Fragment}>
@@ -106,7 +112,7 @@ export const BuyItem = ({ item, isGuest }: Items) => {
                                                 <input
                                                     type="text"
                                                     placeholder={"Enter " + item.input}
-                                                    className="input"
+                                                    className={inputStyle({ size: "xl" })}
                                                     {...register("input")}
                                                 />
                                                 {errors.input && <p className="text-red-500">{errors.input.message}</p>}
@@ -115,9 +121,10 @@ export const BuyItem = ({ item, isGuest }: Items) => {
                                         <div className="flew-row mt-6 flex justify-end gap-4">
                                             <button
                                                 type="button"
-                                                className={`${
-                                                    item.quantity === 0 && "cursor-not-allowed"
-                                                } button success outline`}
+                                                className={
+                                                    buttonStyle({ theme: "success", outline: true }) +
+                                                    ` ${item.quantity === 0 && "cursor-not-allowed"}`
+                                                }
                                                 disabled={item.quantity === 0}
                                                 onClick={handleSubmit(() => {
                                                     setLoading(true);
@@ -129,7 +136,7 @@ export const BuyItem = ({ item, isGuest }: Items) => {
                                             <button
                                                 type="button"
                                                 onClick={closeModal}
-                                                className="button danger outline"
+                                                className={buttonStyle({ theme: "danger", outline: true })}
                                             >
                                                 Cancel
                                             </button>

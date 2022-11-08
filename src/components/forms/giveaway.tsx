@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { CreateGiveawaySchema } from "@schemas/giveaway";
 import { trpc } from "@utils/trpc";
+import { inputStyle } from "@styles/input";
+import { buttonStyle } from "@styles/button";
 
 export const GiveawayForm = () => {
     const { mutate: createGiveaway } = trpc.giveaway.create.useMutation();
@@ -23,11 +25,11 @@ export const GiveawayForm = () => {
                 )}
             >
                 <p>Title:</p>
-                <input type="text" className="input scale-95" {...register("title")} />
+                <input type="text" className={inputStyle({ size: "lg" })} {...register("title")} />
                 <p>Total winners:</p>
                 <input
                     type="number"
-                    className="input mx-auto w-1/2 scale-95"
+                    className={inputStyle({ size: "sm" })}
                     {...register("totalWinner", {
                         setValueAs: (x) => Number(x),
                     })}
@@ -35,7 +37,7 @@ export const GiveawayForm = () => {
                 <p>Points:</p>
                 <input
                     type="number"
-                    className="input mx-auto w-1/2 scale-95"
+                    className={inputStyle({ size: "sm" })}
                     {...register("points", {
                         setValueAs: (x) => Number(x),
                     })}
@@ -43,12 +45,12 @@ export const GiveawayForm = () => {
                 <p>Ends at (seconds):</p>
                 <input
                     type="number"
-                    className="input mx-auto w-1/2 scale-95"
+                    className={inputStyle({ size: "sm" })}
                     {...register("endsAt", {
                         setValueAs: (x) => BigInt(x),
                     })}
                 />
-                <button type="submit" className="button primary mt-4">
+                <button type="submit" className={buttonStyle() + " mx-auto my-4 flex w-fit justify-center"}>
                     Create
                 </button>
             </form>

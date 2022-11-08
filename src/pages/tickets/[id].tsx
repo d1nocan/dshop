@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { buttonStyle } from "@styles/button";
 
 const Ticket: NextPage = () => {
     const session = useSession();
@@ -49,7 +50,7 @@ const Ticket: NextPage = () => {
                     <div className="flex flex-row justify-center">
                         <button
                             type="button"
-                            className={`button ${data?.status === "Open" ? "danger" : "success"} duration-300`}
+                            className={buttonStyle({ theme: data?.status === "Open" ? "danger" : "success" })}
                             onClick={() =>
                                 updateTicket({
                                     id: data?.id as string,

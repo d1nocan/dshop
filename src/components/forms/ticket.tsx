@@ -4,6 +4,8 @@ import { addMessage } from "@schemas/ticket";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import type { Ticket } from "@prisma/client";
+import { inputAreaStyle, textAreaStyle } from "@styles/input";
+import { buttonStyle } from "@styles/button";
 
 interface Props {
     data: Ticket;
@@ -33,20 +35,16 @@ export const TicketForm = ({ data, userId, refetch }: Props) => {
     return (
         <div className="mx-auto mb-4 w-[50vw] max-w-[25rem] rounded-xl bg-neutral-300 px-4 py-10 duration-300 dark:bg-neutral-600">
             <form>
-                <div className="input-area">
+                <div className={inputAreaStyle()}>
                     <label className="label">
                         <span className="mx-auto text-neutral-100">Message</span>
                     </label>
-                    <textarea
-                        className="textarea duration-300"
-                        placeholder="Message"
-                        {...register("content")}
-                    ></textarea>
+                    <textarea className={textAreaStyle()} placeholder="Message" {...register("content")}></textarea>
                 </div>
-                <div className="input-area mt-5">
+                <div className={inputAreaStyle()}>
                     <button
                         type="button"
-                        className="button primary"
+                        className={buttonStyle() + " mx-auto mt-4 flex w-fit justify-center"}
                         onClick={handleSubmit(() => {
                             setValue("ticketId", data?.id as string);
                             mutate(getValues());

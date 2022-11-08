@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
+import { buttonStyle } from "@styles/button";
 
 const Link = dynamic(() => import("next/link"));
 const JoinPrediction = dynamic(() => import("@forms/prediction"));
@@ -12,7 +13,7 @@ export const PredictionPanel = () => {
         <>
             {session.data?.user?.role === "Admin" && (
                 <Link href="/predictions/create">
-                    <button type="button" className="button primary mx-auto mt-10 flex">
+                    <button type="button" className={buttonStyle() + " mx-auto mt-10 flex w-fit"}>
                         Create Prediction
                     </button>
                 </Link>

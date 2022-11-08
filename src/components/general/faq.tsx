@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 import { Root, Item, Header, Trigger, Content } from "@radix-ui/react-accordion";
 import { forwardRef, type ComponentProps } from "react";
 
-const AccordionStyle = cva("rounded space-y-2 w-1/4 bg-transparent mx-auto mt-10");
+const AccordionStyle = cva("rounded space-y-2 md:w-1/2 xl:w-1/4 bg-transparent mx-auto mt-10");
 
 const ItemStyle = cva(
     "overflow-hidden mt-0.5 first:mt-0 first:rounded-t last:rounded-b focus-within:relative focus-within:z-[1] focus-within:shadow",

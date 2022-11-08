@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
+import { buttonStyle } from "@styles/button";
 
 const GiveawayForm = dynamic(() => import("@forms/giveaway"));
 
@@ -19,21 +20,25 @@ export const Giveaways = () => {
                         giveaway.endsAt >= Date.now() ? (
                             <form
                                 key={giveaway.id}
-                                className="flex flex-col gap-4"
+                                className="flex flex-col"
                                 onSubmit={() => mutate({ id: giveaway.id })}
                             >
-                                <button type="submit" className="button primary mx-auto w-2/3">
+                                <button type="submit" className={buttonStyle() + " mx-auto w-fit"}>
                                     Join
                                 </button>
                             </form>
                         ) : (
                             <div className="flex flex-col gap-4">
-                                {giveaway.endsAt <= Date.now() && <p>This prediction is finished</p>}
+                                {giveaway.endsAt <= Date.now() && (
+                                    <>
+                                        <p>This prediction is finished</p>
+                                        {giveaway.winners !== null && (
+                                            <p>Winners: {giveaway.winners.map((winner) => winner.name).join(", ")}</p>
+                                        )}
+                                    </>
+                                )}
                                 {giveaway.joined.some((joiner) => joiner.id === session.data?.user?.id) && (
                                     <p>You joined this giveaway</p>
-                                )}
-                                {giveaway.winners !== null && (
-                                    <p>Winners: {giveaway.winners.map((winner) => winner.name).join(", ")}</p>
                                 )}
                             </div>
                         )}

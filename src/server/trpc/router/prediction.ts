@@ -59,13 +59,39 @@ export const predictionRouter = router({
         });
     }),
 
-    close: protectedProcedure.input(selectPrediction).mutation(({ ctx, input }) => {
-        return ctx.prisma.prediction.update({
+    close: protectedProcedure.input(selectPrediction).mutation(async ({ ctx, input }) => {
+        const data = await ctx.prisma.prediction.findUnique({
+            where: {
+                id: input.id,
+            },
+            include: {
+                Vote: {
+                    orderBy: {
+                        choice: "asc",
+                    },
+                },
+            },
+        });
+        const winneroption = data?.Vote.reduce((prev, curr) => {
+            if (prev[curr.choice] === undefined) {
+                prev[curr.choice] = 0;
+            }
+            prev[curr.choice] += 1;
+            return prev;
+        }, {} as Record<string, number>);
+        return await ctx.prisma.prediction.update({
             where: {
                 id: input.id,
             },
             data: {
                 endsAt: new Date(),
+                winOption: winneroption
+                    ? Number(
+                          Object.keys(winneroption).reduce((a, b) =>
+                              (winneroption[a] || 0) > (winneroption[b] || 0) ? a : b,
+                          ),
+                      )
+                    : undefined,
             },
         });
     }),

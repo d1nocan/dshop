@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import { inputStyle } from "@styles/input";
+import { buttonStyle } from "@styles/button";
 
 export const CreateVote: NextPage = () => {
     const session = useSession();
@@ -52,17 +54,16 @@ export const CreateVote: NextPage = () => {
                     <Loading />
                 ) : (
                     <form
-                        className="card-body relative flex-wrap justify-around gap-4 pb-6 text-center"
+                        className="card-body relative h-screen max-h-[80vh] flex-wrap justify-around gap-4 pb-6 text-center"
                         onSubmit={handleSubmit((data) => {
                             mutate(data);
                         })}
-                        style={{ maxHeight: "80vh" }}
                     >
                         <div className="mb-4 flex flex-col gap-4">
                             <label>
                                 <span>Question</span>
                             </label>
-                            <input {...register("question")} type="text" className="input" />
+                            <input {...register("question")} type="text" className={inputStyle({ size: "xl" })} />
                             {errors.question && <p className="text-red-500">{errors.question.message}</p>}
                         </div>
                         <div className="mx-auto mb-4 flex w-full flex-col justify-around lg:flex-row">
@@ -73,7 +74,7 @@ export const CreateVote: NextPage = () => {
                                 <input
                                     {...register("min", { setValueAs: (x) => BigInt(x) })}
                                     type="number"
-                                    className="input"
+                                    className={inputStyle({ size: "sm" })}
                                 />
                                 {errors.min && <p className="text-red-500">{errors.min.message}</p>}
                             </div>
@@ -84,7 +85,7 @@ export const CreateVote: NextPage = () => {
                                 <input
                                     {...register("max", { setValueAs: (x) => BigInt(x) })}
                                     type="number"
-                                    className="input"
+                                    className={inputStyle({ size: "sm" })}
                                 />
                                 {errors.min && <p className="text-red-500">{errors.min.message}</p>}
                             </div>
@@ -96,7 +97,7 @@ export const CreateVote: NextPage = () => {
                                     <section key={field.id}>
                                         <input
                                             placeholder={`Option #${index + 1}`}
-                                            className="input"
+                                            className={inputStyle({ size: "xl" })}
                                             key={field.id}
                                             {...register(`options.${index}.text`)}
                                         />
@@ -104,6 +105,7 @@ export const CreateVote: NextPage = () => {
                                             <button
                                                 title="Remove"
                                                 type="button"
+                                                tabIndex={-1}
                                                 className="ml-[-2em] -mt-0.5 rounded-r-xl border border-neutral-900 px-1 py-2 align-middle transition-colors duration-200 ease-in-out hover:border-opacity-90 hover:bg-neutral-50 dark:border-neutral-100 dark:border-opacity-40 dark:hover:border-opacity-20 dark:hover:bg-neutral-900"
                                                 onClick={() => remove(index)}
                                             >
@@ -117,14 +119,14 @@ export const CreateVote: NextPage = () => {
                         <div className="flex flex-row justify-center gap-4">
                             <button
                                 type="button"
-                                className="button"
+                                className={buttonStyle()}
                                 value="Add more options"
                                 onClick={() => append({ text: "Another Option" })}
                                 disabled={fields.length >= 10}
                             >
                                 Add options
                             </button>
-                            <button type="submit" className="button success">
+                            <button type="submit" className={buttonStyle({ theme: "success" })}>
                                 Create Question
                             </button>
                         </div>

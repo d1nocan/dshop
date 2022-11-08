@@ -2,7 +2,9 @@ import { trpc } from "@utils/trpc";
 import { type NextPage } from "next";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-
+import { Root, Indicator } from "@radix-ui/react-progress";
+import { inputAreaStyle, inputStyle } from "@styles/input";
+import { buttonStyle } from "@styles/button";
 type choice = {
     text: string;
 };
@@ -71,10 +73,10 @@ const LivePanel: NextPage = () => {
             <div className="card">
                 <div className="card-body relative justify-between gap-4 py-10 text-center">
                     <h1 className="text-xl font-bold">Give points everyone</h1>
-                    <div className="input-area">
+                    <div className={inputAreaStyle()}>
                         <p>Points</p>
                         <input
-                            className="input w-2/3"
+                            className={inputStyle({ size: "sm" }) + " mt-4"}
                             type="number"
                             title="Points"
                             value={inputs[0]}
@@ -83,7 +85,7 @@ const LivePanel: NextPage = () => {
                     </div>
                     <button
                         type="button"
-                        className="button primary mx-auto w-3/6"
+                        className={buttonStyle() + " mx-auto w-fit"}
                         onClick={() => {
                             givePoints({ points: (inputs[0] as number) || 0, user: null });
                             setInput({ ...inputs, 0: 0 });
@@ -96,17 +98,17 @@ const LivePanel: NextPage = () => {
             <div className="card">
                 <div className="card-body relative justify-between py-6 text-center">
                     <h1 className="text-xl font-bold">Give points</h1>
-                    <div className="input-area">
+                    <div className={inputAreaStyle()}>
                         <p>User</p>
                         <input
-                            className="input w-2/3"
+                            className={inputStyle()}
                             title="User"
                             value={inputs[1]}
                             onChange={(e) => setInput({ ...inputs, 1: e.target.value })}
                         />
                         <p>Points</p>
                         <input
-                            className="input w-2/3"
+                            className={inputStyle({ size: "sm" })}
                             type="number"
                             title="Points"
                             value={inputs[2]}
@@ -115,7 +117,7 @@ const LivePanel: NextPage = () => {
                     </div>
                     <button
                         type="button"
-                        className="button primary mx-auto mb-4 w-3/6"
+                        className={buttonStyle() + " mx-auto mb-3 w-fit"}
                         onClick={() => {
                             givePoints({ points: (inputs[2] as number) || 0, user: inputs[1] as string });
                             setInput({ ...inputs, 1: "", 2: 0 });
@@ -128,10 +130,10 @@ const LivePanel: NextPage = () => {
             <div className="card">
                 <div className="card-body relative justify-between gap-4 py-6 text-center">
                     <h1 className="text-xl font-bold">Give Item</h1>
-                    <div className="input-area">
+                    <div className={inputAreaStyle()}>
                         <p>User</p>
                         <input
-                            className="input w-2/3"
+                            className={inputStyle()}
                             title="User"
                             value={inputs[3]}
                             onChange={(e) => setInput({ 3: e.target.value })}
@@ -140,7 +142,7 @@ const LivePanel: NextPage = () => {
                         <select
                             name="Test"
                             title="test"
-                            className="input w-2/3"
+                            className={inputStyle()}
                             onChange={(e) => setInput({ 3: inputs[3] as string, 4: e.currentTarget.value })}
                         >
                             {items?.map((item) => (
@@ -152,9 +154,8 @@ const LivePanel: NextPage = () => {
                     </div>
                     <button
                         type="button"
-                        className="button primary mx-auto mb-4 w-3/6"
+                        className={buttonStyle() + " mx-auto mb-3 w-fit"}
                         onClick={() => {
-                            console.log(inputs);
                             giveItem({ user: inputs[3] as string, itemId: inputs[4] as string });
                             setInput({ ...inputs, 3: "", 4: 0 });
                         }}
@@ -166,17 +167,17 @@ const LivePanel: NextPage = () => {
             <div className="card">
                 <div className="card-body relative justify-between gap-4 py-6 text-center">
                     <h1 className="text-xl font-bold">Create Code</h1>
-                    <div className="input-area">
+                    <div className={inputAreaStyle()}>
                         <p>Code</p>
                         <input
-                            className="input w-2/3"
+                            className={inputStyle()}
                             title="Code"
                             value={inputs[5]}
                             onChange={(e) => setInput({ ...inputs, 5: e.target.value })}
                         />
                         <p>Points</p>
                         <input
-                            className="input w-2/3"
+                            className={inputStyle({ size: "sm" })}
                             title="Points"
                             type="number"
                             value={inputs[6]}
@@ -184,7 +185,7 @@ const LivePanel: NextPage = () => {
                         />
                         <p>Limit</p>
                         <input
-                            className="input w-2/3"
+                            className={inputStyle({ size: "sm" })}
                             title="Limit"
                             value={inputs[7]}
                             onChange={(e) => setInput({ ...inputs, 7: e.target.value })}
@@ -192,7 +193,7 @@ const LivePanel: NextPage = () => {
                     </div>
                     <button
                         type="button"
-                        className="button primary mx-auto mb-4 w-3/6"
+                        className={buttonStyle() + " mx-auto mb-3 w-fit"}
                         onClick={() => {
                             console.log(inputs);
                             createCode({
@@ -213,7 +214,7 @@ const LivePanel: NextPage = () => {
                     <p className="text-lg font-semibold">{inputs[8]}</p>
                     <button
                         type="button"
-                        className="button primary mx-auto mb-4 w-3/6"
+                        className={buttonStyle() + " mx-auto w-fit"}
                         onClick={() => {
                             getUser();
                         }}
@@ -233,13 +234,13 @@ const LivePanel: NextPage = () => {
                         {(prediction.endsAt as Date) >= new Date() && (
                             <button
                                 type="button"
-                                className="button danger mx-auto mt-4 w-24"
+                                className={buttonStyle({ theme: "danger" }) + " mx-auto my-2 w-fit"}
                                 onClick={() => closePrediction({ id: prediction.id })}
                             >
                                 Close
                             </button>
                         )}
-                        <div className="flex flex-row flex-wrap gap-x-2 gap-y-5">
+                        <div className="flex flex-row flex-wrap justify-center gap-x-2 gap-y-5 px-4">
                             {(prediction.options as choice[])?.map((option, index) => {
                                 const percentage = (
                                     (prediction.Vote.filter((vote) => vote.choice === index).length /
@@ -249,22 +250,21 @@ const LivePanel: NextPage = () => {
                                 return (
                                     <div
                                         key={index}
-                                        className={`relative mx-auto flex w-3/12 flex-col gap-2 rounded-lg ${
-                                            prediction.winOption === index
-                                                ? "border-4 border-violet-500"
-                                                : "border border-neutral-500 border-opacity-30"
-                                        }  py-4`}
+                                        className={`flex flex-col gap-2 ${
+                                            prediction.winOption === index &&
+                                            "rounded-md outline outline-2 outline-offset-4 outline-violet-500"
+                                        }`}
                                     >
-                                        <div className="mx-auto flex flex-col text-center">
-                                            <span className="text-lg font-semibold capitalize">{option?.text}</span>
-                                        </div>
-                                        <div className="mx-auto h-3 w-2/3 rounded-full bg-gray-50 dark:bg-neutral-700">
-                                            <div
-                                                className={`h-3 rounded-full bg-violet-600`}
-                                                style={{ width: `${percentage}%` }}
-                                            ></div>
-                                        </div>
-                                        <p>{percentage}%</p>
+                                        <span>Option {option.text}</span>
+                                        <Root
+                                            value={Number(percentage)}
+                                            className="relative h-5 w-40 overflow-hidden rounded-full bg-neutral-800 dark:bg-neutral-100"
+                                        >
+                                            <Indicator
+                                                className={`h-full bg-violet-500 transition-transform`}
+                                                style={{ width: percentage + "%" }}
+                                            />
+                                        </Root>
                                     </div>
                                 );
                             })}

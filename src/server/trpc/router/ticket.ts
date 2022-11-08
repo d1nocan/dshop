@@ -11,6 +11,9 @@ export const ticketRouter = router({
             include: {
                 user: true,
             },
+            orderBy: {
+                status: "asc",
+            },
         });
     }),
     select: protectedProcedure.input(selectTicket).query(({ ctx, input }) => {

@@ -7,6 +7,7 @@ import { Fragment, useState } from "react";
 import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
 import { Plus } from "phosphor-react";
+import { buttonStyle } from "@styles/button";
 export const CreateTicket = () => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
@@ -51,7 +52,11 @@ export const CreateTicket = () => {
     });
     return (
         <>
-            <button type="button" onClick={openModal} className="button primary mx-auto mt-10 flex font-bold">
+            <button
+                type="button"
+                onClick={openModal}
+                className={buttonStyle({ theme: "primary" }) + " mx-auto mt-10 font-bold"}
+            >
                 Create Ticket
                 <Plus size={22} className="ml-2" />
             </button>

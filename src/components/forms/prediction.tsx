@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { trpc } from "@utils/trpc";
 import type { Prediction, Vote } from "@prisma/client";
+import { inputStyle } from "@styles/input";
+import { buttonStyle } from "@styles/button";
 
 interface Props {
     prediction: Prediction & {
@@ -37,7 +39,7 @@ export const JoinPrediction = ({ prediction }: Props) => {
                         min={Number(prediction.min)}
                         max={Number(prediction.max)}
                         defaultValue={Number(prediction.min)}
-                        className="input w-2/3"
+                        className={inputStyle()}
                         placeholder="Your bet"
                         {...register("bet", {
                             setValueAs: (x) => BigInt(x as number),
@@ -45,7 +47,7 @@ export const JoinPrediction = ({ prediction }: Props) => {
                     />
                 </>
             )}
-            <select title="Select" className="input w-2/3" {...register("optionId", { setValueAs: (x) => Number(x) })}>
+            <select title="Select" className={inputStyle()} {...register("optionId", { setValueAs: (x) => Number(x) })}>
                 {(prediction.options as { text: string }[])?.map((option, index) => (
                     <option key={index} value={index}>
                         {option.text}
@@ -54,7 +56,7 @@ export const JoinPrediction = ({ prediction }: Props) => {
             </select>
             <button
                 type="submit"
-                className="button primary mx-auto w-2/3"
+                className={buttonStyle() + " mx-auto mt-2 w-fit"}
                 onClick={() => setValue("predictionId", prediction.id)}
             >
                 Make choice
