@@ -142,7 +142,7 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                 {transaction.status === Status.Pending &&
                                                 session.data?.user?.role === Role.Admin ? (
                                                     <Listbox onChange={(e) => setValue("status", e as Status)}>
-                                                        <Listbox.Button className="relative mx-auto w-60 cursor-default rounded-lg bg-neutral-100 py-2 pr-10 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:text-sm">
+                                                        <Listbox.Button className="relative mx-auto w-fit cursor-default rounded-lg bg-neutral-100 px-4 py-2.5 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-neutral-900 sm:w-60 sm:text-sm">
                                                             {watch("status")}
                                                         </Listbox.Button>
                                                         <Transition
@@ -179,7 +179,7 @@ export const UpdateTransaction = ({ transaction }: Items) => {
                                                     <>
                                                         <span className="mb-1 text-center font-light">Message</span>
                                                         <textarea
-                                                            className={textAreaStyle()}
+                                                            className={textAreaStyle() + " w-max"}
                                                             title="Message"
                                                             rows={3}
                                                             {...register("response")}

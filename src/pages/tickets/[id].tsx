@@ -41,7 +41,7 @@ const Ticket: NextPage = () => {
     }, [data?.userId, router, session.data?.user?.id, session.data?.user?.role, session.status]);
     return (
         <>
-            <div className="container m-10 mx-auto flex w-[80vw] flex-col rounded-lg bg-neutral-200 p-4 duration-300 dark:bg-neutral-700 lg:w-[60vw]">
+            <div className="container m-10 mx-auto flex w-[95vw] flex-col rounded-lg bg-neutral-200 p-4 duration-300 dark:bg-neutral-700 sm:w-[80vw] lg:w-[60vw]">
                 <h1 className="mb-4 text-center text-4xl font-bold text-neutral-900 duration-300 dark:text-neutral-100">
                     {data?.title}
                 </h1>
@@ -62,13 +62,13 @@ const Ticket: NextPage = () => {
                         </button>
                     </div>
                 )}
-                <ul className="mx-auto mb-10 w-4/6">
+                <ul className="mx-auto mb-10 w-4/6 sm:w-5/6">
                     {data?.messages?.map((message) => (
-                        <li key={message.id} className="m-4">
+                        <li key={message.id} className="my-4">
                             <div
-                                className={`relative flex w-fit flex-col ${
+                                className={`relative flex w-full flex-col p-3 sm:w-fit sm:py-3 sm:pr-20 sm:pl-4 ${
                                     userId === message.userId ? "ml-auto" : "mr-auto"
-                                } rounded-lg bg-neutral-300 p-4 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100`}
+                                } rounded-lg bg-neutral-300 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100`}
                             >
                                 <div className="mb-4">
                                     <div className="relative h-12 w-12">

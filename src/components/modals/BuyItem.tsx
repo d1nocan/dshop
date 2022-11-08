@@ -9,7 +9,7 @@ import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
 import { ShoppingBag } from "phosphor-react";
 import { buttonStyle } from "@styles/button";
-import { inputStyle } from "@styles/input";
+import { inputAreaStyle, inputStyle } from "@styles/input";
 interface Items {
     item: Item;
     isGuest: boolean;
@@ -92,7 +92,7 @@ export const BuyItem = ({ item, isGuest }: Items) => {
                             >
                                 <Dialog.Panel className="modal">
                                     {loading && <ModalLoading />}
-                                    <form className="p-6">
+                                    <form className="sm:pt-4">
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             {item.name}
                                         </Dialog.Title>
@@ -105,7 +105,7 @@ export const BuyItem = ({ item, isGuest }: Items) => {
                                             Quantity: {item.quantity}
                                         </Dialog.Description>
                                         {item.inputRequired && (
-                                            <div className="my-2 mx-auto flex w-full max-w-xs flex-col gap-2">
+                                            <div className={inputAreaStyle()}>
                                                 <label className="text-center">
                                                     <span>{item.input}</span>
                                                 </label>

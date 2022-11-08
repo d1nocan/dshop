@@ -225,7 +225,7 @@ const LivePanel: NextPage = () => {
             </div>
             {predictions?.map((prediction) => (
                 <div key={prediction.id} className="h-full w-5/6">
-                    <div className="card-body relative justify-around py-10 text-center">
+                    <div className="card-body relative overflow-auto py-10 text-center sm:justify-around">
                         <h1 className="mb-4 text-2xl font-bold">{prediction.question}</h1>
                         {prediction.total > 0 && <p>Total points: {Number(prediction.total)}</p>}
                         <p>

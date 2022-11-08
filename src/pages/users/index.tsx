@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { type KeyboardEvent, useState } from "react";
 import { MagnifyingGlass, ArrowLeft, ArrowRight } from "phosphor-react";
 import { useSession } from "next-auth/react";
+import { inputStyle } from "@styles/input";
 
 const UserCard = dynamic(() => import("@cards/UserCard"));
 
@@ -27,7 +28,7 @@ const Users: NextPage = () => {
             <button
                 type="button"
                 title="Previous Page"
-                className="rounded-md bg-neutral-200 p-4 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
+                className="rounded-md bg-neutral-200 p-4 text-neutral-900 duration-300 disabled:text-opacity-30 dark:bg-neutral-800 dark:text-neutral-100 disabled:dark:text-opacity-30"
                 onClick={() => setPage((prev) => prev - 1)}
                 disabled={page === 1}
             >
@@ -36,7 +37,7 @@ const Users: NextPage = () => {
             <button
                 type="button"
                 title="Next Page"
-                className="rounded-md bg-neutral-200 p-4 text-neutral-900 duration-300 dark:bg-neutral-800 dark:text-neutral-100"
+                className="rounded-md bg-neutral-200 p-4 text-neutral-900 duration-300 disabled:text-opacity-30 dark:bg-neutral-800 dark:text-neutral-100 disabled:dark:text-opacity-30"
                 onClick={() => setPage((prev) => prev + 1)}
                 disabled={page * 25 > (total as number) || users?.length === 0}
             >
@@ -51,7 +52,7 @@ const Users: NextPage = () => {
                     title="Search"
                     type="text"
                     placeholder={search ? search : "Search"}
-                    className="input text-neutral-900 dark:text-neutral-50"
+                    className={inputStyle({ size: "xl" })}
                     onKeyDown={searchAction}
                 />
                 <MagnifyingGlass

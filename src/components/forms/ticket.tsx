@@ -33,7 +33,7 @@ export const TicketForm = ({ data, userId, refetch }: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, userId]);
     return (
-        <div className="mx-auto mb-4 w-[50vw] max-w-[25rem] rounded-xl bg-neutral-300 px-4 py-10 duration-300 dark:bg-neutral-600">
+        <div className="mx-auto mb-4 w-full max-w-[25rem] rounded-xl bg-neutral-300 px-4 py-10 duration-300 dark:bg-neutral-600 sm:w-[50vw]">
             <form>
                 <div className={inputAreaStyle()}>
                     <label className="label">

@@ -11,6 +11,8 @@ import toast from "react-hot-toast";
 import { CaretRight } from "phosphor-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { buttonStyle } from "@styles/button";
+import { inputStyle } from "@styles/input";
 
 // dynamic imports
 const Image = dynamic(() => import("next/image"));
@@ -62,7 +64,7 @@ const UserModal = ({ user }: Users) => {
     });
     return (
         <>
-            <button onClick={openModal} type="button" className="button primary mx-auto flex px-2">
+            <button onClick={openModal} type="button" className={buttonStyle() + " mx-auto"}>
                 Details
                 <CaretRight size={22} weight="bold" className="my-auto" />
             </button>
@@ -118,7 +120,7 @@ const UserModal = ({ user }: Users) => {
                                         </span>
                                         <div className="my-2 mx-auto flex w-full max-w-xs flex-col">
                                             <span className="mb-1 font-light">Role</span>
-                                            <select title="Role" className="input w-56" {...register("role")}>
+                                            <select title="Role" className={inputStyle()} {...register("role")}>
                                                 {Object.keys(Role).map((role) => (
                                                     <option
                                                         key={role}
@@ -145,7 +147,7 @@ const UserModal = ({ user }: Users) => {
                                             <input
                                                 title="Points"
                                                 type="number"
-                                                className="input"
+                                                className={inputStyle()}
                                                 {...register("points", {
                                                     setValueAs: (value) => BigInt(value),
                                                 })}
@@ -162,7 +164,7 @@ const UserModal = ({ user }: Users) => {
                                                 title="Cooldown"
                                                 type="number"
                                                 min="0"
-                                                className="input"
+                                                className={inputStyle()}
                                                 {...register("cooldown", {
                                                     setValueAs: (value) => BigInt(value),
                                                 })}
@@ -182,7 +184,7 @@ const UserModal = ({ user }: Users) => {
                                         <div className="mt-6 flex flex-row justify-end gap-4">
                                             <button
                                                 type="button"
-                                                className="button primary outline"
+                                                className={buttonStyle({ theme: "success", outline: true })}
                                                 onClick={handleSubmit(() => {
                                                     setLoading(true);
                                                     mutate(getValues());
@@ -192,7 +194,7 @@ const UserModal = ({ user }: Users) => {
                                             </button>
                                             <button
                                                 type="button"
-                                                className="button danger outline"
+                                                className={buttonStyle({ theme: "danger", outline: true })}
                                                 onClick={closeModal}
                                             >
                                                 Cancel

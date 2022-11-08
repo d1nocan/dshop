@@ -6,7 +6,12 @@ import { inputStyle } from "@styles/input";
 import { buttonStyle } from "@styles/button";
 
 export const GiveawayForm = () => {
-    const { mutate: createGiveaway } = trpc.giveaway.create.useMutation();
+    const utils = trpc.useContext();
+    const { mutate: createGiveaway } = trpc.giveaway.create.useMutation({
+        onSuccess: () => {
+            utils.giveaway.get.invalidate();
+        },
+    });
     const { register, handleSubmit } = useForm({
         resolver: zodResolver(CreateGiveawaySchema),
         defaultValues: {
@@ -21,7 +26,7 @@ export const GiveawayForm = () => {
             <form
                 className="card-body justify-around gap-2 text-center"
                 onSubmit={handleSubmit((data) =>
-                    createGiveaway({ ...data, endsAt: BigInt(Date.now()) + data.endsAt * BigInt(100) }),
+                    createGiveaway({ ...data, endsAt: BigInt(Date.now()) + data.endsAt * BigInt(1000) }),
                 )}
             >
                 <p>Title:</p>

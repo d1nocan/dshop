@@ -25,8 +25,8 @@ export const Store: Nav = {
             roles: ["Admin", "User", "Banned"],
         },
         {
-            name: "Giveaways",
-            href: "/giveaways",
+            name: "Giveaway",
+            href: "/giveaway",
             roles: ["Admin", "User"],
         },
     ],

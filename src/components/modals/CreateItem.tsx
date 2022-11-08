@@ -115,7 +115,7 @@ export const CreateItem = () => {
                                         <Dialog.Title className="truncate text-center text-3xl font-black">
                                             Create Item
                                         </Dialog.Title>
-                                        <div className="modal-body">
+                                        <div className="modal-body -mx-3 sm:mx-0">
                                             <div className={inputAreaStyle() + " lg:col-span-2"}>
                                                 <label className="label">
                                                     <span className="label-text">Item Name</span>

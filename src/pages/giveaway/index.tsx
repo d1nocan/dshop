@@ -18,12 +18,12 @@ export const Giveaways = () => {
                         <p className="text-xl font-bold">{giveaway.title}</p>
                         {!giveaway.joined.some((joiner) => joiner.id === session.data?.user?.id) &&
                         giveaway.endsAt >= Date.now() ? (
-                            <form
-                                key={giveaway.id}
-                                className="flex flex-col"
-                                onSubmit={() => mutate({ id: giveaway.id })}
-                            >
-                                <button type="submit" className={buttonStyle() + " mx-auto w-fit"}>
+                            <form key={giveaway.id} className="flex flex-col">
+                                <button
+                                    type="button"
+                                    onClick={() => mutate({ id: giveaway.id })}
+                                    className={buttonStyle() + " mx-auto w-fit"}
+                                >
                                     Join
                                 </button>
                             </form>
@@ -33,7 +33,7 @@ export const Giveaways = () => {
                                     <>
                                         <p>This prediction is finished</p>
                                         {giveaway.winners !== null && (
-                                            <p>Winners: {giveaway.winners.map((winner) => winner.name).join(", ")}</p>
+                                            <p>Winner(s): {giveaway.winners.map((winner) => winner.name).join(", ")}</p>
                                         )}
                                     </>
                                 )}
@@ -45,6 +45,7 @@ export const Giveaways = () => {
                     </div>
                 </div>
             ))}
+            {giveaways?.length === 0 && <p className="alert info w-fit">I couldn&apos;t find anything</p>}
         </>
     );
 };
