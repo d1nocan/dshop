@@ -25,7 +25,7 @@ const UserModal = ({ user }: Users) => {
     const session = useSession();
     const [showModal, setShowModal] = useState(false);
     function openModal() {
-        setShowModal(true);
+        session.data?.user?.id !== user.id && setShowModal(true);
     }
     function closeModal() {
         setShowModal(false);
@@ -64,7 +64,13 @@ const UserModal = ({ user }: Users) => {
     });
     return (
         <>
-            <button onClick={openModal} type="button" className={buttonStyle() + " mx-auto"}>
+            <button
+                onClick={openModal}
+                type="button"
+                className={
+                    buttonStyle() + ` mx-auto ${session.data?.user?.id === user.id && " cursor-not-allowed grayscale"}`
+                }
+            >
                 Details
                 <CaretRight size={22} weight="bold" className="my-auto" />
             </button>
