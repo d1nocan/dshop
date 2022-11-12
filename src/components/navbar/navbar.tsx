@@ -15,8 +15,10 @@ export default function Navbar() {
                 <div className="order-1 mt-2 inline-flex flex-1 select-none flex-row justify-start">
                     <div className="ml-4 cursor-default select-none text-2xl font-bold tracking-wide text-neutral-800 dark:text-neutral-100 md:mr-6">
                         <Link href="/" className="relative">
-                            <span className="z-0 -ml-4 tracking-wide sm:ml-0">DShop</span>
-                            <span className="absolute -right-0.5 -z-10 text-violet-500">DShop</span>
+                            <h1 className="z-0 -ml-4 tracking-wide sm:ml-0">DShop</h1>
+                            <h2 className="absolute top-0 -right-0.5 -z-10 text-violet-500" aria-hidden="true">
+                                DShop
+                            </h2>
                         </Link>
                     </div>
                     <Switch />

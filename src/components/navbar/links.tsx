@@ -10,7 +10,7 @@ import { forwardRef, type ComponentProps } from "react";
 const MenuStyle = cva("relative z-20 justify-center flex flex-col w-fit");
 
 const ListStyle = cva(
-    "[all:_'unset'] flex justify-center bg-neutral-50 dark:bg-neutral-900 rounded-md list-none shadow-md",
+    "[all:_'unset'] flex justify-center bg-neutral-50 dark:bg-neutral-800 dark:bg-opacity-50 rounded-md list-none shadow-md",
 );
 
 const ItemStyle = cva(
@@ -40,7 +40,7 @@ const ViewportStyle = cva(
 
 const ContentListStyle = cva("grid p-[22px] m-0 col-gap-2.5 list-none w-max text-center grid-cols-1");
 
-const LinkTitleStyle = cva("font-medium leading-tight text-violet-500 focus:border focus:border-violet-500");
+const LinkTitleStyle = cva("font-medium leading-tight text-violet-400 focus:border focus:border-violet-500");
 
 const ViewportPositionStyle = cva(
     "absolute flex justify-center w-4/6 sm:w-full top-full sm:-left-8 [perspective:_'2000px']",
@@ -79,7 +79,7 @@ ContentListItem.displayName = "ContentListItem";
 export const Links = () => {
     const { data: session } = useSession();
     return (
-        <Root className={MenuStyle()}>
+        <Root aria-label="Navigation Menu" className={MenuStyle()}>
             <List className={ListStyle()}>
                 {links.map((part) =>
                     part.links.length > 1 ? (

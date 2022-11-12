@@ -56,7 +56,7 @@ export const UserPanel = () => {
         <>
             <Root>
                 <Trigger asChild>
-                    <button type="button" className={IconButtonStyle()}>
+                    <button type="button" className={IconButtonStyle()} title="User Panel">
                         {status === "authenticated" && (
                             <Image
                                 alt={session?.user?.name as string}

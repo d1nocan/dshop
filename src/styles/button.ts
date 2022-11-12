@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 export const buttonStyle = cva("text-center border py-2 px-4 flex rounded-lg duration-300", {
     variants: {
         theme: {
-            primary: "bg-violet-500 border-violet-500",
+            primary: "bg-violet-600 border-violet-500",
             secondary:
                 "bg-neutral-900 dark:bg-neutral-50 dark:text-neutral-50 border-neutral-900 dark:border-neutral-200 hover:text-neutral-50 dark:hover:text-neutral-900",
             danger: "bg-red-500 border-red-500",

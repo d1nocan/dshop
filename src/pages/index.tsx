@@ -8,7 +8,7 @@ const Home: NextPage = () => {
                 <h1 className="select-none bg-gradient-to-r from-purple-200 via-purple-400 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
                     Dshop
                 </h1>
-                <Link href="https://twitch.tv/d1nocan">
+                <Link title="Twitch Channel" href="https://twitch.tv/d1nocan">
                     <TwitchLogo
                         size={44}
                         weight="light"
