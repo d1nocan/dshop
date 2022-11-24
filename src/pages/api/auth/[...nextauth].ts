@@ -29,6 +29,9 @@ export const authOptions: NextAuthOptions = {
         TwitchProvider({
             clientId: env.TWITCH_CLIENT_ID,
             clientSecret: env.TWITCH_CLIENT_SECRET,
+            httpOptions: {
+                timeout: 10000,
+            },
         }),
         // ...add more providers here
     ],
