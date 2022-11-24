@@ -12,7 +12,7 @@ const Home: NextPage = () => {
                     <TwitchLogo
                         size={44}
                         weight="light"
-                        className="mx-auto my-4 text-neutral-900 duration-300 hover:cursor-pointer hover:text-violet-300 dark:text-neutral-50 dark:hover:cursor-pointer dark:hover:text-violet-300"
+                        className="mx-auto my-4 text-violet-400 duration-300 hover:cursor-pointer hover:text-violet-500"
                     />
                 </Link>
             </div>
