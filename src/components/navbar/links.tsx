@@ -26,7 +26,7 @@ const CaretStyle = cva(
 const LinkStyle = cva(ItemStyle() + " block no-underline text-base leading-none");
 
 const ContentStyle = cva(
-    "absolute top-0 left-0 w-full border rounded-md border-neutral-200 sm:w-auto motion-safe:data-[motion='from-start']:animate-enterFromLeft motion-safe:data-[motion='from-end']:animate-enterFromRight motion-safe:data-[motion='to-start']:animate-exitToLeft motion-safe:data-[motion='to-end']:animate-exitToRight dark:border-neutral-700 dark:border-opacity-60",
+    "absolute top-0 left-0 px-4 w-full border rounded-md border-neutral-200 sm:w-auto motion-safe:data-[motion='from-start']:animate-enterFromLeft motion-safe:data-[motion='from-end']:animate-enterFromRight motion-safe:data-[motion='to-start']:animate-exitToLeft motion-safe:data-[motion='to-end']:animate-exitToRight dark:border-neutral-700 dark:border-opacity-60",
 );
 
 const IndicatorStyle = cva(
@@ -42,7 +42,7 @@ const ContentListStyle = cva("grid p-[22px] m-0 col-gap-2.5 list-none w-max text
 
 const LinkTitleStyle = cva("font-medium leading-tight text-violet-400 focus:border focus:border-violet-500");
 
-const ViewportPositionStyle = cva("absolute flex justify-center w-4/6 sm:w-fit top-full [perspective:_'2000px']");
+const ViewportPositionStyle = cva("absolute flex justify-center w-4/6 sm:w-full top-full [perspective:_'2000px']");
 
 const StyledIndicatorWithArrow = forwardRef<HTMLDivElement>((props, forwardedRef) => (
     <Indicator className={IndicatorStyle()} {...props} ref={forwardedRef}>
