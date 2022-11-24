@@ -42,9 +42,7 @@ const ContentListStyle = cva("grid p-[22px] m-0 col-gap-2.5 list-none w-max text
 
 const LinkTitleStyle = cva("font-medium leading-tight text-violet-400 focus:border focus:border-violet-500");
 
-const ViewportPositionStyle = cva(
-    "absolute flex justify-center w-4/6 sm:w-full top-full sm:-left-8 [perspective:_'2000px']",
-);
+const ViewportPositionStyle = cva("absolute flex justify-center w-4/6 sm:w-fit top-full [perspective:_'2000px']");
 
 const StyledIndicatorWithArrow = forwardRef<HTMLDivElement>((props, forwardedRef) => (
     <Indicator className={IndicatorStyle()} {...props} ref={forwardedRef}>
@@ -98,7 +96,9 @@ export const Links = () => {
                             </Content>
                         </Item>
                     ) : (
-                        <ContentListItem key={part.title} title={part.title} href={part.links[0]?.href} />
+                        part.links[0]?.roles.includes(session?.user?.role as Role) && (
+                            <ContentListItem key={part.title} title={part.title} href={part.links[0]?.href} />
+                        )
                     ),
                 )}
                 <StyledIndicatorWithArrow />
