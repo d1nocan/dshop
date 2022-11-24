@@ -8,6 +8,8 @@ import ModalLoading from "./ModalLoading";
 import toast from "react-hot-toast";
 import { Plus } from "phosphor-react";
 import { buttonStyle } from "@styles/button";
+import { inputAreaStyle, inputStyle, textAreaStyle } from "@styles/input";
+
 export const CreateTicket = () => {
     const [loading, setLoading] = useState(false);
     const utils = trpc.useContext();
@@ -91,23 +93,26 @@ export const CreateTicket = () => {
                                             Create Ticket
                                         </Dialog.Title>
                                         <div className="modal-body py-4">
-                                            <div className="input-area lg:col-span-2">
+                                            <div className={inputAreaStyle() + " lg:col-span-2"}>
                                                 <label className="text-center">
                                                     <span>Title</span>
                                                 </label>
                                                 <input
                                                     type="text"
                                                     placeholder={"Enter title"}
-                                                    className="input"
+                                                    className={inputStyle({ size: "xl" })}
                                                     {...register("title")}
                                                 />
                                                 {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                                             </div>
-                                            <div className="input-area h-[25vh] lg:col-span-2">
+                                            <div className={inputAreaStyle() + " lg:col-span-2"}>
                                                 <label className="text-center">
                                                     <span>Message</span>
                                                 </label>
-                                                <textarea className="textarea h-full" {...register("message")} />
+                                                <textarea
+                                                    className={textAreaStyle() + " mt-2 -ml-6 h-40 w-72"}
+                                                    {...register("message")}
+                                                />
                                                 {errors.message && (
                                                     <p className="text-red-500">{errors.message.message}</p>
                                                 )}
@@ -116,7 +121,7 @@ export const CreateTicket = () => {
                                         <div className="mt-10 mb-0 flex justify-end gap-4">
                                             <button
                                                 type="button"
-                                                className="button primary outline"
+                                                className={buttonStyle({ theme: "success", outline: true })}
                                                 onClick={handleSubmit(() => {
                                                     setLoading(true);
                                                     mutate(getValues());
@@ -126,7 +131,7 @@ export const CreateTicket = () => {
                                             </button>
                                             <button
                                                 type="button"
-                                                className="button danger outline"
+                                                className={buttonStyle({ theme: "danger", outline: true })}
                                                 onClick={closeModal}
                                             >
                                                 Cancel
