@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { trpc } from "@utils/trpc";
 import dynamic from "next/dynamic";
 import { buttonStyle } from "@styles/button";
+import { alertStyle } from "@styles/alert";
 
 const GiveawayForm = dynamic(() => import("@forms/giveaway"));
 
@@ -45,7 +46,9 @@ export const Giveaways = () => {
                     </div>
                 </div>
             ))}
-            {giveaways?.length === 0 && <p className="alert info w-fit">I couldn&apos;t find anything</p>}
+            {giveaways?.length === 0 && (
+                <p className={alertStyle({ theme: "info" }) + " w-fit"}>I couldn&apos;t find anything</p>
+            )}
         </>
     );
 };
