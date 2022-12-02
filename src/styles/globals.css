@@ -59,31 +59,3 @@ input[type="number"]::-webkit-outer-spin-button {
 .image-box {
     @apply relative mx-auto aspect-square w-28 mb-4 flex items-center justify-center overflow-hidden;
 }
-
-.alert {
-    @apply p-4 text-neutral-100 rounded-xl min-w-[10rem] max-w-xs max-h-20 mx-auto mt-10;
-
-    &.info {
-        @apply bg-blue-500;
-    }
-
-    &.error {
-        @apply bg-red-500;
-    }
-
-    &.success {
-        @apply bg-green-500;
-    }
-
-    &.warning {
-        @apply bg-yellow-500;
-    }
-
-    &.primary {
-        @apply bg-violet-500;
-    }
-
-    &.secondary {
-        @apply bg-neutral-900 dark:bg-neutral-200 dark:text-neutral-900;
-    }
-}
