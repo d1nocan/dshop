@@ -41,7 +41,7 @@
         "react-hook-form": "^7.42.1",
         "react-hot-toast": "^2.4.0",
         "react-query": "3.39.2",
-        "sharp": "^0.31.3",
+        "sharp": "^0.32.6",
         "superjson": "1.12.1",
         "uuid": "^9.0.0",
         "zod": "^3.20.2"
