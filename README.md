@@ -10,6 +10,8 @@
 A web application that Twitch streamers use to reward their viewers
 </h4>
 
+<p align="center">I decided to redo the project because it doesn't look good and rewriting the code is safer.</p>
+
 <p align="center">DShop is the web application that will allow twitch streamers to reward their viewers with real-world goods and services. By using DShop, streamers will be able to bring more engagement, loyalty, and viewership to their channels by motivating their viewers with rewards that they can actually use.</p>
 
 <p>I use <a href="https://github.com/t3-oss/create-t3-app">t3 stack</a> for developing.</p>
